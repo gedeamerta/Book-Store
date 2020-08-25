@@ -12,6 +12,9 @@
     <!-- Uikit CSS -->
     <link rel="stylesheet" href="<?= baseurl; ?>/assets/css/uikit.css">
 
+    <!-- Mine Css -->
+    <link rel="stylesheet" href="<?= baseurl; ?>/assets/css/mine.php">
+
     <!-- Tailwind Css -->
     <!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> -->
 
@@ -30,14 +33,12 @@
 <body>
 
     <div class="uk-position-relative">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="<?= baseurl; ?>/home">Navbar</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand font-weight-bold" href="<?= baseurl; ?>/home">Buku Media</a>
 
             <!-- make collapse navbar when it going to responsive -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="navbar-toggler bi bi-justify-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-                </svg>
+                <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -53,18 +54,85 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <!-- <a class="nav-link" href="#">Username</a> -->
-                        <a class="nav-link dropdown-toggle ml-5" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                            </svg> Username
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Log out</a>
-                        </div>
-                    </li>
+                    <li class="nav-item">
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info mr-3 font-weight-bold">Log in</button>
 
+                        <div class="modal fade" id="myModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="exampleModalLabel">Login</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="<?= baseurl; ?>/home/login" method="post">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Username </label>
+                                                <input type="text" name="username" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" name="password" class="form-control" id="textInputId1" required>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="submit" name="login" class="btn btn-info">Submit</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+                    <li>
+                        <button type="button" data-toggle="modal" data-target="#register" class="btn btn-dark mr-3 font-weight-bold">Register</button>
+
+                        <div class="modal fade" id="register" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="exampleModalLabel">Register</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="<?= baseurl; ?>/home/register" method="post" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Username </label>
+                                                <input type="text" name="username" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Email </label>
+                                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                            </div>
+                                            <!-- <div class="custom-file">
+                                                <label class="custom-file-label" for="inputGroupFile01">Profile Picture</label>
+                                                <input type="file" name="image" class="form-control custom-file-input">
+                                            </div> -->
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" name="password" class="form-control" id="textInputId1" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Re-type Password</label>
+                                                <input type="password" name="password2" class="form-control" id="textInputId1" required>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="submit" name="register" class="btn btn-info">Submit</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
                 </ul>
             </div>
         </nav>

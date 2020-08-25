@@ -196,7 +196,7 @@ $url = "http://localhost/bookStore";
 
 
   /* Media */
-  @media screen and (max-width: 1050px) {
+  @media screen and (max-width: 1080px) {
 
     /* container 1  */
     .container-mine img {
