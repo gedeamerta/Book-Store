@@ -33,7 +33,7 @@ $url = "http://localhost/bookStore";
 
   .back-biru {
     width: 840px;
-    height: 55px;
+    height: 60px;
     margin-top: 100px;
     background-color: #7FBBCA;
   }
@@ -220,7 +220,7 @@ $url = "http://localhost/bookStore";
 
     .decor .h1-black {
       color: black;
-      margin-top: 5px;
+      margin-top: 30px;
       font-size: 25px;
     }
 

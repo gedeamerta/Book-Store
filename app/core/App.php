@@ -10,9 +10,7 @@ class App
         $url = $this->parseURL();
 
         // karena nilai $url null maka tidak dapat dicari ke file nya alias error
-        if ($url === NULL) {
-            $url = [$this->controller];
-        }
+        if ($url === NULL) {$url = [$this->controller];}
           // check file controller
         if (file_exists('app/controllers/'. $url[0] .'.php')) {
             $this->controller = $url[0];
@@ -35,7 +33,7 @@ class App
             $this->params = array_values($url);
         }
 
-        call_user_func([$this->controller, $this->method], $this->params);
+        call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     // start with parseURL

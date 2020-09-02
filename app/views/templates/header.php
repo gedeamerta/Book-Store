@@ -67,20 +67,20 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="<?= baseurl; ?>/home/login" method="post">
+                                        <form action="<?= baseurl; ?>/home/login" method="post" enctype="multipart/form-data">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Username </label>
-                                                <input type="text" name="username" class="form-control" required>
+                                                <label for="exampleInputEmail1">Username</label>
+                                                <input type="username" name="username" class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Password</label>
                                                 <input type="password" name="password" class="form-control" id="textInputId1" required>
                                             </div>
                                     </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="login" class="btn btn-info">Submit</button>
-                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="submit" name="login" class="btn btn-info">Submit</button>
+                                    </div>
                                     </form>
                                 </div>
                             </div>
@@ -110,10 +110,9 @@
                                                 <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                                             </div>
-                                            <!-- <div class="custom-file">
-                                                <label class="custom-file-label" for="inputGroupFile01">Profile Picture</label>
-                                                <input type="file" name="image" class="form-control custom-file-input">
-                                            </div> -->
+                                            <div class="custom-file">
+                                                <input type="file" name="image" placeholder="Image" accept="image/png, image/jpeg">
+                                            </div>
                                             <div class="form-group">
                                                 <label>Password</label>
                                                 <input type="password" name="password" class="form-control" id="textInputId1" required>
@@ -123,10 +122,10 @@
                                                 <input type="password" name="password2" class="form-control" id="textInputId1" required>
                                             </div>
                                     </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="register" class="btn btn-info">Submit</button>
-                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="submit" name="register" class="btn btn-info">Submit</button>
+                                    </div>
                                     </form>
                                 </div>
                             </div>

@@ -11,8 +11,9 @@ class Dashboard extends Controller
             $this->view('templates/footer');
         }else {
             $data['judul'] = 'Dashboard - User'; // masuk ke parameter view yaitu $data
+            $data['book'] = $this->model('Home_model')->getAllBook();
             $this->view('templates/_header-user', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
-            $this->view('dashboard/index');
+            $this->view('dashboard/index', $data);
             $this->view('templates/footer');
         }
     }
@@ -31,5 +32,10 @@ class Dashboard extends Controller
         $this->view('templates/_header-user-store', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('dashboard/store');
         $this->view('templates/footer');
+    }
+
+    public function setOut()
+    {
+        $this->model('Dashboard_model')->logOut();
     }
 }
