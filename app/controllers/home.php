@@ -4,7 +4,19 @@ class Home extends Controller
     public function index()
     {
         $data['judul'] = 'Home - User'; // masuk ke parameter view yaitu $data
-        $data['book'] = $this->model('Home_model')->getAllBook();
+        $data['set_active'] = 'index'; //set active class navbar
+        $data['header-admin'] = ''; //admin header
+        $data['login_user'] = ''; // disabled username before login
+
+        // for user index
+        $data['nav'] = 'index';
+        $data['nav_book'] = 'book'; 
+        
+        //for user dashboard
+        $data['nav_dashboard'] = '';
+        $data['nav_book_dashboard'] = '';
+
+        $data['book_limit'] = $this->model('Home_model')->getBookLimit();
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('home/index', $data);
         $this->view('templates/footer');
@@ -13,27 +25,46 @@ class Home extends Controller
     public function book()
     {
         $data['judul'] = 'Book List - User'; // masuk ke parameter view yaitu $data
+        $data['set_active'] = 'book'; //set active class navbar
+        $data['header-admin'] = ''; //admin header
+        $data['login_user'] = ''; // disabled username before login
+
+        // for user index
+        $data['nav'] = 'index';
+        $data['nav_book'] = 'book';
+
+        //for user dashboard
+        $data['nav_dashboard'] = '';
+        $data['nav_book_dashboard'] = '';
+
         $data['book'] = $this->model('Home_model')->getAllBook();
-        $this->view('templates/header-book', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
+        $data['book_limit'] = $this->model('Home_model')->getBookLimit();
+        $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('home/book', $data);
         $this->view('templates/footer');
     }
 
+
     public function bookData($id)
     {
         $data['judul'] = 'Book - User'; // masuk ke parameter view yaitu $data
-        $data['book'] = $this->model('Home_model')->getBookLimit();
-        $data['book_single'] = $this->model('Home_model')->getBookId($id);
-        $this->view('templates/header-book', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
-        $this->view('home/bookData', $data);
-        $this->view('templates/footer');
-    }
+        $data['set_active'] = 'index'; //set active class navbar
+        $data['set_active'] = 'book'; //set active class navbar
+        $data['header-admin'] = ''; //admin header
+        $data['login_user'] = ''; // disabled username before login
 
-    public function store()
-    {
-        $data['judul'] = 'Book Store - User'; // masuk ke parameter view yaitu $data
-        $this->view('templates/header-bookStore', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
-        $this->view('home/store');
+        // for user index
+        $data['nav'] = 'index';
+        $data['nav_book'] = 'book';
+
+        //for user dashboard
+        $data['nav_dashboard'] = '';
+        $data['nav_book_dashboard'] = '';
+
+        $data['book_limit'] = $this->model('Home_model')->getBookLimit();
+        $data['book_single'] = $this->model('Home_model')->getBookId($id);
+        $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
+        $this->view('home/bookData', $data);
         $this->view('templates/footer');
     }
 

@@ -35,9 +35,17 @@ class Home_model
 
     public function getBookLimit()
     {
-        $this->db->query('SELECT * FROM buku ORDER BY id LIMIT 5');
+        $this->db->query('SELECT * FROM buku ORDER BY id LIMIT 6');
         return $this->db->resultAll();
     }
+
+    public function getUserId($id)
+    {
+        $this->db->query('SELECT * FROM users WHERE id=:id');
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
 
     public function registerUser($data)
     {
@@ -126,10 +134,14 @@ class Home_model
                 $password_db = $data_user['password'];
 
                 if (password_verify($password, $password_db) || $password === $password_db) {
-                    $_SESSION['username'] = $username;
+                    $_SESSION['id'] = $data_user['id'];
                     $_SESSION['login'] = 'login';
+
+                    $_COOKIE['id'] = $data_user['id'];
+                    setcookie($_COOKIE['id'], $username, time() + 3600, '/');
                     echo "berhasil";
                     return true;
+                    exit;
                 }else {
                     var_dump('gagal');
                     return false;

@@ -15,6 +15,9 @@
     <!-- Mine Css -->
     <link rel="stylesheet" type="text/css" href="<?= baseurl; ?>/assets/css/mine.php">
 
+    <!-- FontAwesome -->
+    <link href="<?= baseurl; ?>/assets/fontawesome/css/all.css" rel="stylesheet">
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700&display=swap" rel="stylesheet">
@@ -36,13 +39,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto p-2">
                 <li class="nav-item">
-                    <a class="nav-link active" href="<?= baseurl; ?>/dashboard">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link <?php if ($data['set_active'] == 'index') {
+                                            echo 'active';
+                                        } ?>" href="<?= baseurl; ?>/dashboard">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= baseurl; ?>/dashboard/book">Buku</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= baseurl; ?>/dashboard/store">Toko Buku</a>
+                    <a class="nav-link <?php if ($data['set_active'] == 'book') {
+                                            echo 'active';
+                                        } ?>" href="<?= baseurl; ?>/dashboard/book">Buku</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -51,7 +55,7 @@
                     <a class="nav-link dropdown-toggle ml-5" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg> <?= $_SESSION['username']?>
+                        </svg> <?php print_r($data['user_single']['username']) ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/setOut">Log out</a>

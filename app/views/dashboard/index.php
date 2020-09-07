@@ -1,11 +1,17 @@
 <!-- container 1 start -->
 <div class="container-mine">
     <div class="decor back-biru">
-        <h1 style="font-size: 50px;" class="mb-3">SELAMAT DATANG</h1>
-        <h1 style="font-size: 38px;" class="h1-black">Mulai Perbanyak Minat Membaca</h1>
-        <h1 class="h1-black mb-3">Baca , Pahami, Tingkatkan</h1>
+        <div class="uk-animation-slide-left">
+            <h1 style="font-size: 50px;" class="mb-3">SELAMAT DATANG</h1>
+            <h1 style="font-size: 38px;" class="h1-black">Mulai Perbanyak Minat Membaca</h1>
+            <h1 class="h1-black mb-3">Baca , Pahami, Tingkatkan</h1>
+        </div>
     </div>
-    <img style="background-image: no-repeat; background-size: cover;" src="<?= baseurl; ?>/assets/img/background-index.png" alt="" srcset="">
+    <div class="uk-animation" tabindex="0">
+        <div class="uk-animation-scale-up">
+            <img style="background-image: no-repeat; background-size: cover;" src="<?= baseurl; ?>/assets/img/background-index.png" alt="" srcset="">
+        </div>
+    </div>
 </div>
 <!-- container 1 end -->
 
@@ -62,118 +68,125 @@
             <h1>di Buku Media</h1>
         </div>
         <div class="col-md-4">
-            <div class="card-body card rounded mb-5">
-                <h2 class="card-title mb-3 text-center">Standard Package</h2>
-                <h1 class="card-text text-center"><strong>40.000/bulan</strong></h1>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Merchandise Gratis dari Buku Media</li>
-                    <li class="list-group-item">Gratis Membaca di toko Buku Media</li>
-                </ul>
-                <button class="btn btn-info mt-5 mb-5" type="submit">Buy Now</button>
+            <div uk-scrollspy="cls:uk-animation-slide-top; repeat: true">
+                <div class="card-body card rounded mb-5">
+                    <h2 class="card-title mb-3 text-center">Standard Package</h2>
+                    <h1 class="card-text text-center"><strong>40.000/bulan</strong></h1>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Merchandise Gratis dari Buku Media</li>
+                        <li class="list-group-item">Gratis Membaca di toko Buku Media</li>
+                    </ul>
+                    <button class="btn btn-info mt-5 mb-5" type="submit">Buy Now</button>
+                </div>
             </div>
         </div>
+
         <div class="col-md-5">
-            <div class="card card-body rounded mb-5">
-                <h2 class="card-title text-center">Platinum Package</h2>
-                <h1 class="card-text text-center"><strong>100.000/bulan</strong></h1>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"> Alat tulis Gratis dari Buku Media</li>
-                    <li class="list-group-item">Beli 3 buku gratis 1 Buku dari Buku Media </li>
-                    <li class="list-group-item">Merchandise Gratis dari Buku Media</li>
-                    <li class="list-group-item">Gratis Membaca di toko Buku Media</li>
-                </ul>
-                <button class="btn btn-info mt-5 mb-5" type="submit">Buy Now</button>
+            <div uk-scrollspy="cls:uk-animation-slide-bottom; repeat: true">
+                <div class="card card-body rounded mb-5">
+                    <h2 class="card-title text-center">Platinum Package</h2>
+                    <h1 class="card-text text-center"><strong>100.000/bulan</strong></h1>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> Alat tulis Gratis dari Buku Media</li>
+                        <li class="list-group-item">Beli 3 buku gratis 1 Buku dari Buku Media </li>
+                        <li class="list-group-item">Merchandise Gratis dari Buku Media</li>
+                        <li class="list-group-item">Gratis Membaca di toko Buku Media</li>
+                    </ul>
+                    <button class="btn btn-info mt-5 mb-5" type="submit">Buy Now</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- container 3 end -->
+    <!-- container 3 end -->
 
-<!-- container 4 -->
-<div class="container-fluid-blue-dark">
-    <div uk-slider="center: true">
-        <div class="uk-position-relative uk-visible-toggle uk-light mb-5" tabindex="-1">
-            <h1 class="text-center mt-5"><strong>KATA PELANGGAN KAMI</strong></h1>
-            <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
-                <li>
-                    <div class="uk-panel col-md p-5 text-center">
-                        <img src="<?= baseurl; ?>/assets/img/amertaPapan.jpg" alt="">
-                        <div class="card-body">
-                            <h1 class="text-light text-center font-weight-bold">Ary Pradnya</h1>
-                            <footer class="blockquote-footer mb-3 text-light text-center">Founder <cite title="Source Title">Radio 19</cite></footer>
-                            <h4 class="text-center text-light m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eius officia consequatur ab sequi aperiam, molestias non eum dignissimos, accusamus corporis necessitatibus rem minima doloremque nihil nesciunt voluptates expedita saepe.</h4>
+    <!-- container 4 -->
+    <div class="container-fluid-blue-dark">
+        <div uk-slider="center: true">
+            <div class="uk-position-relative uk-visible-toggle uk-light mb-5" tabindex="-1">
+                <h1 class="text-center mt-3"><strong>KATA PELANGGAN KAMI</strong></h1>
+                <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
+                    <li>
+                        <div class="uk-panel col-md p-5 text-center">
+                            <img class="profile-image-circle" src="<?= baseurl; ?>/assets/img/ayiks.jpg" alt="">
+                            <div class="card-body">
+                                <h1 class="text-light text-center font-weight-bold">Ary Pradnya</h1>
+                                <footer class="blockquote-footer mb-3 text-light text-center">Founder <cite title="Source Title">Radio 19</cite></footer>
+                                <h4 class="text-center text-light m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eius officia consequatur ab sequi aperiam, molestias non eum dignissimos, accusamus corporis necessitatibus rem minima doloremque nihil nesciunt voluptates expedita saepe.</h4>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-panel col-md p-5 text-center">
-                        <img src="<?= baseurl; ?>/assets/img/book-merah.jpg" alt="">
-                        <div class="card-body">
-                            <h1 class="card-title text-light font-weight-bold text-center">Putu Dwipayana</h1>
-                            <footer class="blockquote-footer mb-3 text-center text-light">Developer <cite title="Source Title">Gojek</cite></footer>
-                            <h4 class="card-text text-center text-light m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eius officia consequatur ab sequi aperiam, molestias non eum dignissimos, accusamus corporis necessitatibus rem minima doloremque nihil nesciunt voluptates expedita saepe.</h4>
+                    </li>
+                    <li>
+                        <div class="uk-panel p-5 text-center">
+                            <img class="profile-image-circle" src="<?= baseurl; ?>/assets/img/amertaPapan.jpg" alt="">
+                            <div class="card-body">
+                                <h1 class="card-title text-light font-weight-bold text-center">Gede Amerta</h1>
+                                <footer class="blockquote-footer mb-3 text-center text-light">CEO <cite title="Source Title">Gymnastics CPC</cite></footer>
+                                <h4 class="card-text text-center text-light m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eius officia consequatur ab sequi aperiam, molestias non eum dignissimos, accusamus corporis necessitatibus rem minima doloremque nihil nesciunt voluptates expedita saepe.</h4>
 
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-panel col-md p-5 text-center">
-                        <img src="<?= baseurl; ?>/assets/img/amertaPapan.jpg" alt="">
-                        <div class="card-body">
-                            <h1 class="card-title text-light font-weight-bold text-center">Gede Amerta</h1>
-                            <footer class="blockquote-footer mb-3 text-center text-light">CEO <cite title="Source Title">Gymnastics CPC</cite></footer>
-                            <h4 class="card-text text-center text-light m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eius officia consequatur ab sequi aperiam, molestias non eum dignissimos, accusamus corporis necessitatibus rem minima doloremque nihil nesciunt voluptates expedita saepe.</h4>
+                    </li>
+                    <li>
+                        <div class="uk-panel p-5 text-center">
+                            <img class="profile-image-circle" src="<?= baseurl; ?>/assets/img/dwipa.jpg" alt="">
+                            <div class="card-body">
+                                <h1 class="card-title text-light font-weight-bold text-center">Putu Dwipayana </h1>
+                                <footer class="blockquote-footer mb-3 text-center text-light">Developer <cite title="Source Title">Gojek</cite></footer>
+                                <h4 class="card-text text-center text-light m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eius officia consequatur ab sequi aperiam, molestias non eum dignissimos, accusamus corporis necessitatibus rem minima doloremque nihil nesciunt voluptates expedita saepe.</h4>
 
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-panel p-5">
-                        <img src="<?= baseurl; ?>/assets/img/banner.jpg" alt="">
-                        <div class="card-body">
-                            <h1 class="card-title text-light font-weight-bold text-center">Wishnu Ahmad</h1>
-                            <footer class="blockquote-footer mb-3 text-center text-light">Manager <cite title="Source Title">PT Astra Motor</cite></footer>
-                            <h4 class="card-text text-center text-light m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eius officia consequatur ab sequi aperiam, molestias non eum dignissimos, accusamus corporis necessitatibus rem minima doloremque nihil nesciunt voluptates expedita saepe.</h4>
+                    </li>
+                    <li>
+                        <div class="uk-panel p-5 text-center">
+                            <img class="profile-image-circle" src="<?= baseurl; ?>/assets/img/wishnu.jpg" alt="">
+                            <div class="card-body">
+                                <h1 class="card-title text-light font-weight-bold text-center">Wishnu Ahmad</h1>
+                                <footer class="blockquote-footer mb-3 text-center text-light">Manager <cite title="Source Title">PT Astra Motor</cite></footer>
+                                <h4 class="card-text text-center text-light m-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eius officia consequatur ab sequi aperiam, molestias non eum dignissimos, accusamus corporis necessitatibus rem minima doloremque nihil nesciunt voluptates expedita saepe.</h4>
 
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
 
-            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
         </div>
     </div>
-</div>
-<!-- container 4 end -->
+    <!-- container 4 end -->
 
-<!-- Contact Start -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 mt-5">
-            <img src="<?= baseurl; ?>/assets/img/background-contact.png" alt="">
-        </div>
+    <!-- Contact Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <div uk-scrollspy="cls:uk-animation-slide-left-small; repeat: true">
+                    <img src="<?= baseurl; ?>/assets/img/background-contact.png" alt="">
+                </div>
+            </div>
 
-        <div class="col-md-6 mt-5">
-            <h1 class=" mr-5 back-biru-contact">Kontak Kami</h1>
+            <div class="col-md-6 mt-5">
+                <h1 class=" mr-5 back-biru-contact">Kontak Kami</h1>
 
-            <form method="post">
-                <div class="form-group">
-                    <label>Full name</label>
-                    <input type="text" class="form-control" id="textInputId1">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-info">Submit</button>
-            </form>
+                <form method="post">
+                    <div class="form-group">
+                        <label>Full name</label>
+                        <input type="text" class="form-control" id="textInputId1">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Example textarea</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-info">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- Contact End -->
+    <!-- Contact End -->

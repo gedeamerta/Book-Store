@@ -21,8 +21,8 @@
                                 <footer class="blockquote-footer"><?= $book['pengarang'] ?></footer>
 
                                 <h2 class="card-title mb-0">Sipnosis</h2>
-                                <p class="text-muted mt-2"><?= substr($book['sipnosis'], 0, 35). "...";  ?></p>
-                                <a href="<?= baseurl; ?>/home/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek 
+                                <p class="text-muted mt-2"><?= substr($book['sipnosis'], 0, 35) . "...";  ?></p>
+                                <a href="<?= baseurl; ?>/home/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
                                         <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
@@ -52,32 +52,30 @@
             <div class="row">
                 <div class="col">
                     <button type="button" class="btn btn-outline-warning mt-3">NEW</button>
-                    <button style="font-weight: 500;" type="button" class="btn btn-danger mt-3 ">SORT BY PRICE </button>
 
-                    <div class="mt-3 shadow rounded">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card" style="width: auto;">
-                                    <img src="<?= baseurl; ?>/assets/img/banner.jpg" class="card-img-top" alt="...">
+                    <?php foreach ($data['book_limit'] as $book) : ?>
+                        <div class="mt-3 shadow rounded">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card" style="width: auto;">
+                                        <img src="<?= baseurl; ?>/assets/img/banner.jpg" class="card-img-top" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-md m-3">
+                                    <h3 class="card-title"><?= $book['judul_buku'] ?></h2>
+                                        <footer class="blockquote-footer mb-3">Ary Pradnya</footer>
+
+                                        <h3 class="card-title">Sipnosis</h2>
+                                            <p class="text-muted"><?= substr($book['sipnosis'], 0, 35) . "..." ?></p>
+                                            <button type="button" class="btn btn-info mb-3">Check <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
+                                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
+                                                </svg>
+                                            </button>
                                 </div>
                             </div>
-                            <div class="col-md m-3">
-                                <h3 class="card-title">Love Yourself</h2>
-                                    <footer class="blockquote-footer mb-3">Ary Pradnya</footer>
-
-                                    <h3 class="card-title">Sipnosis</h2>
-                                        <p class="text-muted">Lorem ipsum dolor sit amet....</p>
-                                        <button type="button" class="btn btn-info mb-3">Check <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
-                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
-                                            </svg>
-                                        </button>
-                            </div>
                         </div>
-
-                    </div>
-
-
+                    <?php endforeach; ?>
                 </div>
             </div>
 
@@ -106,3 +104,4 @@
         </div>
         <!--  End Right Card -->
     </div>
+</div>
