@@ -7,7 +7,7 @@ class Dashboard extends Controller
         if (!isset($_SESSION['login'])) {
             $data['judul'] = 'Home - User'; // masuk ke parameter view yaitu $data
             $data['set_active'] = 'index'; //set active class navbar
-            $data['header-admin'] = ''; //admin header
+            $data['header-author'] = ''; //author header
             $data['login_user'] = ''; // disabled username before login
 
             //for user index
@@ -25,7 +25,7 @@ class Dashboard extends Controller
         }else {
             $data['judul'] = 'Dashboard - User'; // masuk ke parameter view yaitu $data
             $data['set_active'] = 'index';
-            $data['header-admin'] = ''; //admin header
+            $data['header-author'] = ''; //author header
             $data['login_user'] = 'login_user'; // disabled username before login
 
             //for user index
@@ -48,7 +48,7 @@ class Dashboard extends Controller
     {
         $data['judul'] = 'Dashboard - Book User'; // masuk ke parameter view yaitu $data
         $data['set_active'] = 'book';
-        $data['header-admin'] = ''; //admin header
+        $data['header-author'] = ''; //author header
         $data['login_user'] = 'login_user'; // disabled username before login
 
         //for user index

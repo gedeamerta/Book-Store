@@ -18,7 +18,7 @@
                                     </svg>
 
                                     <?= $book['rating'] ?></p>
-                                <footer class="blockquote-footer"><?= $book['pengarang'] ?></footer>
+                                <footer class="blockquote-footer"><?= $book['fullname'] ?></footer>
 
                                 <h2 class="card-title mb-0">Sipnosis</h2>
                                 <p class="text-muted mt-2"><?= substr($book['sipnosis'], 0, 35) . "...";  ?></p>

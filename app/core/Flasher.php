@@ -42,6 +42,23 @@ class Flasher
     {
         if (isset($_SESSION['flash-success-login'])) {
             echo'<script>alert("'.$_SESSION['flash-success-login']['pesan'].'")</script>';
+            unset($_SESSION['flash-fail-login']);
         }
     }
+
+    /**
+     * 
+     * So I changed the way I create messages, first I created a method to store messages in session and values       ​​have an array of values, after that I filled the message in the controller by instancing the Flasher class and calling the setfailLoginAdmin method which has a parameter $pesan
+     */
+    public function setFailLoginAdmin($pesan)
+    {
+        $_SESSION['flash-fail-login-author'] = [
+            'pesan' => $pesan
+        ];
+    }
+
+    // public function setAddBook($pesan)
+    // {
+
+    // }
 }

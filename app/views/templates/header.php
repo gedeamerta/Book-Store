@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="<?= baseurl; ?>/assets/fontawesome/css/all.css">
     <title><?= $data['judul']; ?></title>
 </head>
-<?php if (!$data['header-admin'] == 'header-admin') : ?>
+<?php if (!$data['header-author'] == 'header-author') : ?>
 
     <body>
         <div class="uk-position-relative">
@@ -153,5 +153,4 @@
                 </div>
             </nav>
         </div>
-    </body>
 <?php endif; ?>

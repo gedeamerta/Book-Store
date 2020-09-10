@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="col-md m-3">
                                     <h3 class="card-title"><?= $book['judul_buku'] ?></h2>
-                                        <footer class="blockquote-footer mb-3"><?= $book['pengarang'] ?></footer>
+                                        <footer class="blockquote-footer mb-3"><?= $book['fullname'] ?></footer>
 
                                         <h3 class="card-title">Sipnosis</h2>
                                             <p class="text-muted"><?= substr($book['sipnosis'], 0, 35) . "..." ?></p>

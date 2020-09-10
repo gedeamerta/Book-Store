@@ -1,0 +1,248 @@
+<?php 
+class Author_model
+{
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new Database;
+    }
+
+    public function getAuthorBy($param, $value)
+    {
+        if (isset($param) && isset($value)) {
+            $data_user = "SELECT * FROM author WHERE $param = :$param";
+            $this->db->query($data_user);
+            $this->db->bind($param, $value);
+            return $this->db->single();
+        }
+    }
+
+    public function getBooksBy($param, $value)
+    {
+        if (isset($param) && isset($value)) {
+            $data_book = "SELECT * FROM buku WHERE $param = :$param";
+            $this->db->query($data_book);
+            $this->db->bind($param, $value);
+            return $this->db->single();
+        }
+    }
+
+    public function getAuthorId($id)
+    {
+        $this->db->query("SELECT * FROM author WHERE id=:id");
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
+    public function registerAuthor($data)
+    {
+        $username = htmlspecialchars($data['username']);
+        $email = htmlspecialchars($data['email']);
+        $password = htmlspecialchars($data['password']);
+        $password2 = htmlspecialchars($data['password2']);
+        $data['id_book'] = 0;
+
+        //validate password
+        $uppercase =  preg_match('@[A-Z]@', $password);
+        $lowercase =  preg_match('@[a-z]@', $password);
+        $number =  preg_match('@[0-9]@', $password);
+
+        //to find image location
+
+        $targetDir =  __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR;
+        $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+        $extension  = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+        $uploadOk   = 1;
+
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        if ($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+
+        if ($extension != "jpg" && $extension != "png" && $extension != "jpeg") {
+            echo "Sorry, only JPG, JPEG, and PNG images are allowed.";
+            $uploadOk = 0;
+        }
+
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+        } else {
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+                echo "The file " . basename($_FILES["image"]["name"]) . " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+
+        //first check it out if there is an email on database, and if empty email go to register progress
+        if ($data_user = $this->getAuthorBy("email", $email) || $data_user = $this->getAuthorBy("username", $username)) {
+            var_dump("email dan username sudah ada");
+        } else {
+            if (isset($password) && $password !== "" || isset($password2) && $password2 !== "") {
+                if ($password === $password2) {
+                    if (!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
+                        echo
+                            '<script>
+                            alert("Password should be at least 8 characters in length and should include at least one upper case letter, one number.")
+                        </script>';
+                    } else {
+                        $query = "INSERT INTO author(username, email, image, password, id_book) VALUES(:username, :email, :image,  :password, :id_book)";
+
+                        $this->db->query($query);
+                        $this->db->bind("username", $username);
+                        $this->db->bind("email", $email);
+                        $this->db->bind("image", $_FILES["image"]["name"]);
+                        $this->db->bind("password", password_hash($password, PASSWORD_DEFAULT));
+                        $this->db->bind("id_book", $data['id_book']);
+                        $this->db->execute();
+                        return $this->db->rowCount();
+                    }
+                } else {
+                    echo "password kosong";
+                    
+                }
+            } else {
+                echo "password masih belom dimasukin";
+                
+            }
+        }
+    }
+
+
+    public function loginAuthor($data)
+    {
+        $username = $data['username'];
+        $password = $data['password'];
+
+        if (isset($username) && $username !== "") {
+            if ($data_user = $this->getAuthorBy('username', $username)) {
+                $password_db = $data_user['password'];
+
+                if (password_verify($password, $password_db) || $password === $password_db) {
+
+                    //cara dapetin data author yaitu simpen ke dalam session dengan mengambil var $data_user yang dimana terdapat query dari database, lalu klean ambil id nya dan disimpan dalam session sperti kodingan dibawah (untuk yang paham aja dengan bahasa aku)
+                    $_SESSION['id'] = $data_user['id'];
+                    $_SESSION['fullname'] = $data_user['fullname']; // get fullname to insert into table buku
+
+                    $_SESSION['login'] = 'login';
+                    echo "berhasil";
+                    return true;
+                    exit;
+                } else {
+                    var_dump('gagal');
+                    return false;
+                }
+            }
+        }
+    }
+
+    public function changesPassAuthor($data)
+    {
+        $query = "UPDATE author SET password = :password WHERE id = :id";
+
+        //validate password
+        $uppercase =  preg_match('@[A-Z]@', $data['password']);
+        $lowercase =  preg_match('@[a-z]@', $data['password']);
+        $number =  preg_match('@[0-9]@', $data['password']);
+
+        if (!$uppercase || !$lowercase || !$number || strlen($data['password']) < 8) {
+            echo '<script>
+                    alert("Password should be at least 8 characters in length and should include at least one upper case letter, one number.")
+                </script>';
+        }else {
+            if ($data['password'] !== $data['password2']) {
+                echo "Your password is invalid";
+                exit;
+            } else {
+                $this->db->query($query);
+                $this->db->bind('password', $data['password']);
+                $this->db->bind('id', $data['id']);
+                $this->db->execute();
+                return $this->db->rowCount();
+            }
+        }
+    }
+
+    public function addBooksAuthor($data)
+    {
+        $id = $data['id'];
+        $judul_buku = htmlspecialchars($data['judul_buku']);
+        $sipnosis = htmlspecialchars($data['sipnosis']);
+        $fullname = $_SESSION['fullname']; // get this from table author
+        $rating = 0;
+        $author = $_SESSION['id']; // get this from table author
+
+        //to find image location
+        $targetDir =  __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR;
+        $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+        $extension  = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+        $uploadOk   = 1;
+
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        if ($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+
+        if ($extension != "jpg" && $extension != "png" && $extension != "jpeg") {
+            echo "Sorry, only JPG, JPEG, and PNG images are allowed.";
+            $uploadOk = 0;
+        }
+
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+        } else {
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+                echo "The file " . basename($_FILES["image"]["name"]) . " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+
+        //first check it out if there is an email on database, and if empty email go to register progress
+        if ($data_book = $this->getBooksBy("judul_buku", $judul_buku)) {
+            var_dump("Judul Buku Sudah Ada");
+        } else {
+            $query = "INSERT INTO buku(judul_buku, image, sipnosis, fullname, rating, id_author) VALUES(:judul_buku, :image, :sipnosis,  :fullname, :rating, :id_author)";
+
+            $this->db->query($query);
+            $this->db->bind("judul_buku", $judul_buku);
+            $this->db->bind("image", $_FILES["image"]["name"]);
+            $this->db->bind("sipnosis", $sipnosis);
+            $this->db->bind("fullname", $fullname);
+            $this->db->bind("rating", $rating);
+            $this->db->bind("id_author", $author);
+
+            // update rows id_books on table author
+            if($this->db->execute()){
+                $query = "UPDATE author SET id_book = :id_book WHERE id = :id";
+
+                $this->db->query($query);
+                $this->db->bind('id_book', $id);
+                $this->db->bind('id', $author);
+                $this->db->execute();
+                return $this->db->rowCount();
+            }
+            return $this->db->rowCount();
+        }
+    }
+
+    public function logOut()
+    {
+        session_destroy();
+        $_SESSION = [];
+        unset($_SESSION);
+        
+        header("Location: ". baseurl ."/author/index");
+    }
+}

@@ -5,7 +5,7 @@
 <!-- container 1 start -->
 <div class="container-mine">
     <div class="decor back-biru">
-        <div class="uk-animation-slide-left">
+        <div uk-scrollspy="cls:uk-animation-slide-left-small; repeat: true">
             <h1 class="mb-2 mt-2">Mulai Perbanyak Minat Membaca</h1>
             <h1 class="h1-black mb-3">Baca , Pahami, Tingkatkan</h1>
             <h3>Daftar Gratis !</h3>
@@ -55,7 +55,7 @@
                                     </svg>
 
                                     <?= $book['rating'] ?></p>
-                                <footer class="blockquote-footer mb-3">Pengarang <cite title="Source Title"><?= $book['pengarang'] ?></cite></footer>
+                                <footer class="blockquote-footer mb-3">Pengarang <cite title="Source Title"><?= $book['fullname'] ?></cite></footer>
                                 </blockquote>
                                 <a href="<?= baseurl; ?>/home/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek Lebih Lanjut</a>
                             </div>
