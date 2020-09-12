@@ -11,8 +11,8 @@ class Author_model
     public function getAuthorBy($param, $value)
     {
         if (isset($param) && isset($value)) {
-            $data_user = "SELECT * FROM author WHERE $param = :$param";
-            $this->db->query($data_user);
+            $data_author = "SELECT * FROM author WHERE $param = :$param";
+            $this->db->query($data_author);
             $this->db->bind($param, $value);
             return $this->db->single();
         }
@@ -28,6 +28,14 @@ class Author_model
         }
     }
 
+    //display author books
+    public function getBooksAuthorId($id)
+    {
+        $this->db->query("SELECT a.*, b.id FROM buku a INNER JOIN author b ON a.id_author= b.id WHERE a.id_author = '$id'");
+        return $this->db->resultAll();
+    }
+
+    //get id author to display it
     public function getAuthorId($id)
     {
         $this->db->query("SELECT * FROM author WHERE id=:id");
@@ -121,14 +129,20 @@ class Author_model
         $password = $data['password'];
 
         if (isset($username) && $username !== "") {
-            if ($data_user = $this->getAuthorBy('username', $username)) {
-                $password_db = $data_user['password'];
+            if ($data_author = $this->getAuthorBy('username', $username)) {
+                $password_db = $data_author['password'];
 
                 if (password_verify($password, $password_db) || $password === $password_db) {
 
-                    //cara dapetin data author yaitu simpen ke dalam session dengan mengambil var $data_user yang dimana terdapat query dari database, lalu klean ambil id nya dan disimpan dalam session sperti kodingan dibawah (untuk yang paham aja dengan bahasa aku)
-                    $_SESSION['id'] = $data_user['id'];
-                    $_SESSION['fullname'] = $data_user['fullname']; // get fullname to insert into table buku
+                    $_SESSION['id'] = $data_author['id'];
+                    $_SESSION['fullname'] = $data_author['fullname']; // get fullname to insert into table buku
+
+                    $_COOKIE['id'] = $data_author['id'];
+                    setcookie($_COOKIE['id'],
+                        $username,
+                        time() + 3600,
+                        '/'
+                    );
 
                     $_SESSION['login'] = 'login';
                     echo "berhasil";
@@ -143,9 +157,7 @@ class Author_model
     }
 
     public function changesPassAuthor($data)
-    {
-        $query = "UPDATE author SET password = :password WHERE id = :id";
-
+    {   
         //validate password
         $uppercase =  preg_match('@[A-Z]@', $data['password']);
         $lowercase =  preg_match('@[a-z]@', $data['password']);
@@ -160,9 +172,11 @@ class Author_model
                 echo "Your password is invalid";
                 exit;
             } else {
+                $query = "UPDATE author SET password = :password WHERE id = :id";
+                $id = $_SESSION['id'];
                 $this->db->query($query);
-                $this->db->bind('password', $data['password']);
-                $this->db->bind('id', $data['id']);
+                $this->db->bind('password', password_hash($data['password'], PASSWORD_DEFAULT));
+                $this->db->bind('id', $id);
                 $this->db->execute();
                 return $this->db->rowCount();
             }
@@ -171,7 +185,6 @@ class Author_model
 
     public function addBooksAuthor($data)
     {
-        $id = $data['id'];
         $judul_buku = htmlspecialchars($data['judul_buku']);
         $sipnosis = htmlspecialchars($data['sipnosis']);
         $fullname = $_SESSION['fullname']; // get this from table author
@@ -223,16 +236,7 @@ class Author_model
             $this->db->bind("rating", $rating);
             $this->db->bind("id_author", $author);
 
-            // update rows id_books on table author
-            if($this->db->execute()){
-                $query = "UPDATE author SET id_book = :id_book WHERE id = :id";
-
-                $this->db->query($query);
-                $this->db->bind('id_book', $id);
-                $this->db->bind('id', $author);
-                $this->db->execute();
-                return $this->db->rowCount();
-            }
+            $this->db->execute();
             return $this->db->rowCount();
         }
     }

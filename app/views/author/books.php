@@ -9,16 +9,21 @@
     <div class="row">
 
         <!-- List Books Start -->
+        <?php foreach ($data['books_id'] as $booksAuthor) : ?>
         <div class="col-lg-6">
             <div class="card position-relative">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Your Books</h6>
                 </div>
                 <div class="card-body">
-                    
+                        <img src="<?= baseurl . '/assets/img/' . $booksAuthor['image']; ?>" alt="">
+                        <h2 class="card-title mt-2"><?= $booksAuthor['judul_buku'] ?></h2>
+                        <p><?= $booksAuthor['sipnosis'] ?></p>
+                        <footer class="blockquote-footer"><?= $booksAuthor['fullname'] ?></footer>
                 </div>
             </div>
         </div>
+        <?php endforeach; ?>
         <!-- List Books End -->
 
     </div>

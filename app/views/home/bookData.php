@@ -6,7 +6,7 @@
             <div class="shadow mt-5">
                 <div class="row">
                     <div class="col-md">
-                        <img src="<?= baseurl; ?>/assets/img/cover-book.jpg" alt="" srcset="">
+                        <img src="<?= baseurl . '/assets/img/' . $data['book_single']['image']?>" alt="" srcset="">
                     </div>
                     <div class="col-md-7 m-3">
                         <h2 class="card-title"><?= $data['book_single']['judul_buku']; ?></h2>
@@ -16,7 +16,7 @@
                             </svg>
                             <?= $data['book_single']['rating'] ?>
                         </p>
-                        <footer class="blockquote-footer"><?= $data['book_single']['pengarang'] ?></footer>
+                        <footer class="blockquote-footer"><?= $data['book_single']['fullname'] ?></footer>
 
                         <h2 class="card-title mb-0">Sipnosis</h2>
                         <p class="text-muted mt-2"><?= $data['book_single']['sipnosis'] ?></p>
@@ -42,14 +42,13 @@
             <div class="row">
                 <div class="col">
                     <button type="button" class="btn btn-outline-warning mt-3">NEW</button>
-                    <button style="font-weight: 500;" type="button" class="btn btn-danger mt-3 ">SORT BY PRICE </button>
 
                     <?php foreach ($data['book_limit'] as $book) : ?>
                         <div class="mt-3 shadow rounded">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card" style="width: auto;">
-                                        <img src="<?= baseurl; ?>/assets/img/banner2.jpg" class="card-img-top" alt="...">
+                                        <img src="<?= baseurl.'/assets/img/'. $book['image']?>" class="card-img-top" alt="...">
                                     </div>
                                 </div>
                                 <div class="col-md m-3">

@@ -57,8 +57,49 @@ class Flasher
         ];
     }
 
-    // public function setAddBook($pesan)
-    // {
+    public function setFlashAuthor($type, $pesan, $action)
+    {
+        $_SESSION['flash-author'] = [
+            'type' => $type,
+            'pesan' => $pesan,
+            'action' => $action
+        ];
+    }
 
-    // }
+    public function flashAuthor()
+    {
+        if (isset($_SESSION['flash-author'])) {
+            echo '<div class="alert alert-'.$_SESSION['flash-author']['type'].' alert-dismissible fade show" role="alert">
+                     <strong>' . $_SESSION['flash-author']['pesan'] . '</strong>' . $_SESSION['flash-author']['action']. '
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                    </button>
+                 </div>';
+            unset($_SESSION['flash-author']);
+        }
+    }
+
+    // change password author
+    public function setFlashAuthorPass($type, $pesan, $action)
+    {
+        $_SESSION['flash-author-pass'] = [
+            'type' => $type,
+            'pesan' => $pesan,
+            'action' => $action
+        ];
+    }
+
+    // change password author
+    public function flashAuthorPass()
+    {
+        if (isset($_SESSION['flash-author-pass'])) {
+            echo '<div class="alert alert-' . $_SESSION['flash-author-pass']['type'] . ' alert-dismissible fade show" role="alert">
+                     <strong>' . $_SESSION['flash-author-pass']['pesan'] . '</strong>' . $_SESSION['flash-author-pass']['action'] . '
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                    </button>
+                 </div>';
+            unset($_SESSION['flash-author-pass']);
+        }
+    }
 }

@@ -16,6 +16,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Form Book</h6>
                 </div>
                 <div class="card-body">
+                    <?php Flasher::flashAuthor() ?>
                     <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/addBooks" method="post">
                         <input type="hidden" name="id" id="">
                         <div class="form-group">
@@ -50,6 +51,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Form Changes Password</h6>
                 </div>
                 <div class="card-body">
+                    <?php Flasher::flashAuthorPass() ?>
                     <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/changesPass" method="post">
                         <div class="form-group">
                             <input type="hidden" id="id" name="id">

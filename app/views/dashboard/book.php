@@ -7,7 +7,7 @@
                 <div class="shadow mt-5">
                     <div class="row">
                         <div class="col-md">
-                            <img src="<?= baseurl; ?>/assets/img/cover-book.jpg" alt="" srcset="">
+                            <img src="<?= baseurl.'/assets/img/'. $book['image'] ?>" alt="" srcset="">
                         </div>
                         <div class="col-md-7 m-3">
                             <h2 class="card-title"><?= $book['judul_buku'] ?></h2>

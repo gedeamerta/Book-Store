@@ -20,6 +20,16 @@
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
+                    <label for="fullname">Fullname</label>
+                    <input type="text" name="fullname" class="form-control" id="fullname" value="" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please input your fullname !
+                    </div>
+                </div>
+                <div class="col-lg mb-3">
                     <label for="email">Email</label>
                     <input type="email" name="email" class="form-control" id="email" value="" required>
                     <div class="valid-feedback">

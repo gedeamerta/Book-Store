@@ -11,7 +11,7 @@ class Author extends Controller
         }else {
             if ($this->model("Author_model")->loginAuthor($_POST) > 0) {
                 echo'berhasil';
-                header("Location: ". baseurl . '/author/forms');
+                header("Location: ". baseurl . '/author/books');
             }else {
                 echo'gagal';
                 Flasher::setFailLoginAdmin('Invalid Username or Password');
@@ -43,10 +43,10 @@ class Author extends Controller
     {
         if ($this->model("Author_model")->addBooksAuthor($_POST) > 0) {
             echo 'berhasil';
+            Flasher::flashAuthor('success', 'Berhasil', 'memasukan buku');
             header("Location: " . baseurl . '/author/forms');
         } else {
             echo 'gagal';
-            // Flasher::setFailLoginAdmin('Error add books');
             header("Location: " . baseurl . '/author/forms');
         }
     }
@@ -56,8 +56,11 @@ class Author extends Controller
     {
         $data['judul'] = 'Author - Books';
         $data['set_active'] = 'books';
+
         //author id
         $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id']);
+
+        $data['books_id'] = $this->model("Author_model")->getBooksAuthorId($_SESSION['id']);
         if (!isset($_SESSION['login'])) {
             header("Location: " . baseurl . "/author/index");
         } else {
@@ -90,6 +93,8 @@ class Author extends Controller
         if ($query) {
             echo"berhasil";
             var_dump($query);
+            Flasher::setFlashAuthorPass('success', 'Berhasil', ' mengganti password');
+            header("Location: ".baseurl.'/author/forms');
             exit;
         }else {
             echo"gagal";

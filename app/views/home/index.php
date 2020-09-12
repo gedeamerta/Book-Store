@@ -46,7 +46,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card-deck">
                         <div class="card" uk-scrollspy="cls:uk-animation-slide-left; repeat: true" style="width:100%;">
-                            <img src="<?= baseurl; ?>/assets/img/banner2.jpg" class="card-img-top" alt="...">
+                            <img src="<?= baseurl. '/assets/img/'. $book['image'] ?>" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h2 class="card-title"><?= $book['judul_buku']  ?></h2>
                                 <p class="card-text mb-2">

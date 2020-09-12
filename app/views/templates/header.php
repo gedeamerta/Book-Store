@@ -19,9 +19,6 @@
     <!-- FontAwesome -->
     <link href="<?= baseurl; ?>/assets/fontawesome/css/all.css" rel="stylesheet">
 
-    <!-- Tailwind Css -->
-    <!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> -->
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700&display=swap" rel="stylesheet">
