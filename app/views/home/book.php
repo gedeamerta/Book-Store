@@ -8,7 +8,7 @@
                     <div class="shadow mt-5">
                         <div class="row">
                             <div class="col-md">
-                                <img src="<?= baseurl . '/assets/img/' . $book['image']?>" alt="" srcset="">
+                                <img src="<?= baseurl . '/assets/img/' . $book['image'] ?>" alt="" srcset="">
                             </div>
                             <div class="col-md-7 m-3">
                                 <h2 class="card-title"><?= $book['judul_buku'] ?></h2>
@@ -22,12 +22,41 @@
 
                                 <h2 class="card-title mb-0">Sipnosis</h2>
                                 <p class="text-muted mt-2"><?= substr($book['sipnosis'], 0, 35) . "...";  ?></p>
-                                <a href="<?= baseurl; ?>/home/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek
+                                <button class="btn btn-info" data-toggle="modal" data-target="#myModal2">Cek
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
                                         <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
                                     </svg>
-                                </a>
+                                </button>
+
+                                <div class="modal fade" id="myModal2" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-dark font-weight-bold" id="exampleModalLabel">You Must Login</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="<?= baseurl; ?>/home/login" method="post">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Username</label>
+                                                        <input type="username" name="username" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Password</label>
+                                                        <input type="password" name="password" class="form-control" id="textInputId1" required>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <button type="submit" name="login" class="btn btn-info">Submit</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -58,7 +87,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card" style="width: auto;">
-                                        <img src="<?= baseurl.'/assets/img/'. $book['image']?>" class="card-img-top" alt="...">
+                                        <img src="<?= baseurl . '/assets/img/' . $book['image'] ?>" class="card-img-top" alt="...">
                                     </div>
                                 </div>
                                 <div class="col-md m-3">

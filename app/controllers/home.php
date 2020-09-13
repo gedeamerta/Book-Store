@@ -10,7 +10,8 @@ class Home extends Controller
 
         // for user index
         $data['nav'] = 'index';
-        $data['nav_book'] = 'book'; 
+        $data['nav_book'] = 'book';
+        $data['nav_books_user'] = '';
         
         //for user dashboard
         $data['nav_dashboard'] = '';
@@ -37,6 +38,7 @@ class Home extends Controller
         // for user index
         $data['nav'] = 'index';
         $data['nav_book'] = 'book';
+        $data['nav_books_user'] = '';
 
         //for user dashboard
         $data['nav_dashboard'] = '';
@@ -53,34 +55,6 @@ class Home extends Controller
             $this->view('templates/footer');
         }
 
-    }
-
-
-    public function bookData($id)
-    {
-        $data['judul'] = 'Book - User'; // masuk ke parameter view yaitu $data
-        $data['set_active'] = 'index'; //set active class navbar
-        $data['set_active'] = 'book'; //set active class navbar
-        $data['header-author'] = ''; //author header
-        $data['login_user'] = ''; // disabled username before login
-
-        // for user index
-        $data['nav'] = 'index';
-        $data['nav_book'] = 'book';
-
-        //for user dashboard
-        $data['nav_dashboard'] = '';
-        $data['nav_book_dashboard'] = '';
-
-        $data['book_limit'] = $this->model('Home_model')->getBookLimit();
-        $data['book_single'] = $this->model('Home_model')->getBookId($id);
-        if (isset($_SESSION['login'])) {
-            header("Location: " . baseurl . '/dashboard');
-        }else{
-            $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
-            $this->view('home/bookData', $data);
-            $this->view('templates/footer');
-        }
     }
 
     public function register()
@@ -113,5 +87,5 @@ class Home extends Controller
             Flasher::setFailLogin('Login Gagal');
             header('Location: ' . baseurl . '/home');
             }
-        }
     }
+}

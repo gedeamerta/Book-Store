@@ -54,6 +54,7 @@ class Dashboard extends Controller
         //for user index
         $data['nav'] = '';
         $data['nav_book'] = '';
+        $data['nav_books_user'] = 'booksUser';
 
         // for user dashboard
         $data['nav_dashboard'] = 'index_dashboard';
@@ -64,6 +65,42 @@ class Dashboard extends Controller
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('dashboard/book', $data);
         $this->view('templates/_footer-dashboard');
+    }
+
+    public function bookData($id)
+    {
+        $data['judul'] = 'Book - User'; // masuk ke parameter view yaitu $data
+        $data['set_active'] = 'book'; //set active class navbar
+        $data['header-author'] = ''; //author header
+        $data['login_user'] = 'login_user'; // disabled username before login
+
+        // for user index
+        $data['nav'] = '';
+        $data['nav_book'] = '';
+        $data['nav_books_user'] = 'booksUser';
+
+        // for user dashboard
+        $data['nav_dashboard'] = 'index_dashboard';
+        $data['nav_book_dashboard'] = 'book_dashboard';
+
+        $data['book_limit'] = $this->model('Home_model')->getBookLimit();
+        $data['book_single'] = $this->model('Dashboard_model')->getBookId($id);
+        $data['user_single'] = $this->model('Home_model')->getUserId($_SESSION['id']);
+
+        $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
+        $this->view('dashboard/bookData', $data);
+        $this->view('templates/footer');
+    }
+
+
+    public function booksUser()
+    {
+        $data['judul'] = 'User - Books';
+        $data['nav_books_user'] = 'booksUser';
+        $this->model('Dashboard_model')->addBooksUser();
+        $this->view('templates/header', $data);
+        $this->view('templates/userBook', $data);
+        $this->view('templates/footer');
     }
     
     public function setOut()

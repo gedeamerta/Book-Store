@@ -57,7 +57,7 @@
                                     <?= $book['rating'] ?></p>
                                 <footer class="blockquote-footer mb-3">Pengarang <cite title="Source Title"><?= $book['fullname'] ?></cite></footer>
                                 </blockquote>
-                                <a href="<?= baseurl; ?>/home/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek Lebih Lanjut</a>
+                                <a href="<?= baseurl; ?>/home/book" class="btn btn-info">Cek Lebih Lanjut</a>
                             </div>
                         </div>
                     </div>

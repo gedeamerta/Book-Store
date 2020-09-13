@@ -7,7 +7,7 @@
                 <div class="shadow mt-5">
                     <div class="row">
                         <div class="col-md">
-                            <img src="<?= baseurl.'/assets/img/'. $book['image'] ?>" alt="" srcset="">
+                            <img src="<?= baseurl . '/assets/img/' . $book['image'] ?>" alt="" srcset="">
                         </div>
                         <div class="col-md-7 m-3">
                             <h2 class="card-title"><?= $book['judul_buku'] ?></h2>
@@ -21,12 +21,12 @@
 
                             <h2 class="card-title mb-0">Sipnosis</h2>
                             <p class="text-muted mt-2"><?= $book['sipnosis'] ?></p>
-                            <button type="button" class="btn btn-info">Check
+                            <a href="<?= baseurl; ?>/dashboard/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
                                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
                                 </svg>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -34,121 +34,4 @@
         </div>
         <!--  End Right Card -->
     </div>
-
-    <div class="row">
-        <!-- Slider Start -->
-        <div class="uk-position-relative uk-visible-toggle uk-light mt-3" tabindex="-1" uk-slider>
-            <h1 style="font-weight: 500;" class="text-dark">Buku Sejenis Lainnya</h1>
-            <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@m uk-grid">
-                <li>
-                    <div class="uk-panel">
-
-                        <div class="mt-3 shadow rounded">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card" style="width: auto;">
-                                        <img src="<?= baseurl; ?>/assets/img/banner.jpg" class="card-img-top" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-md m-3">
-                                    <h3 class="card-title text-dark">Love Yourself</h3>
-                                        <footer class="blockquote-footer mb-3">Ary Pradnya</footer>
-
-                                        <h3 class="card-title text-dark">Sipnosis</h3>
-                                            <p class="text-muted">Lorem ipsum dolor sit amet....</p>
-                                            <button type="button" class="btn btn-info mb-3">Check <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
-                                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
-                                                </svg>
-                                            </button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-panel">
-                        <div class="mt-3 shadow rounded">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card" style="width: auto;">
-                                        <img src="<?= baseurl; ?>/assets/img/banner.jpg" class="card-img-top" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-md m-3">
-                                    <h3 class="card-title text-dark">Love Yourself</h3>
-                                        <footer class="blockquote-footer mb-3">Ary Pradnya</footer>
-
-                                        <h3 class="card-title text-dark">Sipnosis</h3>
-                                            <p class="text-muted">Lorem ipsum dolor sit amet....</p>
-                                            <button type="button" class="btn btn-info mb-3">Check <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
-                                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
-                                                </svg>
-                                            </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-panel">
-                        <div class="mt-3 shadow rounded">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card" style="width: auto;">
-                                        <img src="<?= baseurl; ?>/assets/img/banner.jpg" class="card-img-top" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-md m-3">
-                                    <h3 class="card-title text-dark">Love Yourself</h3>
-                                        <footer class="blockquote-footer mb-3">Ary Pradnya</footer>
-
-                                        <h3 class="card-title text-dark">Sipnosis</h3>
-                                            <p class="text-muted">Lorem ipsum dolor sit amet....</p>
-                                            <button type="button" class="btn btn-info mb-3">Check <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
-                                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
-                                                </svg>
-                                            </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-panel">
-                        <div class="mt-3 shadow rounded">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card" style="width: auto;">
-                                        <img src="<?= baseurl; ?>/assets/img/banner.jpg" class="card-img-top" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-md m-3">
-                                    <h3 class="card-title text-dark">Love Yourself</h3>
-                                        <footer class="blockquote-footer mb-3">Ary Pradnya</footer>
-
-                                        <h3 class="card-title text-dark">Sipnosis</h3>
-                                            <p class="text-muted">Lorem ipsum dolor sit amet....</p>
-                                            <button type="button" class="btn btn-info mb-3">Check <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
-                                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
-                                                </svg>
-                                            </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-
-            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-
-        </div>
-    </div>
-
-    <!-- Slider End -->
 </div>
