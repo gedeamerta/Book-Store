@@ -144,7 +144,7 @@ class Author_model
                         '/'
                     );
 
-                    $_SESSION['login'] = 'login';
+                    $_SESSION['login-author'] = 'login-author';
                     echo "berhasil";
                     return true;
                     exit;
@@ -165,11 +165,20 @@ class Author_model
 
         if (!$uppercase || !$lowercase || !$number || strlen($data['password']) < 8) {
             echo '<script>
-                    alert("Password should be at least 8 characters in length and should include at least one upper case letter, one number.")
+                    alert("Password should be at least 8 characters in length and should include at least one upper case letter, one number.");
+                    setTimeout(function() {
+                        window.location.href="forms";
+                    }, 1000);
                 </script>';
         }else {
             if ($data['password'] !== $data['password2']) {
-                echo "Your password is invalid";
+                echo 
+                    '<script>
+                        alert("Your Password is invalid");
+                        setTimeout(function() {
+                            window.location.href="forms";
+                        }, 1000);
+                    </script>';
                 exit;
             } else {
                 $query = "UPDATE author SET password = :password WHERE id = :id";
@@ -189,6 +198,7 @@ class Author_model
         $sipnosis = htmlspecialchars($data['sipnosis']);
         $fullname = $_SESSION['fullname']; // get this from table author
         $rating = 0;
+        $user = 0;
         $author = $_SESSION['id']; // get this from table author
 
         //to find image location
@@ -226,7 +236,7 @@ class Author_model
         if ($data_book = $this->getBooksBy("judul_buku", $judul_buku)) {
             var_dump("Judul Buku Sudah Ada");
         } else {
-            $query = "INSERT INTO buku(judul_buku, image, sipnosis, fullname, rating, id_author) VALUES(:judul_buku, :image, :sipnosis,  :fullname, :rating, :id_author)";
+            $query = "INSERT INTO buku(judul_buku, image, sipnosis, fullname, rating, id_author, id_user) VALUES(:judul_buku, :image, :sipnosis,  :fullname, :rating, :id_author, :id_user)";
 
             $this->db->query($query);
             $this->db->bind("judul_buku", $judul_buku);
@@ -235,10 +245,20 @@ class Author_model
             $this->db->bind("fullname", $fullname);
             $this->db->bind("rating", $rating);
             $this->db->bind("id_author", $author);
+            $this->db->bind("id_user", $user);
 
             $this->db->execute();
             return $this->db->rowCount();
         }
+    }
+
+    public function searchBooksAuthor($id)
+    {
+        $keyword = $_POST['keyword'];
+        $query = "SELECT a.*,b.id FROM buku a INNER JOIN author b ON a.id_author= b.id WHERE a.id_author='$id' AND judul_buku LIKE :keyword";
+        $this->db->query($query);
+        $this->db->bind('keyword', "%$keyword%");
+        return $this->db->resultAll();
     }
 
     public function logOut()

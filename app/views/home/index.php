@@ -34,7 +34,7 @@
             </div>
 
             <div class="col-md-6">
-                <button class="float-right" type="submit"> Lihat Semua </button>
+                <button onclick="window.location.href='<?= baseurl; ?>/home/book'" class="float-right" type="submit"> Lihat Semua </button>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card-deck">
                         <div class="card" uk-scrollspy="cls:uk-animation-slide-left; repeat: true" style="width:100%;">
-                            <img src="<?= baseurl. '/assets/img/'. $book['image'] ?>" class="card-img-top" alt="...">
+                            <img src="<?= baseurl . '/assets/img/' . $book['image'] ?>" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h2 class="card-title"><?= $book['judul_buku']  ?></h2>
                                 <p class="card-text mb-2">
@@ -84,7 +84,7 @@
                         <li class="list-group-item">Merchandise Gratis dari Buku Media</li>
                         <li class="list-group-item">Gratis Membaca di toko Buku Media</li>
                     </ul>
-                    <button class="btn btn-info mt-5 mb-5" type="submit">Buy Now
+                    <button class="btn btn-info mt-5 mb-5" type="submit">Beli Sekarang
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
                             <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
@@ -105,7 +105,7 @@
                         <li class="list-group-item">Merchandise Gratis dari Buku Media</li>
                         <li class="list-group-item">Gratis Membaca di toko Buku Media</li>
                     </ul>
-                    <button class="btn btn-info mt-5 mb-5" type="submit">Buy Now
+                    <button class="btn btn-info mt-5 mb-5" type="submit">Beli Sekarang
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
                             <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />

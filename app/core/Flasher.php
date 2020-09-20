@@ -69,8 +69,8 @@ class Flasher
     public function flashAuthor()
     {
         if (isset($_SESSION['flash-author'])) {
-            echo '<div class="alert alert-'.$_SESSION['flash-author']['type'].' alert-dismissible fade show" role="alert">
-                     <strong>' . $_SESSION['flash-author']['pesan'] . '</strong>' . $_SESSION['flash-author']['action']. '
+            echo '<div class="alert alert-' . $_SESSION['flash-author']['type'] . ' alert-dismissible fade show" role="alert">
+                     <strong>' . $_SESSION['flash-author']['pesan'] . ' </strong>' . $_SESSION['flash-author']['action']. '
                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                     </button>

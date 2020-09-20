@@ -67,9 +67,9 @@
 
         <!-- Right Card -->
         <div class="col-lg-4">
-            <form class="form-inline mt-5">
+            <form action="<?= baseurl;?>/home/search" method="post" class="form-inline mt-5">
                 <i class="fas fa-search" aria-hidden="true"></i>
-                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" name="keyword">
             </form>
             <!-- Gugel Maps Start -->
             <div class="shadow p-3 mt-3">
@@ -80,7 +80,7 @@
 
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-outline-warning mt-3">NEW</button>
+                    <button type="button" class="btn btn-outline-warning mt-3">BARU</button>
 
                     <?php foreach ($data['book_limit'] as $book) : ?>
                         <div class="mt-3 shadow rounded">
@@ -96,7 +96,7 @@
 
                                         <h3 class="card-title">Sipnosis</h2>
                                             <p class="text-muted"><?= substr($book['sipnosis'], 0, 35) . "..." ?></p>
-                                            <button type="button" class="btn btn-info mb-3">Check <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <button type="button" class="btn btn-info mb-3">Ceck <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
                                                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
                                                 </svg>

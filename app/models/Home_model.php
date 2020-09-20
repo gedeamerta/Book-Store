@@ -27,7 +27,7 @@ class Home_model
 
     public function getBookLimit()
     {
-        $this->db->query('SELECT * FROM buku ORDER BY id LIMIT 6');
+        $this->db->query('SELECT * FROM buku ORDER BY id DESC LIMIT 6');
         return $this->db->resultAll();
     }
 
@@ -127,7 +127,7 @@ class Home_model
 
                 if (password_verify($password, $password_db) || $password === $password_db) {
                     $_SESSION['id'] = $data_user['id'];
-                    $_SESSION['login'] = 'login';
+                    $_SESSION['login-user'] = 'login-user';
 
                     $_COOKIE['id'] = $data_user['id'];
                     setcookie($_COOKIE['id'], $username, time() + 3600, '/');
@@ -140,5 +140,14 @@ class Home_model
                 }
             }
         }
+    }
+
+    public function searchBook()
+    {
+        $keyword = $_POST['keyword'];
+        $query = "SELECT * FROM buku WHERE judul_buku LIKE :keyword";
+        $this->db->query($query);
+        $this->db->bind('keyword', "%$keyword%");
+        return $this->db->resultAll();
     }
 }

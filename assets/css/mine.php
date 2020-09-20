@@ -94,10 +94,12 @@ $url = "http://localhost/bookStore";
   .container-fluid .text-up button {
     background: none;
     font-family: 'Fira Sans', sans-serif;
+    text-decoration: none;
+    text-align: center;
     font-weight: 500;
     border: 2px solid black;
     width: 150px;
-    height: 42px;
+    height: 40px;
     transition: 0.5s;
   }
 

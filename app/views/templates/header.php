@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="<?= baseurl; ?>/assets/fontawesome/css/all.css">
     <title><?= $data['judul']; ?></title>
 </head>
-<?php if (!$data['header-author'] == 'header-author') : ?>
 
 <body>
     <div class="uk-position-relative">
@@ -40,6 +39,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <!-- navbar start -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto p-2">
                     <li class="nav-item">
@@ -47,21 +47,22 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link 
-                <?= $data['set_active'] == 'book' ? 'active' : '' ?>" href="<?= $data['nav_book'] == 'book' ? baseurl . '/home/book' : (($data['nav_book_dashboard'] == 'book_dashboard') ? baseurl . '/dashboard/book' : '') ?>">Buku</a>
+                            <?= $data['set_active'] == 'book' ? 'active' : '' ?>" href="<?= $data['nav_book'] == 'book' ? baseurl . '/home/book' : (($data['nav_book_dashboard'] == 'book_dashboard') ? baseurl . '/dashboard/book' : '') ?>">Buku</a>
                     </li>
                 </ul>
+                <!-- navbar end -->
 
                 <!-- For Home without User Login Start -->
                 <?php if (!$data['login_user'] == 'login_user') : ?>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info mr-3 font-weight-bold">Log in</button>
+                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info mr-3 font-weight-bold">Masuk</button>
 
                             <div class="modal fade" id="myModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title text-dark" id="exampleModalLabel">Login</h5>
+                                            <h5 class="modal-title text-dark" id="exampleModalLabel">Masuk</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -79,7 +80,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="login" class="btn btn-info">Submit</button>
+                                            <button type="submit" name="login-user" class="btn btn-info">Submit</button>
                                         </div>
                                         </form>
                                     </div>
@@ -88,13 +89,13 @@
 
                         </li>
                         <li>
-                            <button type="button" data-toggle="modal" data-target="#register" class="btn btn-dark mr-3 font-weight-bold">Register</button>
+                            <button type="button" data-toggle="modal" data-target="#register" class="btn btn-dark mr-3 font-weight-bold">Daftar</button>
 
                             <div class="modal fade" id="register" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title text-dark" id="exampleModalLabel">Register</h5>
+                                            <h5 class="modal-title text-dark" id="exampleModalLabel">Daftar</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -143,6 +144,8 @@
                                 </svg> <?php print_r($data['user_single']['username']) ?>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/booksUser">Buku Pilihan Anda </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/setOut">Log out</a>
                             </div>
                         </li>
@@ -153,4 +156,3 @@
             </div>
         </nav>
     </div>
-<?php endif; ?>

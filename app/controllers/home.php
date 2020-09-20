@@ -11,19 +11,20 @@ class Home extends Controller
         // for user index
         $data['nav'] = 'index';
         $data['nav_book'] = 'book';
-        $data['nav_books_user'] = '';
         
         //for user dashboard
         $data['nav_dashboard'] = '';
         $data['nav_book_dashboard'] = '';
+        $data['nav_book_user'] = '';
 
-        if (isset($_SESSION['login'])) {
+        if (isset($_SESSION['login-user'])) {
             header("Location: " . baseurl . '/dashboard');
         }else{
             $data['book_limit'] = $this->model('Home_model')->getBookLimit();
             $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
             $this->view('home/index', $data);
             $this->view('templates/footer');
+            unset($_SESSION['login-user']);
         }
 
     }
@@ -47,7 +48,7 @@ class Home extends Controller
         $data['book'] = $this->model('Home_model')->getAllBook();
         $data['book_limit'] = $this->model('Home_model')->getBookLimit();
 
-        if (isset($_SESSION['login'])) {
+        if (isset($_SESSION['login-user'])) {
             header("Location: " . baseurl . '/dashboard');
         }else{
             $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
@@ -87,5 +88,30 @@ class Home extends Controller
             Flasher::setFailLogin('Login Gagal');
             header('Location: ' . baseurl . '/home');
             }
+    }
+
+    public function search()
+    {   
+        $data['judul'] = 'Daftar Buku';
+        $data['set_active'] = 'book'; //set active class navbar
+        $data['header-author'] = ''; //author header
+        $data['login_user'] = ''; // disabled username before login
+
+        // for user index
+        $data['nav'] = 'index';
+        $data['nav_book'] = 'book';
+        $data['nav_books_user'] = '';
+
+        //for user dashboard
+        $data['nav_dashboard'] = '';
+        $data['nav_book_dashboard'] = '';
+
+        $data['book'] = $this->model('Home_model')->getAllBook();
+        $data['book_limit'] = $this->model('Home_model')->getBookLimit();
+
+        $data['book'] = $this->model('Home_model')->searchBook();
+        $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
+        $this->view('home/book', $data);
+        $this->view('templates/footer');
     }
 }

@@ -16,7 +16,7 @@
                     <label class="h6" for="password">Password</label>
                     <input type="password" name="password" class="form-control" id="password" required>
                 </div>
-                <button style="width: 100%;" type="submit" name="login" class="btn btn-info">Submit</button>
+                <button style="width: 100%;" type="submit" name="login-author" class="btn btn-info">Submit</button>
                 <p class="text-muted h6">Don't have any account to Sign In ? <a href="<?= baseurl; ?>/author/signUp">Sign Up</a></p>
             </form>
         </div>
