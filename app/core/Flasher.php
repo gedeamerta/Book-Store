@@ -50,7 +50,7 @@ class Flasher
      * 
      * So I changed the way I create messages, first I created a method to store messages in session and values       ​​have an array of values, after that I filled the message in the controller by instancing the Flasher class and calling the setfailLoginAdmin method which has a parameter $pesan
      */
-    public function setFailLoginAdmin($pesan)
+    public function setFailLoginAuthor($pesan)
     {
         $_SESSION['flash-fail-login-author'] = [
             'pesan' => $pesan

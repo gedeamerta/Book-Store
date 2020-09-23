@@ -30,6 +30,8 @@
 </head>
 
 <body>
+    <?php if(!$data['header-author'] == "header-author") : ?>
+        <?php if(!$data['header-admin'] == "header-admin") : ?>
     <div class="uk-position-relative">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand font-weight-bold" href="<?= baseurl; ?>/home">Buku Media</a>
@@ -156,3 +158,5 @@
             </div>
         </nav>
     </div>
+ <?php endif; ?>
+<?php endif; ?>

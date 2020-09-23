@@ -29,9 +29,9 @@ class Author_model
     }
 
     //display author books
-    public function getBooksAuthorId($id)
+    public function getBooksAuthorId($id_author)
     {
-        $this->db->query("SELECT a.*, b.id FROM buku a INNER JOIN author b ON a.id_author= b.id WHERE a.id_author = '$id'");
+        $this->db->query("SELECT a.*, b.id FROM buku a INNER JOIN author b ON a.id_author= b.id WHERE a.id_author = '$id_author'");
         return $this->db->resultAll();
     }
 
@@ -134,7 +134,7 @@ class Author_model
 
                 if (password_verify($password, $password_db) || $password === $password_db) {
 
-                    $_SESSION['id'] = $data_author['id'];
+                    $_SESSION['id_author'] = $data_author['id'];
                     $_SESSION['fullname'] = $data_author['fullname']; // get fullname to insert into table buku
 
                     $_COOKIE['id'] = $data_author['id'];
@@ -182,7 +182,7 @@ class Author_model
                 exit;
             } else {
                 $query = "UPDATE author SET password = :password WHERE id = :id";
-                $id = $_SESSION['id'];
+                $id = $_SESSION['id_author'];
                 $this->db->query($query);
                 $this->db->bind('password', password_hash($data['password'], PASSWORD_DEFAULT));
                 $this->db->bind('id', $id);
@@ -199,7 +199,7 @@ class Author_model
         $fullname = $_SESSION['fullname']; // get this from table author
         $rating = 0;
         $user = 0;
-        $author = $_SESSION['id']; // get this from table author
+        $author = $_SESSION['id_author']; // get this from table author
 
         //to find image location
         $targetDir =  __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR;
@@ -236,7 +236,7 @@ class Author_model
         if ($data_book = $this->getBooksBy("judul_buku", $judul_buku)) {
             var_dump("Judul Buku Sudah Ada");
         } else {
-            $query = "INSERT INTO buku(judul_buku, image, sipnosis, fullname, rating, id_author, id_user) VALUES(:judul_buku, :image, :sipnosis,  :fullname, :rating, :id_author, :id_user)";
+            $query = "INSERT INTO buku(judul_buku, image, sipnosis, fullname, rating, id_author, id_user) VALUES( :judul_buku, :image, :sipnosis,  :fullname, :rating, :id_author, :id_user)";
 
             $this->db->query($query);
             $this->db->bind("judul_buku", $judul_buku);
@@ -246,7 +246,6 @@ class Author_model
             $this->db->bind("rating", $rating);
             $this->db->bind("id_author", $author);
             $this->db->bind("id_user", $user);
-
             $this->db->execute();
             return $this->db->rowCount();
         }
@@ -254,11 +253,15 @@ class Author_model
 
     public function searchBooksAuthor($id)
     {
-        $keyword = $_POST['keyword'];
-        $query = "SELECT a.*,b.id FROM buku a INNER JOIN author b ON a.id_author= b.id WHERE a.id_author='$id' AND judul_buku LIKE :keyword";
-        $this->db->query($query);
-        $this->db->bind('keyword', "%$keyword%");
-        return $this->db->resultAll();
+        if (!isset($_POST['keyword'])) {
+            header("Location: ". baseurl . '/author/dashboard'); 
+        }else {
+            $keyword = $_POST['keyword'];
+            $query = "SELECT a.*,b.id FROM buku a INNER JOIN author b ON a.id_author= b.id WHERE a.id_author='$id' AND judul_buku LIKE :keyword";
+            $this->db->query($query);
+            $this->db->bind('keyword', "%$keyword%");
+            return $this->db->resultAll();
+        }
     }
 
     public function logOut()

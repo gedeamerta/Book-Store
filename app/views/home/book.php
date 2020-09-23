@@ -33,7 +33,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title text-dark font-weight-bold" id="exampleModalLabel">You Must Login</h5>
+                                                <h5 class="modal-title text-dark font-weight-bold" id="exampleModalLabel">Anda Harus Masuk Terlebih Dahulu</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>

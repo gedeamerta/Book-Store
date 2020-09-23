@@ -43,11 +43,11 @@
             </button>
 
             <!-- Topbar Search -->
-            <form action="<?= baseurl; ?>/author/search" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post">
-                <div class="input-group">
+            <form action="<?= $data['search_author'] == 'search_byAuthor' ? baseurl . '/author/search' : (($data['seach_admin'] == 'search_byAdmin') ? baseurl . '/admin/search' : '' )?>" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post">
+                <div class="input-group"> 
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="keyword">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
+                        <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search fa-sm"></i>
                         </button>
                     </div>
@@ -187,20 +187,37 @@
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $data['author_single']['fullname'] ?></span>
-                        <img class="img-profile rounded-circle" src="<?= baseurl . '/assets/img/' . $data['author_single']['image'] ?>">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $data['admin_single'] ? $data['admin_single']['fullname'] : (($data['author_single']) ? $data['author_single']['fullname'] : '') ?></span>
+                        <img class="img-profile rounded-circle" src="<?= $data['author_image'] == 'author_image' ?baseurl . '/assets/img/' . $data['author_single']['image'] : '' ?>">
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-
-                        <a class="dropdown-item" href="<?= baseurl; ?>/author/setOut" data-toggle="modal" data-target="#logoutModal">
+                        <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </a>
                     </div>
                 </li>
-
             </ul>
+
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="<?= $data['logout_author'] == 'logout_author' ? baseurl . "/author/setOut" : (($data['logout_admin']) ? baseurl . '/admin/setOut' : '') ?>">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </nav>
         <!-- End of Topbar -->

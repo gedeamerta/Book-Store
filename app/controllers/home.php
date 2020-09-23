@@ -5,7 +5,6 @@ class Home extends Controller
     {
         $data['judul'] = 'Home - User'; // masuk ke parameter view yaitu $data
         $data['set_active'] = 'index'; //set active class navbar
-        $data['header-author'] = ''; //author header
         $data['login_user'] = ''; // disabled username before login
 
         // for user index
@@ -15,7 +14,9 @@ class Home extends Controller
         //for user dashboard
         $data['nav_dashboard'] = '';
         $data['nav_book_dashboard'] = '';
-        $data['nav_book_user'] = '';
+
+        $data['header-author'] = '';
+        $data['header-admin'] = '';
 
         if (isset($_SESSION['login-user'])) {
             header("Location: " . baseurl . '/dashboard');
@@ -33,7 +34,6 @@ class Home extends Controller
     {
         $data['judul'] = 'Book List - User'; // masuk ke parameter view yaitu $data
         $data['set_active'] = 'book'; //set active class navbar
-        $data['header-author'] = ''; //author header
         $data['login_user'] = ''; // disabled username before login
 
         // for user index
@@ -44,6 +44,9 @@ class Home extends Controller
         //for user dashboard
         $data['nav_dashboard'] = '';
         $data['nav_book_dashboard'] = '';
+
+        $data['header-author'] = '';
+        $data['header-admin'] = '';
 
         $data['book'] = $this->model('Home_model')->getAllBook();
         $data['book_limit'] = $this->model('Home_model')->getBookLimit();
@@ -94,7 +97,6 @@ class Home extends Controller
     {   
         $data['judul'] = 'Daftar Buku';
         $data['set_active'] = 'book'; //set active class navbar
-        $data['header-author'] = ''; //author header
         $data['login_user'] = ''; // disabled username before login
 
         // for user index
@@ -105,6 +107,10 @@ class Home extends Controller
         //for user dashboard
         $data['nav_dashboard'] = '';
         $data['nav_book_dashboard'] = '';
+
+        // for header admin and author  
+        $data['header-author'] = '';
+        $data['header-admin'] = '';
 
         $data['book'] = $this->model('Home_model')->getAllBook();
         $data['book_limit'] = $this->model('Home_model')->getBookLimit();

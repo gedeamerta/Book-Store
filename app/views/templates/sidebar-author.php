@@ -16,7 +16,7 @@
 
          <!-- Nav Item - Dashboard -->
          <li class="nav-item <?= $data['set_active'] == 'books' ? 'active' : '' ?>">
-             <a class="nav-link" href="<?= baseurl; ?>/author/books">
+             <a class="nav-link" href="<?= baseurl; ?>/author/dashboard">
                  <i class="fas fa-fw fa-tachometer-alt"></i>
                  <span>Dashboard</span></a>
          </li>
