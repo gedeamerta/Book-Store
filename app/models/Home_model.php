@@ -11,7 +11,7 @@ class Home_model
     public function getUserBy($param, $value)
     {
         if (isset($param) && isset($value)) {
-            $data_user = "SELECT * FROM users WHERE $param = :$param";
+            $data_user = "SELECT * FROM pengguna WHERE $param = :$param";
             $this->db->query($data_user);
             $this->db->bind($param, $value);
             return $this->db->single();
@@ -21,19 +21,19 @@ class Home_model
     // get all of the books
     public function getAllBook()
     {
-        $this->db->query('SELECT * FROM buku');
+        $this->db->query('SELECT * FROM books');
         return $this->db->resultAll();
     }
 
     public function getBookLimit()
     {
-        $this->db->query('SELECT * FROM buku ORDER BY id DESC LIMIT 6');
+        $this->db->query('SELECT * FROM books ORDER BY id DESC LIMIT 6');
         return $this->db->resultAll();
     }
 
     public function getUserId($id)
     {
-        $this->db->query('SELECT * FROM users WHERE id=:id');
+        $this->db->query('SELECT * FROM pengguna WHERE id=:id');
         $this->db->bind('id', $id);
         return $this->db->single();
     }
@@ -51,38 +51,6 @@ class Home_model
         $lowercase =  preg_match('@[a-z]@', $password);
         $number =  preg_match('@[0-9]@', $password);
 
-        //to find image location
-         
-                $targetDir =  __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR;
-                $targetFile = $targetDir . basename($_FILES["image"]["name"]);
-                $extension  = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-                $uploadOk   = 1;
-
-                $check = getimagesize($_FILES["image"]["tmp_name"]);
-                if ($check !== false) {
-                    echo "File is an image - " . $check["mime"] . ".";
-                    $uploadOk = 1;
-                } else {
-                    echo "File is not an image.";
-                    $uploadOk = 0;
-                }
-
-                if ($extension != "jpg" && $extension != "png" && $extension != "jpeg") {
-                    echo "Sorry, only JPG, JPEG, and PNG images are allowed.";
-                    $uploadOk = 0;
-                }
-
-                if ($uploadOk == 0) {
-                    echo "Sorry, your file was not uploaded.";
-                } else {
-                    if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-                        echo "The file " . basename($_FILES["image"]["name"]) . " has been uploaded.";
-                    } else {
-                        echo "Sorry, there was an error uploading your file.";
-                    }
-                }
-
-
         //first check it out if there is an email on database, and if empty email go to register progress
         if ($data_user = $this->getUserBy("email", $email) || $data_user = $this->getUserBy("username", $username)) {
             var_dump("email dan username sudah ada");
@@ -95,12 +63,11 @@ class Home_model
                             alert("Password should be at least 8 characters in length and should include at least one upper case letter, one number.")
                         </script>';
                     } else {
-                        $query = "INSERT INTO users(username, email, image, password) VALUES(:username, :email, :image,  :password)";
+                        $query = "INSERT INTO pengguna(username, email, password) VALUES(:username, :email, :password)";
 
                         $this->db->query($query);
                         $this->db->bind("username", $username);
                         $this->db->bind("email", $email);
-                        $this->db->bind("image", $_FILES["image"]["name"]);
                         $this->db->bind("password", password_hash($password, PASSWORD_DEFAULT));
                         $this->db->execute();
                         return $this->db->rowCount();
@@ -127,10 +94,7 @@ class Home_model
 
                 if (password_verify($password, $password_db) || $password === $password_db) {
                     $_SESSION['id'] = $data_user['id'];
-                    $_SESSION['login-user'] = 'login-user';
-
-                    $_COOKIE['id'] = $data_user['id'];
-                    setcookie($_COOKIE['id'], $username, time() + 3600, '/');
+                    $_SESSION['login_user'] = 'login_user';
                     echo "berhasil";
                     return true;
                     exit;
@@ -145,7 +109,7 @@ class Home_model
     public function searchBook()
     {
         $keyword = $_POST['keyword'];
-        $query = "SELECT * FROM buku WHERE judul_buku LIKE :keyword";
+        $query = "SELECT * FROM books WHERE judul_buku LIKE :keyword";
         $this->db->query($query);
         $this->db->bind('keyword', "%$keyword%");
         return $this->db->resultAll();

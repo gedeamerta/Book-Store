@@ -18,7 +18,7 @@
                         </p>
                         <footer class="blockquote-footer"><?= $data['book_single']['fullname'] ?></footer>
 
-                        <h2 class="card-title mb-0">Sipnosis</h2>
+                        <h2 class="card-title mb-0">Sinopsis</h2>
                         <p class="text-muted mt-2"><?= $data['book_single']['sipnosis'] ?></p>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddBook">Tambah</button>
 
@@ -31,16 +31,16 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="<?= baseurl; ?>/dashboard/addBooks/<?= $data['book_single']['id']?>" method="post">
-                                    <div class="modal-body">
+                                    <form action="<?= baseurl; ?>/dashboard/addBooks/<?= $data['book_single']['id'] ?>" method="post">
+                                        <div class="modal-body">
                                             <h5>Apakah anda ingin menambahkan buku ini ?</h5>
-                                            <input type="hidden" name="id" value="<?= $data['book_single']['id']?>">
+                                            <input type="hidden" name="id" value="<?= $data['book_single']['id'] ?>">
                                             <input type="hidden" name="id_user">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <button type="submit" name="login-user" class="btn btn-info">Submit</button>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            <button type="submit" name="login-user" class="btn btn-info">Submit</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -54,9 +54,9 @@
 
         <!-- Right Card -->
         <div class="col-lg-4">
-            <form class="form-inline mt-5">
+            <form action="<?= baseurl; ?>/dashboard/search" method="post" class="form-inline mt-5">
                 <i class="fas fa-search" aria-hidden="true"></i>
-                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-sm ml-3" type="text" placeholder="Search" aria-label="Search" name="keyword">
             </form>
             <!-- Gugel Maps Start -->
             <div class="shadow p-3 mt-3">

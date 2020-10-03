@@ -5,19 +5,11 @@ class Author extends Controller
     {  
         if (!isset($_POST['login-author'])) {
             $data['set_active'] = ''; //set active class navbar
-            $data['login_user'] = 'login_user'; // disabled username before login
 
-            // for user index
-            $data['nav'] = '';
-            $data['nav_book'] = '';
-
-            //for user dashboard
-            $data['nav_dashboard'] = '';
-            $data['nav_book_dashboard'] = '';
+            // validating Actor Admin, Authpr
+            $data['validate'] = 'Author_Validate';
 
             $data['judul'] = 'Author';
-            $data['header-author'] = 'header-author';
-            $data['header-admin'] = '';
             $this->view('templates/header', $data);
             $this->view('author/index', $data);
         }else {
@@ -36,7 +28,8 @@ class Author extends Controller
     {
         if (!isset($_POST['register'])) {
             $data['judul'] = 'Sign Up - Author';
-            $data['header-author'] = 'header-author';
+            // validating Actor Admin, Authpr
+            $data['validate'] = 'Author_Validate';
             $this->view('templates/header', $data);
             $this->view('author/signUp', $data);
         } else {
@@ -66,24 +59,15 @@ class Author extends Controller
 
     public function dashboard()
     {
-        $data['judul'] = 'Author - Books';
-        $data['set_active'] = 'books';
+        $data['judul'] = 'Author - Dashboard';
+        $data['set_active'] = 'dashboard';
 
-        $data['search_admin'] = '';
-        $data['search_author'] = 'search_byAuthor';
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Author_Validate';
 
         //author id
         $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
-        $data['admin_single'] = '';
-
-        $data['books_id'] = $this->model("Author_model")->getBooksAuthorId($_SESSION['id_author']);
-
-        //image author
-        $data['author_image'] = 'author_image';
-
-        //logout 
-        $data['logout_author'] = 'logout_author';
-        $data['logout_admin'] = '';
+        $data['books_id'] = $this->model("Author_model")->getBooksAuthorId();
 
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
@@ -95,26 +79,41 @@ class Author extends Controller
         }
     }
 
+    public function bookDelete($id)
+    {
+        $data['judul'] = 'Author - Books';
+        $data['set_active'] = 'dashboard';
+
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Author_Validate';
+
+        // Request Deleting Books
+        $data['id_delete_book'] = $this->model('Author_model')->getBooksAuthorId();
+        $data['del_book'] = $this->model("Author_model")->getBookId($id);
+
+        //author id
+        $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
+        if (!isset($_SESSION['login-author'])) {
+            header("Location: " . baseurl . "/author/index");
+        } else {
+            $this->view('templates/sidebar-author', $data);
+            $this->view('templates/header-author', $data);
+            $this->view('author/bookDelete', $data);
+            $this->view('templates/footer-author');
+        }
+    }
+
     public function forms()
     {
         $data['judul'] = 'Author - Form';
         $data['set_active'] = 'forms';
 
-        // search validation
-        $data['search_admin'] = '';
-        $data['search_author'] = 'search_byAuthor';
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Author_Validate';
 
         //author id
         $data['author_single']= $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
         $data['admin_single'] = '';
-
-        //image author
-        $data['author_image'] = 'author_image';
-
-        //logout 
-        $data['logout_author'] = 'logout_author';
-        $data['logout_admin'] = '';
-
         if (!isset($_SESSION['login-author'])) {
             header("Location: ". baseurl ."/author/index");
         }else{
@@ -142,20 +141,12 @@ class Author extends Controller
     public function search()
     {
         $data['judul'] = 'Author - Books';
-        $data['set_active'] = 'books';
+        $data['set_active'] = 'dashboard';
 
-        $data['search_admin'] = '';
-        $data['search_author'] = 'search_byAuthor';
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Author_Validate';
 
         $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
-        $data['admin_single'] = '';
-
-        //image author
-        $data['author_image'] = 'author_image';
-
-        //logout 
-        $data['logout_author'] = 'logout_author';
-        $data['logout_admin'] = '';
 
         // find the author books and display it with getting the SESSION id author
         $data['books_id'] = $this->model("Author_model")->getBooksAuthorId($_SESSION['id_author']);
@@ -171,12 +162,19 @@ class Author extends Controller
         }
     }
 
-    public function delete()
+    public function request()
     {
-        if ($this->model('Author_model')->deleteBookAuthor($_SESSION['id']) > 0) {
-            echo"berhasil";
-        }else {
-            echo"gagal";
+        if ($this->model('Author_model')->requestDeleteBook($_POST) > 0) {
+            echo '<script>
+                    alert("Success requesting book to delete");
+                    setTimeout(function() {
+                        window.location.href="dashboard";
+                    }, 1000);
+                </script>';
+            die;
+        } else {
+            echo 'gagal nambahkan buku';
+            exit;
         }
     }
 

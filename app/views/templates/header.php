@@ -30,10 +30,9 @@
 </head>
 
 <body>
-    <?php if(!$data['header-author'] == "header-author") : ?>
-        <?php if(!$data['header-admin'] == "header-admin") : ?>
-    <div class="uk-position-relative">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<?php if ($data['validate'] == 'anonim' || $data['validate'] == 'user') : ?>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
             <a class="navbar-brand font-weight-bold" href="<?= baseurl; ?>/home">Buku Media</a>
 
             <!-- make collapse navbar when it going to responsive -->
@@ -45,17 +44,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto p-2">
                     <li class="nav-item">
-                        <a class="nav-link <?= $data['set_active'] == 'index' ? 'active' : '' ?>" href="<?= $data['nav'] == 'index' ? baseurl . '/home' : (($data['nav_dashboard'] == 'index_dashboard') ? baseurl . '/dashboard' : '') ?>"> Home <span class=" sr-only">(current)</span></a>
+                        <a class="nav-link <?= $data['set_active'] == 'index' ? 'active' : '' ?>" href="<?= $data['validate'] == 'anonim' ? baseurl . '/home' : (($data['validate'] == 'user') ? baseurl . '/dashboard' : '') ?>"> Home <span class=" sr-only">(current)</span> </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link 
-                            <?= $data['set_active'] == 'book' ? 'active' : '' ?>" href="<?= $data['nav_book'] == 'book' ? baseurl . '/home/book' : (($data['nav_book_dashboard'] == 'book_dashboard') ? baseurl . '/dashboard/book' : '') ?>">Buku</a>
+                        <?= $data['set_active'] == 'book' ? 'active' : '' ?>" href="<?= $data['validate'] == 'anonim' ? baseurl . '/home/book' : (($data['validate'] == 'user') ? baseurl . '/dashboard/book' : '') ?>">Buku</a>
                     </li>
                 </ul>
                 <!-- navbar end -->
 
                 <!-- For Home without User Login Start -->
-                <?php if (!$data['login_user'] == 'login_user') : ?>
+                <?php if ($data['validate'] == 'anonim') : ?>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info mr-3 font-weight-bold">Masuk</button>
@@ -137,7 +136,7 @@
                 <!-- For Home without User Login End -->
 
                 <!-- When User Login -->
-                <?php if ($data['login_user'] == 'login_user') : ?>
+                <?php if ($data['validate'] == 'user') : ?>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle ml-5" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -146,7 +145,7 @@
                                 </svg> <?php print_r($data['user_single']['username']) ?>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/booksUser">Buku Pilihan Anda </a>
+                                <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/bookUser">Buku Pilihan Anda </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/setOut">Log out</a>
                             </div>
@@ -154,9 +153,6 @@
                     </ul>
                 <?php endif; ?>
                 <!-- When user login end -->
-
             </div>
-        </nav>
-    </div>
- <?php endif; ?>
+    </nav>
 <?php endif; ?>

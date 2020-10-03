@@ -18,6 +18,7 @@
                 <div class="card-body">
                     <?php Flasher::flashAuthor() ?>
                     <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/addBooks" method="post">
+                    
                         <input type="hidden" name="id" id="">
                         <div class="form-group">
                             <label for="judul_buku">Judul Buku</label>
@@ -28,12 +29,12 @@
                             <input type="file" class="form-control" name="image" placeholder="Gambar" accept="image/jpeg , image/png" />
                         </div>
                         <div class="form-group">
-                            <label for="sipnosis">Sipnosis</label>
+                            <label for="sipnosis">Sinopsis</label>
                             <textarea type="text" class="form-control" id="sipnosis" name="sipnosis" value="" placeholder="Cerita Singkat" cols="40" rows="10" required></textarea>
                         </div>
                         <input type="hidden" class="form-control" id="pengarang" name="fullname" value="" required />
-
                         <input type="hidden" name="id_author" id="">
+
                         <button type="submit" class="btn btn-primary mr-2"> Submit </button>
                         <button class="btn btn-light">Cancel</button>
                     </form>

@@ -7,17 +7,10 @@ class Admin extends Controller
             $data['set_active'] = ''; //set active class navbar
             $data['login_user'] = 'login_user'; // disabled username before login
 
-            // for user index
-            $data['nav'] = '';
-            $data['nav_book'] = '';
-
-            //for user dashboard
-            $data['nav_dashboard'] = '';
-            $data['nav_book_dashboard'] = '';
+            // validating Actor Admin, Authpr
+            $data['validate'] = 'Admin_Validate';
 
             $data['judul'] = 'Admin';
-            $data['header-author'] = '';
-            $data['header-admin'] = 'header-admin';
             $this->view('templates/header', $data);
             $this->view('admin/index', $data);
         }else {
@@ -26,6 +19,7 @@ class Admin extends Controller
                 header("Location: " . baseurl . '/admin/dashboard');
             }else {
                 var_dump('gagal');
+                Flasher::setFailLoginAuthor('Invalid Username or Password');
                 header("Location: " . baseurl . '/admin/index');
             }
         }
@@ -36,19 +30,12 @@ class Admin extends Controller
         $data['judul'] = 'Admin - Dashboard';
         $data['set_active'] = 'dashboard';
 
-        // search book validation
-        $data['search_admin'] = 'search_byAdmin';
-        $data['search_author'] = 'search_byAuthor';
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Admin_Validate';
 
         // get actor admin and author id validation
         $data['admin_single'] = $this->model("Admin_model")->getAdminId($_SESSION['id_admin']);
-        $data['author_single'] = '';
-        
-        $data['book'] = $this->model("Admin_model")->getAllBook();
-
-        // validation for author image, bcs admin isn't display their picture profile
-        $data['author_image'] = '';
-        
+        $data['req_del_book'] = $this->model('Admin_model')->getBookRequest();
         if (!isset($_SESSION['login_admin'])) {
             header("Location: " . baseurl . "/admin/index");
         } else {
@@ -64,11 +51,10 @@ class Admin extends Controller
         $data['judul'] = 'Admin - Dashboard';
         $data['set_active'] = 'dashboard';
 
-        $data['search_admin'] = 'search_byAdmin';
-        $data['search_author'] = 'search_byAuthor';
-        
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Admin_Validate';
+
         $data['admin_single'] = $this->model("Admin_model")->getAdminId($_SESSION['id_admin']);
-        $data['author_single'] = '';
 
         $data['book'] = $this->model("Admin_model")->getAllBook();
         $data['book'] = $this->model('Admin_model')->searchBook();
@@ -83,7 +69,24 @@ class Admin extends Controller
         }
     }
 
-    public function setOut($data)
+    public function delete($id)
+    {
+        if ($this->model('Admin_model')->deleteBooksAuthor($id) > 0) {
+            echo
+                '<script>
+                        alert("Books has been deleted");
+                        setTimeout(function() {
+                            window.location.href="/bookStore/admin/dashboard";
+                        }, 1000);
+                    </script>';
+            die;
+        }else {
+            echo "gagal";
+            var_dump($this->model('Admin_model')->deleteBooksAuthor($id));
+        }
+    }
+
+    public function setOut()
     {   
         $this->model('Admin_model')->logOut();
     }

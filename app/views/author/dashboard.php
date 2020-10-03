@@ -20,16 +20,14 @@
                         <h2 class="card-title mt-2"><?= $booksAuthor['judul_buku']; ?></h2>
                         <p><?= $booksAuthor['sipnosis']; ?></p>
                         <footer class="blockquote-footer"><?= $booksAuthor['fullname']; ?></footer>
+                        <button type="button" onclick="window.location.href='<?= baseurl; ?>/author/bookDelete/<?= $booksAuthor['id']?>'" class="btn btn-danger mt-3">Request Delete</button>
                     </div>
                 </div>
             </div>
         <?php endforeach; ?>
         <!-- List Books End -->
-
     </div>
-
-</div>
-<!-- /.container-fluid -->
+<!-- container-fluid -->
 
 </div>
 <!-- End of Main Content -->

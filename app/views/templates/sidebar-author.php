@@ -15,8 +15,8 @@
          <hr class="sidebar-divider my-0">
 
          <!-- Nav Item - Dashboard -->
-         <li class="nav-item <?= $data['set_active'] == 'books' ? 'active' : '' ?>">
-             <a class="nav-link" href="<?= baseurl; ?>/author/dashboard">
+         <li class="nav-item <?=  $data['set_active'] == 'dashboard' ? 'active' : (($data['set_active'] == 'dashboard') ? 'forms' : '')?>">
+             <a class="nav-link" href="<?= $data['validate'] == 'Author_Validate' ? baseurl . '/author/dashboard' : (($data['validate'] == 'Admin_Validate') ? baseurl . '/admin/dashboard' : '') ?>">
                  <i class="fas fa-fw fa-tachometer-alt"></i>
                  <span>Dashboard</span></a>
          </li>
@@ -30,8 +30,8 @@
          </div>
 
          <!-- Nav Item - Pages Collapse Menu -->
-         <li class="nav-item <?= $data['set_active'] == 'forms' ? 'active' : '' ?>">
-             <a class="nav-link collapsed" href="<?= baseurl; ?>/author/forms" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+         <li class="nav-item <?=  $data['set_active'] == 'forms' ? 'active' : (($data['set_active'] == 'forms') ? 'forms' : '') ?>">
+             <a class="nav-link collapsed" href="<?= $data['validate'] == 'Author_Validate' ? baseurl . '/author/forms' : (($data['validate'] == 'Admin_Validate') ? baseurl . '/admin/forms' : '') ?>" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                  <i class="fas fa-fw fa-cog"></i>
                  <span>Forms</span>
              </a>

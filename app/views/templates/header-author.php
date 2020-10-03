@@ -43,7 +43,7 @@
             </button>
 
             <!-- Topbar Search -->
-            <form action="<?= $data['search_author'] == 'search_byAuthor' ? baseurl . '/author/search' : (($data['seach_admin'] == 'search_byAdmin') ? baseurl . '/admin/search' : '' )?>" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post">
+            <form action="<?= $data['validate'] == 'Author_Validate' ? baseurl . '/author/search' : (($data['validate'] == 'Admin_Validate') ? baseurl . '/admin/search' : '' )?>" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post">
                 <div class="input-group"> 
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="keyword">
                     <div class="input-group-append">
@@ -187,8 +187,8 @@
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $data['admin_single'] ? $data['admin_single']['fullname'] : (($data['author_single']) ? $data['author_single']['fullname'] : '') ?></span>
-                        <img class="img-profile rounded-circle" src="<?= $data['author_image'] == 'author_image' ?baseurl . '/assets/img/' . $data['author_single']['image'] : '' ?>">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $data['validate'] == 'Admin_Validate' ? $data['admin_single']['fullname'] : (($data['validate'] == 'Author_Validate') ? $data['author_single']['fullname'] : '') ?></span>
+                        <img class="img-profile rounded-circle" src="<?= $data['validate'] == 'Author_Validate' ?baseurl . '/assets/img/' . $data['author_single']['image'] : (($data['validate'] == 'Admin_Validate') ? '' : '')?>">
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -213,7 +213,7 @@
                         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="<?= $data['logout_author'] == 'logout_author' ? baseurl . "/author/setOut" : (($data['logout_admin']) ? baseurl . '/admin/setOut' : '') ?>">Logout</a>
+                            <a class="btn btn-primary" href="<?= $data['validate'] == 'Author_Validate' ? baseurl . "/author/setOut" : (($data['validate'] == 'Admin_Validate') ? baseurl . '/admin/setOut' : '') ?>">Logout</a>
                         </div>
                     </div>
                 </div>

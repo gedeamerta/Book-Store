@@ -23,7 +23,7 @@
                                 <?= $book['rating'] ?></p>
                             <footer class="blockquote-footer"><?= $book['fullname'] ?></footer>
 
-                            <h2 class="card-title mb-0">Sipnosis</h2>
+                            <h2 class="card-title mb-0">Sinopsis</h2>
                             <p class="text-muted mt-2"><?= $book['sipnosis'] ?></p>
                             <a href="<?= baseurl; ?>/dashboard/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

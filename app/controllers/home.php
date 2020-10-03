@@ -5,27 +5,17 @@ class Home extends Controller
     {
         $data['judul'] = 'Home - User'; // masuk ke parameter view yaitu $data
         $data['set_active'] = 'index'; //set active class navbar
-        $data['login_user'] = ''; // disabled username before login
 
-        // for user index
-        $data['nav'] = 'index';
-        $data['nav_book'] = 'book';
-        
-        //for user dashboard
-        $data['nav_dashboard'] = '';
-        $data['nav_book_dashboard'] = '';
+        // validate anonim(user before logged in), more validate on header
+        $data['validate'] = 'anonim';
 
-        $data['header-author'] = '';
-        $data['header-admin'] = '';
-
-        if (isset($_SESSION['login-user'])) {
+        if (isset($_SESSION['login_user'])) {
             header("Location: " . baseurl . '/dashboard');
         }else{
             $data['book_limit'] = $this->model('Home_model')->getBookLimit();
             $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
             $this->view('home/index', $data);
             $this->view('templates/footer');
-            unset($_SESSION['login-user']);
         }
 
     }
@@ -34,19 +24,8 @@ class Home extends Controller
     {
         $data['judul'] = 'Book List - User'; // masuk ke parameter view yaitu $data
         $data['set_active'] = 'book'; //set active class navbar
-        $data['login_user'] = ''; // disabled username before login
 
-        // for user index
-        $data['nav'] = 'index';
-        $data['nav_book'] = 'book';
-        $data['nav_books_user'] = '';
-
-        //for user dashboard
-        $data['nav_dashboard'] = '';
-        $data['nav_book_dashboard'] = '';
-
-        $data['header-author'] = '';
-        $data['header-admin'] = '';
+        $data['validate'] = 'anonim';
 
         $data['book'] = $this->model('Home_model')->getAllBook();
         $data['book_limit'] = $this->model('Home_model')->getBookLimit();
@@ -97,25 +76,13 @@ class Home extends Controller
     {   
         $data['judul'] = 'Daftar Buku';
         $data['set_active'] = 'book'; //set active class navbar
-        $data['login_user'] = ''; // disabled username before login
 
-        // for user index
-        $data['nav'] = 'index';
-        $data['nav_book'] = 'book';
-        $data['nav_books_user'] = '';
-
-        //for user dashboard
-        $data['nav_dashboard'] = '';
-        $data['nav_book_dashboard'] = '';
-
-        // for header admin and author  
-        $data['header-author'] = '';
-        $data['header-admin'] = '';
+        $data['validate'] = 'anonim';
 
         $data['book'] = $this->model('Home_model')->getAllBook();
         $data['book_limit'] = $this->model('Home_model')->getBookLimit();
-
         $data['book'] = $this->model('Home_model')->searchBook();
+
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('home/book', $data);
         $this->view('templates/footer');

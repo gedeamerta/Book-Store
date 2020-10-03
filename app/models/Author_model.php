@@ -11,7 +11,7 @@ class Author_model
     public function getAuthorBy($param, $value)
     {
         if (isset($param) && isset($value)) {
-            $data_author = "SELECT * FROM author WHERE $param = :$param";
+            $data_author = "SELECT * FROM authors WHERE $param = :$param";
             $this->db->query($data_author);
             $this->db->bind($param, $value);
             return $this->db->single();
@@ -21,7 +21,17 @@ class Author_model
     public function getBooksBy($param, $value)
     {
         if (isset($param) && isset($value)) {
-            $data_book = "SELECT * FROM buku WHERE $param = :$param";
+            $data_book = "SELECT * FROM books WHERE $param = :$param";
+            $this->db->query($data_book);
+            $this->db->bind($param, $value);
+            return $this->db->single();
+        }
+    }
+
+    public function getDeleteBooksBy($param, $value)
+    {
+        if (isset($param) && isset($value)) {
+            $data_book = "SELECT * FROM deletebooks WHERE $param = :$param";
             $this->db->query($data_book);
             $this->db->bind($param, $value);
             return $this->db->single();
@@ -29,16 +39,24 @@ class Author_model
     }
 
     //display author books
-    public function getBooksAuthorId($id_author)
+    public function getBooksAuthorId()
     {
-        $this->db->query("SELECT a.*, b.id FROM buku a INNER JOIN author b ON a.id_author= b.id WHERE a.id_author = '$id_author'");
+        $id_author = $_SESSION['id_author'];
+        $this->db->query("SELECT a.id, b.* FROM authors a INNER JOIN books b ON a.id= b.id_author WHERE a.id = '$id_author'");
         return $this->db->resultAll();
     }
 
     //get id author to display it
     public function getAuthorId($id)
     {
-        $this->db->query("SELECT * FROM author WHERE id=:id");
+        $this->db->query("SELECT * FROM authors WHERE id=:id");
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
+    public function getBookId($id)
+    {
+        $this->db->query('SELECT * FROM books WHERE id=:id'); // mengapa tidak menggunakan variabel $id disana karena untuk menghindari sql injection, jadi perlu di bind terlebih dahulu 
         $this->db->bind('id', $id);
         return $this->db->single();
     }
@@ -46,10 +64,10 @@ class Author_model
     public function registerAuthor($data)
     {
         $username = htmlspecialchars($data['username']);
+        $fullname = htmlspecialchars($data['fullname']);
         $email = htmlspecialchars($data['email']);
         $password = htmlspecialchars($data['password']);
         $password2 = htmlspecialchars($data['password2']);
-        $data['id_book'] = 0;
 
         //validate password
         $uppercase =  preg_match('@[A-Z]@', $password);
@@ -100,14 +118,14 @@ class Author_model
                             alert("Password should be at least 8 characters in length and should include at least one upper case letter, one number.")
                         </script>';
                     } else {
-                        $query = "INSERT INTO author(username, email, image, password, id_book) VALUES(:username, :email, :image,  :password, :id_book)";
+                        $query = "INSERT INTO authors(username, fullname, email, image, password) VALUES(:username, :fullname, :email, :image,  :password)";
 
                         $this->db->query($query);
                         $this->db->bind("username", $username);
+                        $this->db->bind("fullname", $fullname);
                         $this->db->bind("email", $email);
                         $this->db->bind("image", $_FILES["image"]["name"]);
                         $this->db->bind("password", password_hash($password, PASSWORD_DEFAULT));
-                        $this->db->bind("id_book", $data['id_book']);
                         $this->db->execute();
                         return $this->db->rowCount();
                     }
@@ -136,13 +154,6 @@ class Author_model
 
                     $_SESSION['id_author'] = $data_author['id'];
                     $_SESSION['fullname'] = $data_author['fullname']; // get fullname to insert into table buku
-
-                    $_COOKIE['id'] = $data_author['id'];
-                    setcookie($_COOKIE['id'],
-                        $username,
-                        time() + 3600,
-                        '/'
-                    );
 
                     $_SESSION['login-author'] = 'login-author';
                     echo "berhasil";
@@ -181,7 +192,7 @@ class Author_model
                     </script>';
                 exit;
             } else {
-                $query = "UPDATE author SET password = :password WHERE id = :id";
+                $query = "UPDATE authors SET password = :password WHERE id = :id";
                 $id = $_SESSION['id_author'];
                 $this->db->query($query);
                 $this->db->bind('password', password_hash($data['password'], PASSWORD_DEFAULT));
@@ -194,8 +205,8 @@ class Author_model
 
     public function addBooksAuthor($data)
     {
-        $judul_buku = htmlspecialchars($data['judul_buku']);
-        $sipnosis = htmlspecialchars($data['sipnosis']);
+        $judul_buku = $data['judul_buku'];
+        $sipnosis = $data['sipnosis'];
         $fullname = $_SESSION['fullname']; // get this from table author
         $rating = 0;
         $user = 0;
@@ -236,7 +247,7 @@ class Author_model
         if ($data_book = $this->getBooksBy("judul_buku", $judul_buku)) {
             var_dump("Judul Buku Sudah Ada");
         } else {
-            $query = "INSERT INTO buku(judul_buku, image, sipnosis, fullname, rating, id_author, id_user) VALUES( :judul_buku, :image, :sipnosis,  :fullname, :rating, :id_author, :id_user)";
+            $query = "INSERT INTO books(judul_buku, image, sipnosis, fullname, rating, id_author, id_user) VALUES( :judul_buku, :image, :sipnosis,  :fullname, :rating, :id_author, :id_user)";
 
             $this->db->query($query);
             $this->db->bind("judul_buku", $judul_buku);
@@ -257,10 +268,32 @@ class Author_model
             header("Location: ". baseurl . '/author/dashboard'); 
         }else {
             $keyword = $_POST['keyword'];
-            $query = "SELECT a.*,b.id FROM buku a INNER JOIN author b ON a.id_author= b.id WHERE a.id_author='$id' AND judul_buku LIKE :keyword";
+            $query = "SELECT a.*,b.id FROM books a INNER JOIN authors b ON a.id_author= b.id WHERE a.id_author='$id' AND judul_buku LIKE :keyword";
             $this->db->query($query);
             $this->db->bind('keyword', "%$keyword%");
             return $this->db->resultAll();
+        }
+    }
+
+    public function requestDeleteBook($data)
+    {
+        $id_author = $_SESSION['id_author'];
+        if ($data_del = $this->getDeleteBooksBy('id_book', $data['id_book'])) {
+            echo
+                '<script>
+                        alert("Books has been requested");
+                        setTimeout(function() {
+                            window.location.href="dashboard";
+                        }, 1000);
+                    </script>';
+        }else{
+
+            $query = "INSERT INTO deletebooks (id_book, id_author) VALUES (:id_book, :id_author)";
+            $this->db->query($query);
+            $this->db->bind('id_book', $data['id_book']);
+            $this->db->bind('id_author', $id_author);
+            $this->db->execute();
+            return $this->db->rowCount();
         }
     }
 

@@ -11,7 +11,7 @@ class Dashboard_model
     public function getUserBy($param, $value)
     {
         if (isset($param) && isset($value)) {
-            $data_user = "SELECT * FROM users WHERE $param = :$param";
+            $data_user = "SELECT * FROM pengguna WHERE $param = :$param";
             $this->db->query($data_user);
             $this->db->bind($param, $value);
             return $this->db->single();
@@ -20,34 +20,34 @@ class Dashboard_model
 
     public function getBookLimit()
     {
-        $this->db->query('SELECT * FROM buku ORDER BY id DESC LIMIT 6');
+        $this->db->query('SELECT * FROM books ORDER BY id DESC LIMIT 6');
         return $this->db->resultAll();
     }
 
     // get all of the books
     public function getAllBook()
     {
-        $this->db->query('SELECT * FROM buku');
+        $this->db->query('SELECT * FROM books');
         return $this->db->resultAll();
     }
 
     public function getUserBook($id)
     {
-        $this->db->query("SELECT a.*, b.id FROM buku a INNER JOIN users b ON a.id_user =b.id WHERE a.id_user = '$id'");
+        $this->db->query("SELECT a.*, b.id FROM books a INNER JOIN pengguna b ON a.id_user =b.id WHERE a.id_user = '$id'");
         return $this->db->resultAll();
     }
 
     // get id book , first thing is u have to query the books and then bind the book id , at the end u return the single fetch
     public function getBookId($id)
     {
-        $this->db->query('SELECT * FROM buku WHERE id=:id'); // mengapa tidak menggunakan variabel $id disana karena untuk menghindari sql injection, jadi perlu di bind terlebih dahulu 
+        $this->db->query('SELECT * FROM books WHERE id=:id'); // mengapa tidak menggunakan variabel $id disana karena untuk menghindari sql injection, jadi perlu di bind terlebih dahulu 
         $this->db->bind('id', $id);
         return $this->db->single();
     }
 
     public function getUserId($id)
     {
-        $this->db->query('SELECT * FROM users WHERE id=:id');
+        $this->db->query('SELECT * FROM pengguna WHERE id=:id');
         $this->db->bind('id', $id);
         return $this->db->single();
     }
@@ -55,7 +55,7 @@ class Dashboard_model
     public function addBooksUser($data)
     {  
         $id_book = $this->getBookId($data['id']);
-        $query = "UPDATE buku SET id_user = :id_user WHERE id =:id";    
+        $query = "UPDATE books SET id_user = :id_user WHERE id =:id";    
         $this->db->query($query);
         $this->db->bind('id_user', $_SESSION['id']);
         $this->db->bind('id', $id_book['id']);
@@ -66,7 +66,7 @@ class Dashboard_model
     public function searchBook()
     {
         $keyword = $_POST['keyword'];
-        $query = "SELECT * FROM buku WHERE judul_buku LIKE :keyword";
+        $query = "SELECT * FROM books WHERE judul_books LIKE :keyword";
         $this->db->query($query);
         $this->db->bind('keyword', "%$keyword%");
         return $this->db->resultAll();
