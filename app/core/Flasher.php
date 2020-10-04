@@ -102,4 +102,49 @@ class Flasher
             unset($_SESSION['flash-author-pass']);
         }
     }
+
+    // add new Admin
+    public function setNewAdminFlash($type, $pesan, $action)
+    {
+        $_SESSION['flash-new-admin'] = [
+            'type' => $type,
+            'pesan' => $pesan,
+            'action' => $action
+        ];
+    }
+
+    public function getNewAdminFlash()
+    {
+        if (isset($_SESSION['flash-new-admin'])) {
+            echo '<div class="alert alert-' . $_SESSION['flash-new-admin']['type'] . ' alert-dismissible fade show" role="alert">
+                     <strong>' . $_SESSION['flash-new-admin']['pesan'] . '</strong>' . $_SESSION['flash-new-admin']['action'] . '
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                    </button>
+                 </div>';
+            unset($_SESSION['flash-new-admin']);
+        }
+    }
+
+    public function setAdminUpdateFlash($type, $pesan, $action)
+    {
+        $_SESSION['flash-update-pass'] = [
+            'type' => $type,
+            'pesan' => $pesan,
+            'action' => $action
+        ];
+    }
+
+    public function getAdminUpdatePassFlash()
+    {
+        if (isset($_SESSION['flash-update-pass'])) {
+            echo '<div class="alert alert-' . $_SESSION['flash-update-pass']['type'] . ' alert-dismissible fade show" role="alert">
+                     <strong>' . $_SESSION['flash-update-pass']['pesan'] . '</strong>' . $_SESSION['flash-update-pass']['action'] . '
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                    </button>
+                 </div>';
+            unset($_SESSION['flash-update-pass']);
+        }
+    }
 }

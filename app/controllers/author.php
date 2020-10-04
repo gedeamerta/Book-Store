@@ -134,6 +134,7 @@ class Author extends Controller
             header("Location: ".baseurl.'/author/forms');
             exit;
         }else {
+            Flasher::setFlashAuthorPass('danger', 'Gagal', ' mengganti password');
             exit;
         }
     }

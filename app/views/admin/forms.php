@@ -13,28 +13,27 @@
 
             <div class="card position-relative">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Form Book</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Form Add Admin</h6>
                 </div>
                 <div class="card-body">
-                    <?php Flasher::flashAuthor() ?>
-                    <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/addBooks" method="post">
-
-                        <input type="hidden" name="id" id="">
+                    <?php Flasher::getNewAdminFlash() ?>
+                    <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/admin/addAdmin" method="post">
                         <div class="form-group">
-                            <label for="judul_buku">Judul Buku</label>
-                            <input type="text" class="form-control" id="judul_buku" type="text" name="judul_buku" value="" placeholder="Judul Buku" required />
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required />
                         </div>
                         <div class="form-group">
-                            <label for="cover">Cover Buku</label>
-                            <input type="file" class="form-control" name="image" placeholder="Gambar" accept="image/jpeg , image/png" />
+                            <label for="fullname">Fullname</label>
+                            <input type="text" class="form-control" name="fullname" id="fullname" />
                         </div>
                         <div class="form-group">
-                            <label for="sipnosis">Sinopsis</label>
-                            <textarea type="text" class="form-control" id="sipnosis" name="sipnosis" value="" placeholder="Cerita Singkat" cols="40" rows="10" required></textarea>
+                            <label for="cover">Profile Picture</label>
+                            <input type="file" class="form-control" name="image" placeholder="Gambar" id="cover" accept="image/jpeg , image/png" />
                         </div>
-                        <input type="hidden" class="form-control" id="pengarang" name="fullname" value="" required />
-                        <input type="hidden" name="id_author" id="">
-
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
                         <button type="submit" class="btn btn-primary mr-2"> Submit </button>
                         <button class="btn btn-light">Cancel</button>
                     </form>
@@ -52,8 +51,8 @@
                     <h6 class="m-0 font-weight-bold text-primary">Form Changes Password</h6>
                 </div>
                 <div class="card-body">
-                    <?php Flasher::flashAuthorPass() ?>
-                    <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/changesPass" method="post">
+                    <?php Flasher::getAdminUpdatePassFlash() ?>
+                    <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/admin/update" method="post">
                         <div class="form-group">
                             <input type="hidden" id="id" name="id">
                         </div>
