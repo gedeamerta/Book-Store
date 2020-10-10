@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-1 text-gray-800">Forms Author</h1>
+    <h1 class="h3 mb-1 text-gray-800">Forms Admin</h1>
     <p class="mb-4">Write your books and update account</p>
 
     <!-- Content Row -->
@@ -54,15 +54,15 @@
                     <?php Flasher::getAdminUpdatePassFlash() ?>
                     <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/admin/update" method="post">
                         <div class="form-group">
-                            <input type="hidden" id="id" name="id">
-                        </div>
-                        <div class="form-group">
                             <label for="password">New Password</label>
                             <input type="password" class="form-control" id="password" name="password" value="" placeholder="Password" required />
                         </div>
                         <div class="form-group">
                             <label for="password2">Re Type New Password</label>
                             <input type="password" class="form-control" id="password2" name="password2" value="" placeholder="Password" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" id="id" name="id">
                         </div>
                         <button type="submit" class="btn btn-primary mr-2"> Submit </button>
                         <button class="btn btn-light">Cancel</button>
@@ -71,10 +71,32 @@
             </div>
 
         </div>
-        <!-- end form update -->
+        <!-- end Update Account -->
+
+        <!-- Add Category -->
+        <div class="col-lg-6 mt-5">
+
+            <div class="card position-relative">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Form Add Category</h6>
+                </div>
+                <div class="card-body">
+                    <?php Flasher::getCategoryFlash() ?>
+                    <form class="forms-sample" action="<?= baseurl; ?>/admin/addCategory" method="post">
+                        <div class="form-group">
+                            <label for="name_category">Category</label>
+                            <input type="text" class="form-control" id="name_category" name="name_category" value="" placeholder="Category" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2"> Submit </button>
+                        <button class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- end Category -->
 
     </div>
-
 </div>
 <!-- /.container-fluid -->
 

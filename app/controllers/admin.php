@@ -35,7 +35,16 @@ class Admin extends Controller
 
         // get actor admin and author id validation
         $data['admin_single'] = $this->model("Admin_model")->getAdminId($_SESSION['id_admin']);
-        $data['req_del_book'] = $this->model('Admin_model')->getBookRequest();
+
+        //get notif
+        $data['notif'] = $this->model('Admin_model')->getNotif();
+
+        //delete request from author
+        $data['book_author'] = $this->model('Admin_model')->getBookAuthor();
+
+        //category book
+        $data['category'] = $this->model('Admin_model')->getCategory();
+
         if (!isset($_SESSION['login_admin'])) {
             header("Location: " . baseurl . "/admin/index");
         } else {
@@ -43,6 +52,22 @@ class Admin extends Controller
             $this->view('templates/header-author', $data);
             $this->view('admin/dashboard', $data);
             $this->view('templates/footer-author');
+        }
+    }
+
+    public function publish($id)
+    {
+        if ($this->model('Admin_model')->publishBook($id) > 0) {
+            echo
+                '<script>
+                        alert("Books has been published");
+                        setTimeout(function() {
+                            window.location.href="/bookStore/admin/dashboard";
+                        }, 1000);
+                    </script>';
+            die;
+        }else {
+            echo "failed publish";
         }
     }
 
@@ -56,6 +81,10 @@ class Admin extends Controller
 
         // get actor admin and author id validation
         $data['admin_single'] = $this->model("Admin_model")->getAdminId($_SESSION['id_admin']);
+
+        //get notif
+        $data['notif'] = $this->model('Admin_model')->getNotif();
+
         $this->view('templates/sidebar-author', $data);
         $this->view('templates/header-author', $data);
         $this->view('admin/forms', $data);
@@ -89,6 +118,50 @@ class Admin extends Controller
         }
     }
 
+    public function addCategory()
+    {
+        if ($this->model('Admin_model')->addCategoryBooks($_POST) > 0) {
+            echo "berhasil";
+            Flasher::setCategoryFlash('success', 'Success', ' add category');
+            header("Location: " . baseurl . "/admin/forms");
+        }else {
+            echo "gagal";
+            Flasher::setCategoryFlash('danger', 'Fail', ' add category');
+            header("Location: " . baseurl . "/admin/forms");
+        }
+    }
+
+    public function category($slug)
+    {
+        $data['judul'] = 'Admin - Category';
+        $data['set_active'] = 'dashboard';
+
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Admin_Validate';
+
+        // get actor admin and author id validation
+        $data['admin_single'] = $this->model("Admin_model")->getAdminId($_SESSION['id_admin']);
+
+        //get notif
+        $data['notif'] = $this->model('Admin_model')->getNotif();
+
+        //books from author
+        $data['book_author'] = $this->model('Admin_model')->getBookAuthor();
+
+        //category book
+        $data['category'] = $this->model('Admin_model')->getCategory();
+        $data['category_data'] = $this->model('Admin_model')->getCategorySlug($slug);
+
+        if (!isset($_SESSION['login_admin'])) {
+            header("Location: " . baseurl . "/admin/index");
+        } else {
+            $this->view('templates/sidebar-author', $data);
+            $this->view('templates/header-author', $data);
+            $this->view('admin/category', $data);
+            $this->view('templates/footer-author');
+        }
+    }
+
     public function search()
     {
         $data['judul'] = 'Admin - Dashboard';
@@ -99,8 +172,15 @@ class Admin extends Controller
 
         $data['admin_single'] = $this->model("Admin_model")->getAdminId($_SESSION['id_admin']);
 
-        $data['book'] = $this->model("Admin_model")->getAllBook();
-        $data['book'] = $this->model('Admin_model')->searchBook();
+        // books from author
+        $data['book_author'] = $this->model('Admin_model')->getBookAuthor();
+        $data['book_author'] = $this->model('Admin_model')->searchBook();
+
+        //get notif
+        $data['notif'] = $this->model('Admin_model')->getNotif();
+
+        //category book
+        $data['category'] = $this->model('Admin_model')->getCategory();
 
         if (!isset($_SESSION['login_admin'])) {
             header("Location: " . baseurl . "/admin/index");
@@ -112,7 +192,34 @@ class Admin extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete()
+    {
+        $data['judul'] = 'Admin - Delete';
+        $data['set_active'] = 'delete';
+
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Admin_Validate';
+
+        // get actor admin and author id validation
+        $data['admin_single'] = $this->model("Admin_model")->getAdminId($_SESSION['id_admin']);
+
+        //get notif
+        $data['notif'] = $this->model('Admin_model')->getNotif();
+
+        //delete request from author
+        $data['req_del_book'] = $this->model('Admin_model')->getBookRequest();
+
+        if (!isset($_SESSION['login_admin'])) {
+            header("Location: " . baseurl . "/admin/index");
+        } else {
+            $this->view('templates/sidebar-author', $data);
+            $this->view('templates/header-author', $data);
+            $this->view('admin/delete', $data);
+            $this->view('templates/footer-author');
+        }
+    }
+
+    public function deleteBook($id)
     {
         if ($this->model('Admin_model')->deleteBooksAuthor($id) > 0) {
             echo

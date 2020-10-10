@@ -31,18 +31,18 @@ class Author_model
     public function getDeleteBooksBy($param, $value)
     {
         if (isset($param) && isset($value)) {
-            $data_book = "SELECT * FROM deletebooks WHERE $param = :$param";
+            $data_book = "SELECT * FROM request WHERE $param = :$param";
             $this->db->query($data_book);
             $this->db->bind($param, $value);
             return $this->db->single();
         }
     }
 
-    //display author books
+    //display author books and watcher :D
     public function getBooksAuthorId()
     {
         $id_author = $_SESSION['id_author'];
-        $this->db->query("SELECT a.id, b.* FROM authors a INNER JOIN books b ON a.id= b.id_author WHERE a.id = '$id_author'");
+        $this->db->query("SELECT a.id, b.* FROM authors a INNER JOIN books b ON a.id= b.id_author WHERE a.id = '$id_author' ORDER BY b.id DESC");
         return $this->db->resultAll();
     }
 
@@ -54,11 +54,70 @@ class Author_model
         return $this->db->single();
     }
 
-    public function getBookId($id)
+    public function getBookId($slug)
     {
-        $this->db->query('SELECT * FROM books WHERE id=:id'); // mengapa tidak menggunakan variabel $id disana karena untuk menghindari sql injection, jadi perlu di bind terlebih dahulu 
-        $this->db->bind('id', $id);
+        $this->db->query('SELECT * FROM books WHERE slug=:slug'); // mengapa tidak menggunakan variabel $id disana karena untuk menghindari sql injection, jadi perlu di bind terlebih dahulu 
+        $this->db->bind('slug', $slug);
         return $this->db->single();
+    }
+
+    public function getCategoryAll()
+    {
+        $this->db->query('SELECT * FROM category');
+        return $this->db->resultAll();
+    }
+
+    public function getCategorySlug($slug)
+    {
+        $id_author = $_SESSION['id_author'];
+        $this->db->query("SELECT a.*, b.slug_category, c.id FROM books a INNER JOIN category b ON a.category = b.slug_category INNER JOIN authors c ON a.id_author = c.id WHERE b.slug_category = '$slug' AND a.id_author = '$id_author'");
+        $this->db->bind('slug', $slug);
+        $this->db->bind('id_author', $id_author);
+        return $this->db->resultAll();
+    }
+
+    //get notification from admin
+    public function getNotif()
+    {
+        $id_author = $_SESSION['id_author'];
+        $this->db->query("SELECT a.*, b.id FROM notifikasi a INNER JOIN books b ON a.id_book = b.id WHERE a.tujuan = 'Author' AND a.id_author = $id_author ORDER BY a.id DESC LIMIT 5");
+        return $this->db->resultAll();
+    }
+
+    public function getWatcher($id)
+    {
+        $this->db->query("SELECT a.*, b.* FROM watcher a INNER JOIN books b ON a.id_book = b.id WHERE a.id_book = '$id'");
+        $this->db->bind('id', $id);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    //slug the judul buku
+    public static function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
     }
 
     public function registerAuthor($data)
@@ -206,10 +265,10 @@ class Author_model
     public function addBooksAuthor($data)
     {
         $judul_buku = $data['judul_buku'];
+        $slug = $this->slugify($judul_buku);
         $sipnosis = $data['sipnosis'];
+        $category = $data['category'];
         $fullname = $_SESSION['fullname']; // get this from table author
-        $rating = 0;
-        $user = 0;
         $author = $_SESSION['id_author']; // get this from table author
 
         //to find image location
@@ -242,24 +301,70 @@ class Author_model
             }
         }
 
+        //to find pdf location
+        $targetDir =  __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "pdf" . DIRECTORY_SEPARATOR;
+        $targetFile = $targetDir . basename($_FILES["pdf"]["name"]);
+        $extension  = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+        $uploadOk   = 1;
 
-        //first check it out if there is an email on database, and if empty email go to register progress
-        if ($data_book = $this->getBooksBy("judul_buku", $judul_buku)) {
-            var_dump("Judul Buku Sudah Ada");
+        $check = is_uploaded_file($_FILES["pdf"]["tmp_name"]);
+        if ($check !== false) {
+            echo "File is a pdf";
+            $uploadOk = 1;
         } else {
-            $query = "INSERT INTO books(judul_buku, image, sipnosis, fullname, rating, id_author, id_user) VALUES( :judul_buku, :image, :sipnosis,  :fullname, :rating, :id_author, :id_user)";
+            echo "File is not a pdf.";
+            $uploadOk = 0;
+        }
+
+        if ($extension != "pdf") {
+            echo "Sorry, only PDF are allowed.";
+            $uploadOk = 0;
+        }
+
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+        } else {
+            if (move_uploaded_file($_FILES["pdf"]["tmp_name"], $targetFile)) {
+                echo "The file " . basename($_FILES["pdf"]["name"]) . " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+            $query = "INSERT INTO books (judul_buku, slug, category, image, pdf, sipnosis, fullname, rating, id_author, status, tanggal) VALUES (:judul_buku, :slug, :category, :image, :pdf, :sipnosis,  :fullname, :rating, :id_author,  :status, now())";
 
             $this->db->query($query);
             $this->db->bind("judul_buku", $judul_buku);
+            $this->db->bind("slug", $slug);
+            $this->db->bind("category", $category);
             $this->db->bind("image", $_FILES["image"]["name"]);
+            $this->db->bind("pdf", $_FILES["pdf"]["name"]);
             $this->db->bind("sipnosis", $sipnosis);
             $this->db->bind("fullname", $fullname);
-            $this->db->bind("rating", $rating);
+            $this->db->bind("rating", 0);
             $this->db->bind("id_author", $author);
-            $this->db->bind("id_user", $user);
+            $this->db->bind("status", 0);
             $this->db->execute();
+
+            // notifikasi
+            $id_book = $this->db->lastInsertId();
+            $id_author = $_SESSION['id_author'];
+            $deskripsi = "Author " . $_SESSION['fullname'] . " has been uploaded book " . $judul_buku;
+
+            $jenis_notif = "Buku.Approve"; // jenis notif approve
+            $tujuan = "Admin"; // tujuan untuk notif
+
+            $query = "INSERT INTO notifikasi (deskripsi, jenis_notif, tujuan, id_book, id_author, tanggal, dibaca) VALUES (:deskripsi, :jenis_notif, :tujuan, :id_book, :id_author, now(), :dibaca)";
+            $this->db->query($query);
+            $this->db->bind('deskripsi', $deskripsi);
+            $this->db->bind('jenis_notif', $jenis_notif);
+            $this->db->bind('tujuan', $tujuan);
+            $this->db->bind('id_book', $id_book);
+            $this->db->bind('id_author', $id_author);
+            $this->db->bind('dibaca', 0);
+            $this->db->execute();
+
             return $this->db->rowCount();
-        }
     }
 
     public function searchBooksAuthor($id)
@@ -277,6 +382,7 @@ class Author_model
 
     public function requestDeleteBook($data)
     {
+        $deskripsi = "Author " . $_SESSION['fullname'] . " ingin menghapus buku ";
         $id_author = $_SESSION['id_author'];
         if ($data_del = $this->getDeleteBooksBy('id_book', $data['id_book'])) {
             echo
@@ -287,11 +393,12 @@ class Author_model
                         }, 1000);
                     </script>';
         }else{
-
-            $query = "INSERT INTO deletebooks (id_book, id_author) VALUES (:id_book, :id_author)";
+            $query = "INSERT INTO request (deskripsi, id_book, id_author, tanggal, status) VALUES (:deskripsi, :id_book, :id_author, now(), :status)";
             $this->db->query($query);
+            $this->db->bind('deskripsi', $deskripsi);
             $this->db->bind('id_book', $data['id_book']);
             $this->db->bind('id_author', $id_author);
+            $this->db->bind('status', 0);
             $this->db->execute();
             return $this->db->rowCount();
         }

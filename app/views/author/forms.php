@@ -1,83 +1,89 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-1 text-gray-800">Forms Author</h1>
-    <p class="mb-4">Write your books and update account</p>
+<!-- Page Heading -->
+<h1 class="h3 mb-1 text-gray-800">Forms Author</h1>
+<p class="mb-4">Write your books and update account</p>
 
-    <!-- Content Row -->
-    <div class="row">
+<!-- Content Row -->
+<div class="row">
 
-        <!-- Form Book Start-->
-        <div class="col-lg-6">
+<!-- Form Book Start-->
+<div class="col-lg-6">
 
-            <div class="card position-relative">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Form Book</h6>
-                </div>
-                <div class="card-body">
-                    <?php Flasher::flashAuthor() ?>
-                    <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/addBooks" method="post">
-
-                        <input type="hidden" name="id" id="">
-                        <div class="form-group">
-                            <label for="judul_buku">Judul Buku</label>
-                            <input type="text" class="form-control" id="judul_buku" type="text" name="judul_buku" value="" placeholder="Judul Buku" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="cover">Cover Buku</label>
-                            <input type="file" class="form-control" name="image" placeholder="Gambar" accept="image/jpeg , image/png" />
-                        </div>
-                        <div class="form-group">
-                            <label for="sipnosis">Sinopsis</label>
-                            <textarea type="text" class="form-control" id="sipnosis" name="sipnosis" value="" placeholder="Cerita Singkat" cols="40" rows="10" required></textarea>
-                        </div>
-                        <input type="hidden" class="form-control" id="pengarang" name="fullname" value="" required />
-                        <input type="hidden" name="id_author" id="">
-
-                        <button type="submit" class="btn btn-primary mr-2"> Submit </button>
-                        <button class="btn btn-light">Cancel</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-        <!-- Form book end -->
-
-        <!-- Update Account -->
-        <div class="col-lg-6">
-
-            <div class="card position-relative">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Form Changes Password</h6>
-                </div>
-                <div class="card-body">
-                    <?php Flasher::flashAuthorPass() ?>
-                    <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/changesPass" method="post">
-                        <div class="form-group">
-                            <input type="hidden" id="id" name="id">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">New Password</label>
-                            <input type="password" class="form-control" id="password" name="password" value="" placeholder="Password" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="password2">Re Type New Password</label>
-                            <input type="password" class="form-control" id="password2" name="password2" value="" placeholder="Password" required />
-                        </div>
-                        <button type="submit" class="btn btn-primary mr-2"> Submit </button>
-                        <button class="btn btn-light">Cancel</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-        <!-- end form update -->
-
+<div class="card position-relative">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Form Book</h6>
     </div>
+    <div class="card-body">
+        <?php Flasher::flashAuthor() ?>
+        <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/addBooks" method="post">
+            <div class="form-group">
+                <label for="judul_buku">Judul Buku</label>
+                <input type="text" class="form-control" id="judul_buku" type="text" name="judul_buku" value="" placeholder="Judul Buku" required />
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select name="category" class="form-control" id="">
+                    <?php foreach ($data['category'] as $c) : ?>
+                        <option class="custom-select" value="<?= $c['slug_category'] ?>" required><?= $c['name_category']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cover">Cover Buku</label>
+                <input type="file" class="form-control" name="image" placeholder="Gambar" accept="image/jpeg , image/png" />
+            </div>
+            <div class="form-group">
+                <label for="cover">PDF File</label>
+                <input type="file" class="form-control" name="pdf" accept="pdf/pdf" />
+            </div>
+            <div class="form-group">
+                <label for="sipnosis">Sinopsis</label>
+                <textarea type="text" class="form-control" id="sipnosis" name="sipnosis" value="" placeholder="Cerita Singkat" cols="40" rows="10" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary mr-2"> Submit </button>
+            <button class="btn btn-light">Cancel</button>
+        </form>
+    </div>
+</div>
 
 </div>
-<!-- /.container-fluid -->
+<!-- Form book end -->
+
+<!-- Update Account -->
+<div class="col-lg-6">
+
+<div class="card position-relative">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Form Changes Password</h6>
+    </div>
+    <div class="card-body">
+        <?php Flasher::flashAuthorPass() ?>
+        <form class="forms-sample" enctype="multipart/form-data" action="<?= baseurl; ?>/author/changesPass" method="post">
+            <div class="form-group">
+                <input type="hidden" id="id" name="id">
+            </div>
+            <div class="form-group">
+                <label for="password">New Password</label>
+                <input type="password" class="form-control" id="password" name="password" value="" placeholder="Password" required />
+            </div>
+            <div class="form-group">
+                <label for="password2">Re Type New Password</label>
+                <input type="password" class="form-control" id="password2" name="password2" value="" placeholder="Password" required />
+            </div>
+            <button type="submit" class="btn btn-primary mr-2"> Submit </button>
+            <button class="btn btn-light">Cancel</button>
+        </form>
+    </div>
+</div>
+
+</div>
+<!-- end Update Account -->
+</div>
+</div>
+<!-- container-fluid -->
 
 </div>
 <!-- End of Main Content -->

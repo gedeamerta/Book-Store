@@ -25,11 +25,74 @@ class Admin_model
         return $this->db->single();
     }
 
-    // get all of the books
+    public function getCategoryBy($param, $value)
+    {
+        if (isset($param) && isset($value)) {
+            $this->db->query("SELECT * FROM category WHERE $param = :$param");
+            $this->db->bind($param, $value);
+            return $this->db->single();
+        }
+    }
+
+    public function getBookAuthor()
+    {
+        $this->db->query('SELECT a.*, b.* FROM books a INNER JOIN notifikasi b ON a.id = b.id_book WHERE a.id = b.id_book ORDER BY a.id DESC');
+        return $this->db->resultAll();
+    }
+
+    // get all of the books request from author
     public function getBookRequest()
     {
-        $this->db->query('SELECT a.*, b.id_book FROM books a INNER JOIN deletebooks b ON a.id = b.id_book WHERE a.id = b.id_book');
+        $this->db->query('SELECT a.*, b.id_book FROM books a INNER JOIN request b ON a.id = b.id_book WHERE a.id = b.id_book');
         return $this->db->resultAll();
+    }
+
+    //get notification from author
+    public function getNotif()
+    {
+        $this->db->query("SELECT a.*, b.id FROM notifikasi a INNER JOIN books b ON a.id_book = b.id WHERE a.tujuan = 'Admin' ORDER BY a.id DESC LIMIT 5");
+        return $this->db->resultAll();
+    }
+
+    public function getCategory()
+    {
+        $this->db->query('SELECT * FROM category');
+        return $this->db->resultAll();
+    }
+
+    public function getCategorySlug($slug)
+    {
+        $this->db->query("SELECT a.*, b.*, c.* FROM category a INNER JOIN books b ON a.slug = b.category INNER JOIN notifikasi c ON b.id = c.id_book WHERE a.slug = '$slug'");
+        $this->db->bind('slug', $slug);
+        return $this->db->resultAll();
+    }
+
+    //slug the category
+    public static function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
     }
 
     public function loginAdmin($data)
@@ -152,6 +215,22 @@ class Admin_model
         }
     }
 
+    public function addCategoryBooks($data)
+    {
+        $name_category = $data['name_category'];
+        $slug = $this->slugify($name_category);
+        if ($data_category = $this->getCategoryBy('name_category', $name_category)) {
+            var_dump("Category has been inserted");
+        }else {
+            $query = "INSERT INTO category (name_category, slug) VALUES (:name_category, :slug)";
+            $this->db->query($query);
+            $this->db->bind('name_category', $name_category);
+            $this->db->bind('slug', $slug);
+            $this->db->execute();   
+            return $this->db->rowCount();
+        }
+    }
+
     public function searchBook()
     {
         if (!isset($_POST['keyword'])) {
@@ -165,11 +244,34 @@ class Admin_model
     }
     
     public function deleteBooksAuthor($id)
-    {
-        $query = "DELETE a.*, b.* FROM deletebooks a INNER JOIN books b WHERE a.id_book = :id_book and b.id = :id";
+    {   
+        $status = 2;
+        $query = "DELETE a.*, b.* FROM request a INNER JOIN books b WHERE a.id_book = :id_book and b.id = :id;
+        UPDATE request SET status = :status WHERE id = :id";
         $this->db->query($query);
         $this->db->bind('id_book', $id);
         $this->db->bind('id', $id);
+        $this->db->bind('status', $status);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function publishBook($id)
+    {   
+        $status = 1;
+        $dibaca = 1;
+        $deskripsi = "Admin " . $_SESSION['fullname_admin'] . " has been publish book ";
+        $tujuan = "Author"; // tujuan untuk notif
+        
+        $query = "UPDATE books SET status = :status WHERE id = :id; 
+        UPDATE notifikasi SET dibaca = :dibaca, deskripsi = :deskripsi, tujuan = :tujuan WHERE id_book = :id_book";
+        $this->db->query($query);
+        $this->db->bind('status', $status);
+        $this->db->bind('dibaca', $dibaca);
+        $this->db->bind('id', $id);
+        $this->db->bind('id_book', $id);
+        $this->db->bind('deskripsi', $deskripsi);
+        $this->db->bind('tujuan', $tujuan);
         $this->db->execute();
         return $this->db->rowCount();
     }

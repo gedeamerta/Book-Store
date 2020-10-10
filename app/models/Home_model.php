@@ -21,13 +21,13 @@ class Home_model
     // get all of the books
     public function getAllBook()
     {
-        $this->db->query('SELECT * FROM books');
+        $this->db->query('SELECT * FROM books WHERE books.status = 1');
         return $this->db->resultAll();
     }
 
     public function getBookLimit()
     {
-        $this->db->query('SELECT * FROM books ORDER BY id DESC LIMIT 6');
+        $this->db->query('SELECT * FROM books WHERE books.status = 1 ORDER BY id DESC LIMIT 6');
         return $this->db->resultAll();
     }
 

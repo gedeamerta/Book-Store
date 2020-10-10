@@ -62,12 +62,36 @@ class Author extends Controller
         $data['judul'] = 'Author - Dashboard';
         $data['set_active'] = 'dashboard';
 
-        // validating Actor Admin, Authpr
+        // validating Actor Admin, Author
         $data['validate'] = 'Author_Validate';
 
         //author id
         $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
+
+        // id book before published
         $data['books_id'] = $this->model("Author_model")->getBooksAuthorId();
+
+        $newDataBook =[];
+        foreach ($data['books_id'] as $book) {
+            $total_watcher = $this->model('Author_model')->getWatcher($book['id']);
+            $newDataBook[$book['id']] = [
+                    "total_watcher" => $total_watcher,
+                    "judul_buku" => $book['judul_buku'],
+                    "category" => $book['category'],
+                    "sipnosis" => $book['sipnosis'],
+                    "image" => $book['image'],
+                    "tanggal" => $book['tanggal'],
+                    "fullname" => $book['fullname'],
+                    "status" => $book['status']
+            ];
+        }
+        $data['new_book_data'] = $newDataBook;
+
+        // get category
+        $data['category'] = $this->model("Author_model")->getCategoryAll();
+
+        //get notif
+        $data['notif'] = $this->model('Author_model')->getNotif();
 
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
@@ -79,7 +103,50 @@ class Author extends Controller
         }
     }
 
-    public function bookDelete($id)
+    public function category($slug)
+    {
+        $data['judul'] = 'Author - Category';
+        $data['set_active'] = 'dashboard';
+
+        // validating Actor Admin, Author
+        $data['validate'] = 'Author_Validate';
+
+        //author id
+        $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
+
+        // get category
+        $data['category'] = $this->model("Author_model")->getCategoryAll();
+        $data['category_data'] = $this->model('Author_model')->getCategorySlug($slug);
+
+        // get watcher 
+        $newDataBook = [];
+        foreach ($data['category_data'] as $book) {
+            $total_watcher = $this->model('Author_model')->getWatcher($book['slug']);
+            $newDataBook[$book['slug']] = [
+                "total_watcher" => $total_watcher,
+                "judul_buku" => $book['judul_buku'],
+                "category" => $book['category'],
+                "sipnosis" => $book['sipnosis'],
+                "image" => $book['image'],
+                "tanggal" => $book['tanggal'],
+                "fullname" => $book['fullname'],
+                "slug" => $book['slug'],
+                "status" => $book['status'],
+            ];
+        }
+        $data['new_book_data'] = $newDataBook;
+
+        if (!isset($_SESSION['login-author'])) {
+            header("Location: " . baseurl . "/author/index");
+        } else {
+            $this->view('templates/sidebar-author', $data);
+            $this->view('templates/header-author', $data);
+            $this->view('author/category', $data);
+            $this->view('templates/footer-author');
+        }
+    }
+
+    public function bookDelete($slug)
     {
         $data['judul'] = 'Author - Books';
         $data['set_active'] = 'dashboard';
@@ -87,12 +154,12 @@ class Author extends Controller
         // validating Actor Admin, Authpr
         $data['validate'] = 'Author_Validate';
 
-        // Request Deleting Books
-        $data['id_delete_book'] = $this->model('Author_model')->getBooksAuthorId();
-        $data['del_book'] = $this->model("Author_model")->getBookId($id);
+        // inserting to deletebooks 
+        $data['del_book'] = $this->model("Author_model")->getBookId($slug);
 
         //author id
         $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
+
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
         } else {
@@ -114,6 +181,8 @@ class Author extends Controller
         //author id
         $data['author_single']= $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
         $data['admin_single'] = '';
+
+        $data['category'] = $this->model("Author_model")->getCategoryAll();
         if (!isset($_SESSION['login-author'])) {
             header("Location: ". baseurl ."/author/index");
         }else{

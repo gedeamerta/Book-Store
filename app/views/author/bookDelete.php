@@ -15,7 +15,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Your Books</h6>
                 </div>
                 <div class="card-body">
-                    <img src="<?= baseurl . '/assets/img/' . $data['del_book']['image']; ?>" alt="">
+                    <img src="<?= baseurl . '/assets/img/' . $data['del_book']['image']; ?>" alt="" width="100%">
                     <h2 class="card-title mt-2"><?= $data['del_book']['judul_buku']; ?></h2>
                     <p><?= $data['del_book']['sipnosis']; ?></p>
                     <footer class="blockquote-footer"><?= $data['del_book']['fullname']; ?></footer>

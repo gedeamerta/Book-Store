@@ -32,7 +32,6 @@
     <!-- card -->
     <div class="container-fluid">
         <div class="row">
-            <?php if ($data['book_limit']) : ?>
                 <?php foreach ($data['book_limit'] as $book) : ?>
                     <div class="col-md-4 mb-4">
                         <div class="card-deck">
@@ -54,7 +53,6 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
-            <?php endif; ?>
         </div>
     </div>
 </div>

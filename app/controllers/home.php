@@ -67,7 +67,7 @@ class Home extends Controller
             header('Location: ' . baseurl . '/dashboard');
         } else {
             var_dump("gagal");
-            Flasher::setFailLogin('Login Gagal');
+            Flasher::setFailLogin('Invalid Account');
             header('Location: ' . baseurl . '/home');
             }
     }
