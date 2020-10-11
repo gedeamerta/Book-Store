@@ -26,133 +26,136 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= baseurl; ?>/assets/fontawesome/css/all.css">
+
+    <link rel="icon" href="<?= baseurl; ?>/assets/img/icon.png">
+
     <title><?= $data['judul']; ?></title>
 </head>
 
 <body>
-<?php if ($data['validate'] == 'anonim' || $data['validate'] == 'user') : ?>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand font-weight-bold" href="<?= baseurl; ?>/home">Buku Media</a>
+    <?php if ($data['validate'] == 'anonim' || $data['validate'] == 'user') : ?>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand font-weight-bold" href="<?= baseurl; ?>/home">Buku Media</a>
 
-            <!-- make collapse navbar when it going to responsive -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <!-- make collapse navbar when it going to responsive -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <!-- navbar start -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto p-2">
-                    <li class="nav-item">
-                        <a class="nav-link <?= $data['set_active'] == 'index' ? 'active' : '' ?>" href="<?= $data['validate'] == 'anonim' ? baseurl . '/home' : (($data['validate'] == 'user') ? baseurl . '/dashboard' : '') ?>"> Home <span class=" sr-only">(current)</span> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link 
-                        <?= $data['set_active'] == 'book' ? 'active' : '' ?>" href="<?= $data['validate'] == 'anonim' ? baseurl . '/home/book' : (($data['validate'] == 'user') ? baseurl . '/dashboard/book' : '') ?>">Buku</a>
-                    </li>
-                </ul>
-                <!-- navbar end -->
-
-                <!-- For Home without User Login Start -->
-                <?php if ($data['validate'] == 'anonim') : ?>
-                    <ul class="navbar-nav">
+                <!-- navbar start -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto p-2">
                         <li class="nav-item">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info mr-3 font-weight-bold">Masuk</button>
-
-                            <div class="modal fade" id="myModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-dark" id="exampleModalLabel">Masuk</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="<?= baseurl; ?>/home/login" method="post">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Username</label>
-                                                    <input type="username" name="username" class="form-control" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Password</label>
-                                                    <input type="password" name="password" class="form-control" id="textInputId1" required>
-                                                </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="login-user" class="btn btn-info">Submit</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
+                            <a class="nav-link <?= $data['set_active'] == 'index' ? 'active' : '' ?>" href="<?= $data['validate'] == 'anonim' ? baseurl . '/home' : (($data['validate'] == 'user') ? baseurl . '/dashboard' : '') ?>"> Home <span class=" sr-only">(current)</span> </a>
                         </li>
-                        <li>
-                            <button type="button" data-toggle="modal" data-target="#register" class="btn btn-dark mr-3 font-weight-bold">Daftar</button>
-
-                            <div class="modal fade" id="register" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-dark" id="exampleModalLabel">Daftar</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="<?= baseurl; ?>/home/register" method="post">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Username </label>
-                                                    <input type="text" name="username" class="form-control" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Email </label>
-                                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Password</label>
-                                                    <input type="password" name="password" class="form-control" id="textInputId1" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Re-type Password</label>
-                                                    <input type="password" name="password2" class="form-control" id="textInputId1" required>
-                                                </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="register" class="btn btn-info">Submit</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <li class="nav-item">
+                            <a class="nav-link 
+                        <?= $data['set_active'] == 'book' ? 'active' : '' ?>" href="<?= $data['validate'] == 'anonim' ? baseurl . '/home/book' : (($data['validate'] == 'user') ? baseurl . '/dashboard/book' : '') ?>">Buku</a>
                         </li>
                     </ul>
-                <?php endif; ?>
-                <!-- For Home without User Login End -->
+                    <!-- navbar end -->
 
-                <!-- When User Login -->
-                <?php if ($data['validate'] == 'user') : ?>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle ml-5" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                </svg> <?php print_r($data['user_single']['username']) ?>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/bookUser">Buku Pilihan Anda </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/setOut">Log out</a>
-                            </div>
-                        </li>
-                    </ul>
-                <?php endif; ?>
-                <!-- When user login end -->
-            </div>
-    </nav>
-<?php endif; ?>
+                    <!-- For Home without User Login Start -->
+                    <?php if ($data['validate'] == 'anonim') : ?>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info mr-3 font-weight-bold">Masuk</button>
+
+                                <div class="modal fade" id="myModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-dark" id="exampleModalLabel">Masuk</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="<?= baseurl; ?>/home/login" method="post">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Username</label>
+                                                        <input type="username" name="username" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Password</label>
+                                                        <input type="password" name="password" class="form-control" id="textInputId1" required>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <button type="submit" name="login-user" class="btn btn-info">Submit</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+                                <button type="button" data-toggle="modal" data-target="#register" class="btn btn-dark mr-3 font-weight-bold">Daftar</button>
+
+                                <div class="modal fade" id="register" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-dark" id="exampleModalLabel">Daftar</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="<?= baseurl; ?>/home/register" method="post">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Username </label>
+                                                        <input type="text" name="username" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Email </label>
+                                                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Password</label>
+                                                        <input type="password" name="password" class="form-control" id="textInputId1" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Re-type Password</label>
+                                                        <input type="password" name="password2" class="form-control" id="textInputId1" required>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <button type="submit" name="register" class="btn btn-info">Submit</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    <?php endif; ?>
+                    <!-- For Home without User Login End -->
+
+                    <!-- When User Login -->
+                    <?php if ($data['validate'] == 'user') : ?>
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle ml-5" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg> <?php print_r($data['user_single']['username']) ?>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/bookUser">Buku Pilihan Anda </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/setOut">Log out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
+                    <!-- When user login end -->
+                </div>
+        </nav>
+    <?php endif; ?>
