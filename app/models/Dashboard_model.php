@@ -69,18 +69,16 @@ class Dashboard_model
 
         date_default_timezone_set("Asia/Makassar");
         $tanggal = date("Y/m/d");
-        $waktu = date("h:i:sa");
 
         if ($this->get_ipadd('ipusers', $ip) && $this->get_ipadd('id_user', $_SESSION['id']) && $this->get_ipadd('tanggal', $tanggal)) {
            
         }else {
-            $query = "INSERT INTO watcher (ipusers, id_user, id_book, tanggal, waktu) VALUES (:ipusers, :id_user, :id_book, :tanggal, :waktu)";
+            $query = "INSERT INTO watcher (ipusers, id_user, id_book, tanggal, waktu) VALUES (:ipusers, :id_user, :id_book, :tanggal, now())";
             $this->db->query($query);
             $this->db->bind('ipusers', $ip);
             $this->db->bind('id_user', $_SESSION['id']);
             $this->db->bind('id_book', $id_book);
             $this->db->bind('tanggal', $tanggal);
-            $this->db->bind('waktu', $waktu);
             $this->db->execute();
         }
         $this->db->query("SELECT * FROM books WHERE id = :id"); // mengapa tidak menggunakan variabel $slug disana karena untuk menghindari sql injection, jadi perlu di bind terlebih dahulu 

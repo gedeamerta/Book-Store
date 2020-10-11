@@ -82,7 +82,8 @@ class Author extends Controller
                     "image" => $book['image'],
                     "tanggal" => $book['tanggal'],
                     "fullname" => $book['fullname'],
-                    "status" => $book['status']
+                    "slug" => $book['slug'],
+                    "status" => $book['status'],
             ];
         }
         $data['new_book_data'] = $newDataBook;
