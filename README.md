@@ -5,6 +5,6 @@
   <ul>
     <li>Package For User </li>
     <li>Online Reading</li>
-    <li>Free Register</li>
+    <li>Free Register for users</li>
   </ul>
 </p>
