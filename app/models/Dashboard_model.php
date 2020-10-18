@@ -28,6 +28,17 @@ class Dashboard_model
         }
     }
 
+    public function getRateBy($param, $value)
+    {
+        if (isset($param) && isset($value)) {
+            $data_user = "SELECT * FROM rate WHERE $param = :$param";
+            $this->db->query($data_user);
+            $this->db->bind($param, $value);
+            return $this->db->single();
+        }
+    }
+
+    //ip address
     public function get_ipadd($param, $value)
     {
         if (isset($param) && isset($value)) {
@@ -53,7 +64,13 @@ class Dashboard_model
 
     public function getUserBook($id)
     {
-        $this->db->query("SELECT a.*, b.* FROM books a INNER JOIN users_books b ON a.id = b.id_book WHERE b.id_user = '$id'");
+        $this->db->query("SELECT a.*, b.id_book,id_user FROM books a INNER JOIN users_books b ON a.id = b.id_book WHERE b.id_user = '$id'");
+        return $this->db->resultAll();
+    }
+
+    public function getRateBook($id)
+    {
+        $this->db->query("SELECT a.*, b.id FROM rate a INNER JOIN books b ON a.id_book = b.id WHERE a.id_book = $id");
         return $this->db->resultAll();
     }
 
@@ -108,7 +125,7 @@ class Dashboard_model
 
     public function addBooksUser($id)
     {   
-        if ($this->getBooksUserBy('id_book', $id)) {
+        if ($this->getBooksUserBy('id_book', $id) && $this->getBooksUserBy('id_user', $_SESSION['id'])) {
             echo
                 '<script>
                         alert("Books has been save it");
@@ -134,6 +151,27 @@ class Dashboard_model
         $this->db->bind('keyword', "%$keyword%");
         return $this->db->resultAll();
 
+    }
+
+    public function rateBooks($id_book)
+    {
+        if ($this->getRateBy('id_user', $_SESSION['id'])) {
+            echo
+                '<script>
+                        alert("This books has been rates with you");
+                        setTimeout(function() {
+                            window.location.href="/bookStore/dashboard";
+                        }, 1000);
+                    </script>';
+        }else {
+            $query = "INSERT INTO rate (id_book, id_user, rating) VALUES (:id_book, :id_user, :rating)";
+            $this->db->query($query);
+            $this->db->bind('id_book', $id_book);
+            $this->db->bind('rating', $_POST['rating']);
+            $this->db->bind('id_user', $_SESSION['id']);
+            $this->db->execute();
+            return $this->db->rowCount();
+        }
     }
 
     public function logOut()

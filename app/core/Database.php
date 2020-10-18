@@ -68,6 +68,11 @@ class Database
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // public function real_escape_string()
+    // {
+    //     return $this->stmt->real_escape_string();
+    // }
+
     public function single()
     {
         $this->execute();

@@ -15,6 +15,7 @@ class Dashboard extends Controller
             
             $data['book_limit'] = $this->model('Dashboard_model')->getBookLimit();
             $data['user_single'] = $this->model('Dashboard_model')->getUserId($_SESSION['id']);
+
             $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
             $this->view('dashboard/index', $data);
             $this->view('templates/_footer-dashboard');
@@ -78,6 +79,7 @@ class Dashboard extends Controller
         $data['book_limit'] = $this->model('Home_model')->getBookLimit();
         $data['book_single'] = $this->model('Dashboard_model')->getBookId($id_book);
         $data['user_single'] = $this->model('Home_model')->getUserId($_SESSION['id']);
+        $data['rate'] = $this->model('Dashboard_model')->getRateBook($id_book);
 
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('dashboard/bookData', $data);
@@ -109,7 +111,6 @@ class Dashboard extends Controller
             header("Location: " . baseurl . "/dashboard/bookUser");
             exit;
         } else {
-            echo 'gagal nambahkan buku';
             exit;
         }
     }
@@ -128,6 +129,14 @@ class Dashboard extends Controller
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('dashboard/book', $data);
         $this->view('templates/_footer-dashboard');
+    }
+
+    public function rate($id_book)
+    {
+        if ($this->model('Dashboard_model')->rateBooks($id_book) > 0) {
+            echo "berhasil rate";
+            header("Location: ".baseurl."/dashboard");
+        }
     }
     
     public function setOut()
