@@ -29,26 +29,26 @@
         </div>
     </div>
 
-<!-- card -->
-<div class="container-fluid">
-    <div class="row">
-    <?php foreach ($data['book_limit'] as $book) : ?>
-        <div class="col-md-4 mb-4">
-            <div class="card-deck">
-                <div class="card" uk-scrollspy="cls:uk-animation-slide-left; repeat: true" style="width:100%;">
-                    <img src="<?= baseurl . '/assets/img/' . $book['image'] ?>" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h2 class="card-title"><?= $book['judul_buku']  ?></h2>
-                        <footer class="blockquote-footer mb-3">Pengarang <cite title="Source Title"><?= $book['fullname'] ?></cite></footer>
-                        </blockquote>
-                        <a href="<?= baseurl; ?>/dashboard/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek Lebih Lanjut</a>
+    <!-- card -->
+    <div class="container-fluid">
+        <div class="row">
+            <?php foreach ($data['book_limit'] as $book) : ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card-deck">
+                        <div class="card" uk-scrollspy="cls:uk-animation-slide-left; repeat: true" style="width:100%;">
+                            <img src="<?= baseurl . '/assets/img/' . $book['image'] ?>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h2 class="card-title"><?= $book['judul_buku']  ?></h2>
+                                <footer class="blockquote-footer mb-3">Pengarang <cite title="Source Title"><?= $book['fullname'] ?></cite></footer>
+                                </blockquote>
+                                <a href="<?= baseurl; ?>/dashboard/bookData/<?= $book['id']; ?>" class="btn btn-info">Cek Lebih Lanjut</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endforeach; ?>
         </div>
-    <?php endforeach; ?>
     </div>
-</div>
 </div>
 <!-- container 2 end -->
 
@@ -67,8 +67,9 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Merchandise Gratis dari Buku Media</li>
                         <li class="list-group-item">Gratis Membaca di toko Buku Media</li>
+                        <li class="list-group-item">Premium Account dalam 2 minggu</li>
                     </ul>
-                    <button class="btn btn-info mt-5 mb-5" type="submit">Buy Now
+                    <button data-toggle="modal" data-target="#package" class="btn btn-info mt-5 mb-5" type="submit">Buy Now
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
                             <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
@@ -82,14 +83,15 @@
             <div uk-scrollspy="cls:uk-animation-slide-bottom; repeat: true">
                 <div class="card card-body rounded mb-5">
                     <h2 class="card-title text-center">Platinum Package</h2>
-                    <h1 class="card-text text-center"><strong>100.000/bulan</strong></h1>
+                    <h1 class="card-text text-center"><strong>115.000/bulan</strong></h1>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"> Alat tulis Gratis dari Buku Media</li>
-                        <li class="list-group-item">Beli 3 buku gratis 1 Buku dari Buku Media </li>
+                        <li class="list-group-item">Alat tulis Gratis dari Buku Media</li>
+                        <li class="list-group-item">Dapat 3 buku gratis</li>
                         <li class="list-group-item">Merchandise Gratis dari Buku Media</li>
                         <li class="list-group-item">Gratis Membaca di toko Buku Media</li>
+                        <li class="list-group-item">Premium Account dalam 2 bulan</li>
                     </ul>
-                    <button class="btn btn-info mt-5 mb-5" type="submit">Buy Now <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <button data-toggle="modal" data-target="#package" class="btn btn-info mt-5 mb-5" type="submit">Buy Now <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
                             <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
                         </svg>

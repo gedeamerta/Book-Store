@@ -22,7 +22,7 @@
             <div class="col-lg-6">
                 <div class="card position-relative mt-3 <?= $c_d['status'] == 1 ? 'border-success' : (($c_d['status'] == 0) ? 'border-danger' : '') ?>">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary float-left">Your Books</h6>
+                        <h6 class="m-0 font-weight-bold text-primary float-left"><?= $c_d['premium'] == 1 ? 'Regular' : (($c_d['premium'] == 2) ? 'Premium' : ''); ?></h6>
                     </div>
                     <div class="card-body">
                         <img src="<?= baseurl . '/assets/img/' . $c_d['image']; ?>" alt="" width="100%">

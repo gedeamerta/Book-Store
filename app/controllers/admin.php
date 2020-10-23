@@ -62,12 +62,54 @@ class Admin extends Controller
                 '<script>
                         alert("Books has been published");
                         setTimeout(function() {
-                            window.location.href="/bookStore/admin/dashboard";
+                            window.location.href="/admin/dashboard";
                         }, 1000);
                     </script>';
             die;
         }else {
             echo "failed publish";
+        }
+    }
+
+    public function user_premium()
+    {
+        $data['judul'] = 'Admin - Books';
+        $data['set_active'] = 'premium';
+
+        // validating Actor Admin, Authpr
+        $data['validate'] = 'Admin_Validate';
+
+        //get notif
+        $data['notif'] = $this->model('Admin_model')->getNotif();
+
+        //author id
+        $data['admin_single'] = $this->model("Admin_model")->getAdminId($_SESSION['id_admin']);
+
+        //get user premium 
+        $data['user_premium'] = $this->model('Admin_model')->getUserPremium();
+
+        if (!isset($_SESSION['login_admin'])) {
+            header("Location: " . baseurl . "/admin/index");
+        } else {
+            $this->view('templates/sidebar-author', $data);
+            $this->view('templates/header-author', $data);
+            $this->view('admin/user_premium', $data);
+            $this->view('templates/footer-author');
+        }
+    }
+
+    public function accept_request()
+    {
+        if ($this->model('Admin_model')->accept_request_premium($_POST) > 0) {
+            echo
+                '<script>
+                        alert("Success Accept User");
+                        setTimeout(function() {
+                            window.location.href="/admin/user_premium";
+                        }, 1000);
+                    </script>';
+        }else {
+            echo "gagal";
         }
     }
 

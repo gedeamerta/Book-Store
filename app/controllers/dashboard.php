@@ -16,6 +16,9 @@ class Dashboard extends Controller
             $data['book_limit'] = $this->model('Dashboard_model')->getBookLimit();
             $data['user_single'] = $this->model('Dashboard_model')->getUserId($_SESSION['id']);
 
+            //get user premium
+            $data['premium'] = $this->model('Dashboard_model')->getUserPremium();
+
             $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
             $this->view('dashboard/index', $data);
             $this->view('templates/_footer-dashboard');
@@ -38,6 +41,9 @@ class Dashboard extends Controller
 
         //category list
         $data['category'] = $this->model('Dashboard_model')->getCategory();
+
+        //get user premium
+        $data['premium'] = $this->model('Dashboard_model')->getUserPremium();
 
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('dashboard/book', $data);
@@ -62,6 +68,9 @@ class Dashboard extends Controller
         $data['category'] = $this->model('Dashboard_model')->getCategory();
         $data['category_data'] = $this->model('Dashboard_model')->getCategorySlug($slug);
 
+        //get user premium
+        $data['premium'] = $this->model('Dashboard_model')->getUserPremium();
+
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('dashboard/category', $data);
         $this->view('templates/_footer-dashboard');
@@ -81,6 +90,9 @@ class Dashboard extends Controller
         $data['user_single'] = $this->model('Home_model')->getUserId($_SESSION['id']);
         $data['rate'] = $this->model('Dashboard_model')->getRateBook($id_book);
 
+        //get user premium
+        $data['premium'] = $this->model('Dashboard_model')->getUserPremium();
+
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('dashboard/bookData', $data);
         $this->view('templates/_footer-dashboard');
@@ -98,9 +110,94 @@ class Dashboard extends Controller
 
         $data['user_single'] = $this->model('Home_model')->getUserId($_SESSION['id']);
 
+        //get user premium
+        $data['premium'] = $this->model('Dashboard_model')->getUserPremium();
+
         $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
         $this->view('dashboard/bookUser', $data);
         $this->view('templates/_footer-dashboard');
+    }
+
+
+    // wannabe user premium
+    public function package()
+    {
+        $data['judul'] = 'Book - Package'; // masuk ke parameter view yaitu $data
+
+        // validate actor user (anonim has been logged in), more validate on header
+        $data['validate'] = 'user';
+
+        //get user data while login
+        $data['user_single'] = $this->model('Home_model')->getUserId($_SESSION['id']);
+
+        // just trick for hiding the footer bar
+        $data['user_premium'] = $this->model('Dashboard_model')->getPay($_SESSION['id']);
+        
+        $data['package'] = $this->model('Dashboard_model')->getPackage();
+        
+        //get user premium
+        $data['premium'] = $this->model('Dashboard_model')->getUserPremium();
+        
+        $this->view('templates/header', $data);
+        $this->view('dashboard/package', $data);
+        $this->view('templates/footer', $data);
+    }
+
+    public function user_premium()
+    {
+        if ($this->model('Dashboard_model')->user_premium($_POST) > 0) {
+            echo
+                '<script>
+                        alert("Your account success requested to premium, please follow the next steps");
+                        setTimeout(function() {
+                            window.location.href="/dashboard/pay";
+                        }, 1000);
+                    </script>';
+        }
+    }
+
+    public function pay()
+    {
+        if (!isset($_SESSION['login_user'])) {
+            header("Location: " . baseurl . "/home");
+        }else{
+            $data['judul'] = 'Book - Payment';
+
+            $data['set_active'] = 'payment'; //set active class navbar
+
+            $data['validate'] = 'user';
+
+            //get user data while login
+            $data['user_single'] = $this->model('Home_model')->getUserId($_SESSION['id']);
+
+            $data['user_premium'] = $this->model('Dashboard_model')->getPay($_SESSION['id']);
+
+            // just trick for hiding the footer bar
+            $data['package'] = $this->model('Dashboard_model')->getPackage();
+
+            //get user premium
+            $data['premium'] = $this->model('Dashboard_model')->getUserPremium();
+
+            $this->view('templates/header',$data);
+            $this->view('dashboard/pay', $data);
+            $this->view('templates/footer', $data);
+        }
+    }
+
+    public function transfer()
+    {
+        if ($this->model('Dashboard_model')->transferMoney($_POST) > 0) {
+            echo
+                '<script>
+                        alert("Success to transfer");
+                        setTimeout(function() {
+                            window.location.href="/dashboard";
+                        }, 1000);
+                    </script>';
+            exit;
+        } else {
+            exit;
+        }
     }
 
     // user gonna add their own books to bookmark

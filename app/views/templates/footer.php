@@ -1,4 +1,5 @@
 <!-- Site footer -->
+<?php if(!$data['user_premium'] || !$data['package']): ?>
 <footer class="site-footer mt-5">
     <div class="container">
         <div class="row">
@@ -48,6 +49,7 @@
         </div>
     </div>
 </footer>
+<?php endif; ?>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -31,6 +31,13 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="category">Set Book</label>
+                <select name="premium" class="form-control" id="">
+                        <option class="custom-select" value="1">Regular</option>
+                        <option class="custom-select" value="2">Premium</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="cover">Cover Buku</label>
                 <input type="file" class="form-control" name="image" placeholder="Gambar" accept="image/jpeg , image/png" />
             </div>

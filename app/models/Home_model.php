@@ -63,7 +63,7 @@ class Home_model
                             alert("Password should be at least 8 characters in length and should include at least one upper case letter, one number.")
                         </script>';
                     } else {
-                        $query = "INSERT INTO pengguna(username, email, password) VALUES(:username, :email, :password)";
+                        $query = "INSERT INTO pengguna(username, email, password, tanggal) VALUES(:username, :email, :password, now())";
 
                         $this->db->query($query);
                         $this->db->bind("username", $username);

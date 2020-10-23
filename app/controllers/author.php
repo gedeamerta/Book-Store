@@ -84,6 +84,7 @@ class Author extends Controller
                     "fullname" => $book['fullname'],
                     "slug" => $book['slug'],
                     "status" => $book['status'],
+                    "premium" => $book['premium']
             ];
         }
         $data['new_book_data'] = $newDataBook;
@@ -100,6 +101,54 @@ class Author extends Controller
             $this->view('templates/sidebar-author', $data);
             $this->view('templates/header-author', $data);
             $this->view('author/dashboard', $data);
+            $this->view('templates/footer-author');
+        }
+    }
+
+    public function book_premium()
+    {
+        $data['judul'] = 'Author - Dashboard';
+        $data['set_active'] = 'premium';
+
+        // validating Actor Admin, Author
+        $data['validate'] = 'Author_Validate';
+
+        //author id
+        $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
+
+        // id book before published
+        $data['books_id'] = $this->model("Author_model")->getBooksAuthorId();
+
+        $newDataBook = [];
+        foreach ($data['books_id'] as $book) {
+            $total_watcher = $this->model('Author_model')->getWatcher($book['id']);
+            $newDataBook[$book['id']] = [
+                "total_watcher" => $total_watcher,
+                "judul_buku" => $book['judul_buku'],
+                "category" => $book['category'],
+                "sipnosis" => $book['sipnosis'],
+                "image" => $book['image'],
+                "tanggal" => $book['tanggal'],
+                "fullname" => $book['fullname'],
+                "slug" => $book['slug'],
+                "status" => $book['status'],
+                "premium" => $book['premium']
+            ];
+        }
+        $data['new_book_data'] = $newDataBook;
+
+        // get category
+        $data['category'] = $this->model("Author_model")->getCategoryAll();
+
+        //get notif
+        $data['notif'] = $this->model('Author_model')->getNotif();
+
+        if (!isset($_SESSION['login-author'])) {
+            header("Location: " . baseurl . "/author/index");
+        } else {
+            $this->view('templates/sidebar-author', $data);
+            $this->view('templates/header-author', $data);
+            $this->view('author/book_premium', $data);
             $this->view('templates/footer-author');
         }
     }
@@ -122,7 +171,7 @@ class Author extends Controller
         // get watcher 
         $newDataBook = [];
         foreach ($data['category_data'] as $book) {
-            $total_watcher = $this->model('Author_model')->getWatcher($book['slug']);
+            $total_watcher = $this->model('Author_model')->getWatcher($book['id']);
             $newDataBook[$book['slug']] = [
                 "total_watcher" => $total_watcher,
                 "judul_buku" => $book['judul_buku'],
@@ -133,9 +182,13 @@ class Author extends Controller
                 "fullname" => $book['fullname'],
                 "slug" => $book['slug'],
                 "status" => $book['status'],
+                "premium" => $book['premium']
             ];
         }
         $data['new_book_data'] = $newDataBook;
+
+        //get notif
+        $data['notif'] = $this->model('Author_model')->getNotif();
 
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
@@ -143,6 +196,53 @@ class Author extends Controller
             $this->view('templates/sidebar-author', $data);
             $this->view('templates/header-author', $data);
             $this->view('author/category', $data);
+            $this->view('templates/footer-author');
+        }
+    }
+
+    public function category_premium($slug)
+    {
+        $data['judul'] = 'Author - Category';
+        $data['set_active'] = 'premium';
+
+        // validating Actor Admin, Author
+        $data['validate'] = 'Author_Validate';
+
+        //author id
+        $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
+
+        // get category
+        $data['category'] = $this->model("Author_model")->getCategoryAll();
+        $data['category_data'] = $this->model('Author_model')->getCategorySlug($slug);
+
+        // get watcher 
+        $newDataBook = [];
+        foreach ($data['category_data'] as $book) {
+            $total_watcher = $this->model('Author_model')->getWatcher($book['id']);
+            $newDataBook[$book['slug']] = [
+                "total_watcher" => $total_watcher,
+                "judul_buku" => $book['judul_buku'],
+                "category" => $book['category'],
+                "sipnosis" => $book['sipnosis'],
+                "image" => $book['image'],
+                "tanggal" => $book['tanggal'],
+                "fullname" => $book['fullname'],
+                "slug" => $book['slug'],
+                "status" => $book['status'],
+                "premium" => $book['premium']
+            ];
+        }
+        $data['new_book_data'] = $newDataBook;
+
+        //get notif
+        $data['notif'] = $this->model('Author_model')->getNotif();
+
+        if (!isset($_SESSION['login-author'])) {
+            header("Location: " . baseurl . "/author/index");
+        } else {
+            $this->view('templates/sidebar-author', $data);
+            $this->view('templates/header-author', $data);
+            $this->view('author/category_premium', $data);
             $this->view('templates/footer-author');
         }
     }

@@ -70,7 +70,7 @@ class Author_model
     public function getCategorySlug($slug)
     {
         $id_author = $_SESSION['id_author'];
-        $this->db->query("SELECT a.*, b.slug_category, c.id FROM books a INNER JOIN category b ON a.category = b.slug_category INNER JOIN authors c ON a.id_author = c.id WHERE b.slug_category = '$slug' AND a.id_author = '$id_author'");
+        $this->db->query("SELECT a.id, b.slug_category, c.* FROM authors a INNER JOIN category b INNER JOIN books c ON c.id_author = a.id AND c.category = b.slug_category WHERE b.slug_category = '$slug' AND c.id_author = '$id_author'");
         $this->db->bind('slug', $slug);
         $this->db->bind('id_author', $id_author);
         return $this->db->resultAll();
@@ -268,6 +268,7 @@ class Author_model
         $slug = $this->slugify($judul_buku);
         $sipnosis = $data['sipnosis'];
         $category = $data['category'];
+        $premium = $data['premium'];
         $fullname = $_SESSION['fullname']; // get this from table author
         $author = $_SESSION['id_author']; // get this from table author
 
@@ -331,7 +332,7 @@ class Author_model
             }
         }
 
-            $query = "INSERT INTO books (judul_buku, slug, category, image, pdf, sipnosis, fullname, rating, id_author, status, tanggal) VALUES (:judul_buku, :slug, :category, :image, :pdf, :sipnosis,  :fullname, :rating, :id_author,  :status, now())";
+            $query = "INSERT INTO books (judul_buku, slug, category, image, pdf, sipnosis, fullname, id_author, status, premium, tanggal) VALUES (:judul_buku, :slug, :category, :image, :pdf, :sipnosis,  :fullname, :id_author,  :status, :premium, now())";
 
             $this->db->query($query);
             $this->db->bind("judul_buku", $judul_buku);
@@ -341,9 +342,9 @@ class Author_model
             $this->db->bind("pdf", $_FILES["pdf"]["name"]);
             $this->db->bind("sipnosis", $sipnosis);
             $this->db->bind("fullname", $fullname);
-            $this->db->bind("rating", 0);
             $this->db->bind("id_author", $author);
             $this->db->bind("status", 0);
+            $this->db->bind("premium", $premium);
             $this->db->execute();
 
             // notifikasi

@@ -13,9 +13,13 @@ class Home extends Controller
             header("Location: " . baseurl . '/dashboard');
         }else{
             $data['book_limit'] = $this->model('Home_model')->getBookLimit();
+
+            // just trick for hiding the footer bar
+            $data['user_premium'] = [];
+
             $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
             $this->view('home/index', $data);
-            $this->view('templates/footer');
+            $this->view('templates/footer',$data);
         }
 
     }
@@ -30,12 +34,15 @@ class Home extends Controller
         $data['book'] = $this->model('Home_model')->getAllBook();
         $data['book_limit'] = $this->model('Home_model')->getBookLimit();
 
+        // just trick for hiding the footer bar
+        $data['user_premium'] = [];
+
         if (isset($_SESSION['login-user'])) {
             header("Location: " . baseurl . '/dashboard');
         }else{
             $this->view('templates/header', $data); // ada 2 param pada $this->view yaitu 'templates/header' dan $data
             $this->view('home/book', $data);
-            $this->view('templates/footer');
+            $this->view('templates/footer', $data);
         }
 
     }

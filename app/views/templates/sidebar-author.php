@@ -37,6 +37,29 @@
              </a>
          </li>
 
+
+         <?php if ($data['validate'] == 'Author_Validate') : ?>
+             <li class="nav-item <?= $data['set_active'] == 'premium' ? 'active' : '' ?>">
+                 <a class="nav-link collapsed" href="<?= baseurl; ?>/author/book_premium" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                     <i class="fas fa-fw fa-gem"></i>
+                     <span>Premium Book</span>
+                 </a>
+             <?php else : ?>
+
+             </li>
+         <?php endif; ?>
+
+         <?php if ($data['validate'] == 'Admin_Validate') : ?>
+             <li class="nav-item <?= $data['set_active'] == 'premium' ? 'active' : '' ?>">
+                 <a class="nav-link collapsed" href="<?= baseurl; ?>/admin/user_premium" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                     <i class="fas fa-fw fa-gem"></i>
+                     <span>Premium Request</span>
+                 </a>
+             <?php else : ?>
+
+             </li>
+         <?php endif; ?>
+
          <?php if ($data['validate'] == 'Admin_Validate') : ?>
              <li class="nav-item <?= $data['set_active'] == 'delete' ? 'active' : '' ?>">
                  <a class="nav-link collapsed" href="<?= baseurl; ?>/admin/delete" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -44,11 +67,11 @@
                      <span>Delete</span>
                  </a>
              <?php else : ?>
-                 <a style="display:none;" class="nav-link collapsed" href="<?= baseurl; ?>/admin/delete" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                     <i class="fas fa-fw fa-trash-alt"></i>
-                     <span>Delete</span>
+                 <a style="display:none;" class="nav-link collapsed">
+                     Delete
                  </a>
              </li>
          <?php endif; ?>
+
      </ul>
      <!-- End of Sidebar -->

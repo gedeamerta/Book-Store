@@ -67,6 +67,12 @@ class Admin_model
         return $this->db->resultAll();
     }
 
+    public function getUserPremium()
+    {
+        $this->db->query("SELECT * FROM users_premium");
+        return $this->db->resultAll();
+    }
+
     //slug the category
     public static function slugify($text)
     {
@@ -229,6 +235,14 @@ class Admin_model
             $this->db->execute();   
             return $this->db->rowCount();
         }
+    }
+
+    public function accept_request_premium()
+    {
+        $this->db->query("UPDATE users_premium SET status = :status WHERE id = id");
+        $this->db->bind('status', 1);
+        $this->db->execute();
+        return $this->db->rowCount();
     }
 
     public function searchBook()
