@@ -235,6 +235,7 @@ class Dashboard_model
             $price_package = $this->getPricePackage();
             $convert_integer = intval($price_package['price']);
             $price = $_POST['price_package'];
+
             if ($price < $convert_integer) {
                 echo
                     '<script>
@@ -294,7 +295,6 @@ class Dashboard_model
                 $this->db->bind('package_id', $package_id_user['package_id']);
                 $this->db->execute();
 
-
                 return $this->db->rowCount();
             }
         }
@@ -307,12 +307,11 @@ class Dashboard_model
         $this->db->query($query);
         $this->db->bind('keyword', "%$keyword%");
         return $this->db->resultAll();
-
     }
 
     public function rateBooks($id_book)
     {
-        if ($this->getRateBy('id_user', $_SESSION['id'])) {
+        if ($this->getRateBy('id_user', $_SESSION['id']) && $this->getRateBy('id_book', $id_book) ) {
             echo
                 '<script>
                         alert("This books has been rates with you");

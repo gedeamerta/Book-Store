@@ -26,7 +26,7 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
-                <buttonc class="btn btn-warning" type="submit">Rate </button>
+                <button class="btn btn-warning" type="submit">Rate </button>
             </form>
 
             <!-- Modal Add books -->

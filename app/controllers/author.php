@@ -94,6 +94,13 @@ class Author extends Controller
 
         //get notif
         $data['notif'] = $this->model('Author_model')->getNotif();
+        $rowNotif = [];
+        foreach ($data['notif'] as $n) {
+            $rowNotif[$n['id']] = [
+                "id" => count(array($n['id']))
+            ];
+        }
+        $data['new_notif'] = $rowNotif;
 
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
@@ -142,6 +149,13 @@ class Author extends Controller
 
         //get notif
         $data['notif'] = $this->model('Author_model')->getNotif();
+        $rowNotif = [];
+        foreach ($data['notif'] as $n) {
+            $rowNotif[$n['id']] = [
+                "id" => count($n['id'])
+            ];
+        }
+        $data['new_notif'] = $rowNotif;
 
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
@@ -189,6 +203,13 @@ class Author extends Controller
 
         //get notif
         $data['notif'] = $this->model('Author_model')->getNotif();
+        $rowNotif = [];
+        foreach ($data['notif'] as $n) {
+            $rowNotif[$n['id']] = [
+                "id" => count($n['id'])
+            ];
+        }
+        $data['new_notif'] = $rowNotif;
 
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
@@ -236,6 +257,13 @@ class Author extends Controller
 
         //get notif
         $data['notif'] = $this->model('Author_model')->getNotif();
+        $rowNotif = [];
+        foreach ($data['notif'] as $n) {
+            $rowNotif[$n['id']] = [
+                "id" => count($n['id'])
+            ];
+        }
+        $data['new_notif'] = $rowNotif;
 
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
@@ -284,6 +312,16 @@ class Author extends Controller
         $data['admin_single'] = '';
 
         $data['category'] = $this->model("Author_model")->getCategoryAll();
+
+        //get notif
+        $data['notif'] = $this->model('Author_model')->getNotif();
+        $rowNotif = [];
+        foreach ($data['notif'] as $n) {
+            $rowNotif[$n['id']] = [
+                "id" => count($n['id'])
+            ];
+        }
+        $data['new_notif'] = $rowNotif;
         if (!isset($_SESSION['login-author'])) {
             header("Location: ". baseurl ."/author/index");
         }else{

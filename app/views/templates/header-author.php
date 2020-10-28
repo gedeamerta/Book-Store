@@ -81,7 +81,9 @@
                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bell fa-fw"></i>
                         <!-- Counter - Alerts -->
-                        <span class="badge badge-danger badge-counter">3+</span>
+                        <?php if($data['validate'] == "Author_Validate") foreach ($data['new_notif'] as $notif) : ?>
+                            <span class="badge badge-danger badge-counter"><?= $notif['id']; ?></span>
+                        <?php endforeach; ?>
                     </a>
                     <!-- Dropdown - Alerts -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -89,7 +91,7 @@
                             Alerts Center
                         </h6>
                         <?php foreach ($data['notif'] as $notif) : ?>
-                            <a class="dropdown-item d-flex align-items-center" href="<?= baseurl ?>/admin/dashboard">
+                            <a class="dropdown-item d-flex align-items-center" href="<?= $data['validate'] == 'Admin_Validate' ? baseurl .'/admin/dashboard' : '' ?>">
                                 <div class="mr-3">
                                     <div class="icon-circle bg-primary">
                                         <i class="fas fa-file-alt text-white"></i>
@@ -101,29 +103,6 @@
                                 </div>
                             </a>
                         <?php endforeach; ?>
-
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="mr-3">
-                                <div class="icon-circle bg-success">
-                                    <i class="fas fa-donate text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">December 7, 2019</div>
-                                $290.29 has been deposited into your account!
-                            </div>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="mr-3">
-                                <div class="icon-circle bg-warning">
-                                    <i class="fas fa-exclamation-triangle text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">December 2, 2019</div>
-                                Spending Alert: We've noticed unusually high spending for your account.
-                            </div>
-                        </a>
                         <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                     </div>
                 </li>
