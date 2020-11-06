@@ -173,7 +173,8 @@
                 <?php endif; ?>
 
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/setOut">Log out <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i></i></a>
+                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModaluser">Log out <i class="fas fa-sign-out-alt"></i>
+                </a>
             </div>
         </li>
     </ul>
@@ -182,6 +183,25 @@
 </div>
 
 </nav>
+
+<!-- Modal Logout Start -->
+<div class="modal fade" id="logoutModaluser" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-dark" id="exampleModalLabel">Anda yakin ingin keluar ?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <a href="<?= baseurl; ?>/dashboard/setOut/" class="btn btn-info">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Logout End -->
 
 <!-- Modal Package Start -->
 <div class="modal fade" id="package" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -203,7 +223,7 @@
         </div>
     </div>
 </div>
-
 <!-- Modal Package End -->
+
 <?php endif; ?>
 

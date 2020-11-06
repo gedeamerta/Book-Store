@@ -212,6 +212,22 @@ class Dashboard extends Controller
         }
     }
 
+    public function clear_book($id_book)
+    {
+        if ($this->model('Dashboard_model')->clear_user_book($id_book) > 0) {
+            echo
+                '<script>
+                    alert("Success clearing the books");
+                    setTimeout(function() {
+                        window.location.href="/dashboard;
+                    }, 1000);
+                </script>';
+            exit;
+        } else {
+            exit;
+        }
+    }
+
     public function search()
     {
         $data['judul'] = 'Daftar Buku';

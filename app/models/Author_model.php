@@ -42,7 +42,7 @@ class Author_model
     public function getBooksAuthorId()
     {
         $id_author = $_SESSION['id_author'];
-        $this->db->query("SELECT a.id, b.* FROM authors a INNER JOIN books b ON a.id= b.id_author WHERE a.id = '$id_author' ORDER BY b.id DESC");
+        $this->db->query("SELECT a.id, b.* FROM authors a INNER JOIN books b ON a.id= b.id_author WHERE a.id = '$id_author' AND b.status = 1 ORDER BY b.id DESC");
         return $this->db->resultAll();
     }
 

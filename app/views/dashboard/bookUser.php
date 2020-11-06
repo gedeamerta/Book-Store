@@ -4,6 +4,7 @@
 <!-- Left Card Start  -->
 <div class="col-md">
 <?php foreach ($data['books_user'] as $book) : ?>
+    <?php if($book['status'] == 1): ?>
 <div class="shadow mt-5">
     <div class="row">
         <div class="col-md">
@@ -47,6 +48,19 @@
         </div>
     </div>
 </div>
+<?php else : ?>
+    <div class="shadow mt-5">
+    <div class="row">
+        <div class="col-md-7 m-3">
+            <h2 class="card-title"><?= $book['judul_buku'] ?></h2>
+            <h3 class="text-muted">Sorry this book has been deleted from admin</h3>
+            <a href="<?= baseurl; ?>/dashboard/clear_book/<?= $book['id_book']; ?>"class="btn btn-warning" type="submit">Clear </a>
+            <!-- End Modal Add Books -->
+            
+        </div>
+    </div>
+</div>
+    <?php endif; ?>
 <?php endforeach; ?>
 </div>
 <!--  End Left Card -->

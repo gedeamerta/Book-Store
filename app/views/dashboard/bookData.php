@@ -8,6 +8,7 @@
             <div class="col-md">
                 <img src="<?= baseurl . '/assets/img/' . $data['book_single']['image'] ?>" alt="" srcset="">
             </div>
+            
             <div class="col-md-7 m-3">
                 <h1 class="card-title"><?= $data['book_single']['judul_buku'] ?></h1>
                 <p class="card-text m-0">
@@ -17,16 +18,15 @@
                     <?php 
                     $total = 0;
                     $i = 0; ?>
-                    <?php foreach ($data['rate'] as $rate) {
+                    <?php foreach ($data['rate'] as $rate) : ?>
+                    <?php 
                         $calc = $rate['rating'];
                         $total += $calc;
                         $i++;
-                    } ?>
-                    <?php $avg = $total / $i; if($avg == NAN ):?>
-                        <?= "NEOL"; ?>
-                    <?php else: ?>
-                        <?= $avg; ?>
-                    <?php endif; ?>
+                        ?>
+                    <?php endforeach; ?>
+                    <?php $avg = $total / $i; ?>
+                        <?= number_format($avg,1) ?>
                 </p>
                 <p class="text-secondary m-0">Category : <?= $data['book_single']['category'] ?></p>
 

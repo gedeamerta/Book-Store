@@ -152,7 +152,7 @@ class Author extends Controller
         $rowNotif = [];
         foreach ($data['notif'] as $n) {
             $rowNotif[$n['id']] = [
-                "id" => count($n['id'])
+                "id" => count(array($n['id']))
             ];
         }
         $data['new_notif'] = $rowNotif;
@@ -206,10 +206,10 @@ class Author extends Controller
         $rowNotif = [];
         foreach ($data['notif'] as $n) {
             $rowNotif[$n['id']] = [
-                "id" => count($n['id'])
+                "id" => count(array($n['id']))
             ];
         }
-        $data['new_notif'] = $rowNotif;
+        $data['new_notif'] = $rowNotif;;
 
         if (!isset($_SESSION['login-author'])) {
             header("Location: " . baseurl . "/author/index");
@@ -260,7 +260,7 @@ class Author extends Controller
         $rowNotif = [];
         foreach ($data['notif'] as $n) {
             $rowNotif[$n['id']] = [
-                "id" => count($n['id'])
+                "id" => count(array($n['id']))
             ];
         }
         $data['new_notif'] = $rowNotif;
@@ -285,6 +285,16 @@ class Author extends Controller
 
         // inserting to deletebooks 
         $data['del_book'] = $this->model("Author_model")->getBookId($slug);
+
+        //get notif
+        $data['notif'] = $this->model('Author_model')->getNotif();
+        $rowNotif = [];
+        foreach ($data['notif'] as $n) {
+            $rowNotif[$n['id']] = [
+                "id" => count(array($n['id']))
+            ];
+        }
+        $data['new_notif'] = $rowNotif;
 
         //author id
         $data['author_single'] = $this->model("Author_model")->getAuthorId($_SESSION['id_author']);
@@ -318,10 +328,11 @@ class Author extends Controller
         $rowNotif = [];
         foreach ($data['notif'] as $n) {
             $rowNotif[$n['id']] = [
-                "id" => count($n['id'])
+                "id" => count(array($n['id']))
             ];
         }
         $data['new_notif'] = $rowNotif;
+
         if (!isset($_SESSION['login-author'])) {
             header("Location: ". baseurl ."/author/index");
         }else{

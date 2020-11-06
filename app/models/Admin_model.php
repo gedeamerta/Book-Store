@@ -36,7 +36,7 @@ class Admin_model
 
     public function getBookAuthor()
     {
-        $this->db->query('SELECT a.*, b.* FROM books a INNER JOIN notifikasi b ON a.id = b.id_book WHERE a.id = b.id_book ORDER BY a.id DESC');
+        $this->db->query('SELECT a.*, b.* FROM books a INNER JOIN notifikasi b ON a.id = b.id_book WHERE a.id = b.id_book AND a.status = 1 ORDER BY a.id DESC');
         return $this->db->resultAll();
     }
 
@@ -260,8 +260,9 @@ class Admin_model
     public function deleteBooksAuthor($id)
     {   
         $status = 2;
-        $query = "DELETE a.*, b.* FROM request a INNER JOIN books b WHERE a.id_book = :id_book and b.id = :id;
-        UPDATE request SET status = :status WHERE id = :id";
+        $query = "DELETE request FROM request INNER JOIN books ON books.id = books.id WHERE request.id_book = :id_book;
+        UPDATE books SET status = :status WHERE id = :id;
+        UPDATE users_books SET status = :status WHERE id_book = :id";
         $this->db->query($query);
         $this->db->bind('id_book', $id);
         $this->db->bind('id', $id);

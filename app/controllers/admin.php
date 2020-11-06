@@ -76,7 +76,7 @@ class Admin extends Controller
         $data['judul'] = 'Admin - Books';
         $data['set_active'] = 'premium';
 
-        // validating Actor Admin, Authpr
+        // TODO: to validate admin
         $data['validate'] = 'Admin_Validate';
 
         //get notif
@@ -118,7 +118,7 @@ class Admin extends Controller
         $data['judul'] = 'Admin - Forms';
         $data['set_active'] = 'forms';
 
-        // validating Actor Admin, Authpr
+        // TODO: to validate admin
         $data['validate'] = 'Admin_Validate';
 
         // get actor admin and author id validation
@@ -268,7 +268,7 @@ class Admin extends Controller
                 '<script>
                         alert("Books has been deleted");
                         setTimeout(function() {
-                            window.location.href="/bookStore/admin/dashboard";
+                            window.location.href="/admin/dashboard";
                         }, 1000);
                     </script>';
             die;

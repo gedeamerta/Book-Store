@@ -78,9 +78,9 @@ class Dashboard_model
         return $this->db->resultAll();
     }
 
-    public function getRateBook($id)
+    public function getRateBook($id_book)
     {
-        $this->db->query("SELECT a.*, b.id FROM rate a INNER JOIN books b ON a.id_book = b.id WHERE a.id_book = $id");
+        $this->db->query("SELECT a.*, b.id FROM rate a INNER JOIN books b ON a.id_book = b.id WHERE a.id_book = $id_book");
         return $this->db->resultAll();
     }
 
@@ -159,11 +159,11 @@ class Dashboard_model
         return $this->db->single();
     }
 
-    // ======================================================================================================== //
+// ===================================================================================================== //
 
     public function addBooksUser($id)
     {   
-        if ($this->getBooksUserBy('id_book', $id) && $this->getBooksUserBy('id_user', $_SESSION['id'])) {
+        if ($this->getBooksUserBy('id_book', $id) && $this->getBooksUserBy('id_user', $_SESSION['id']) == $_SESSION['id']) {
             echo
                 '<script>
                         alert("Books has been save it");
@@ -172,7 +172,9 @@ class Dashboard_model
                         }, 1000);
                     </script>';
         }else {
-            $query = "INSERT INTO users_books (id_user, id_book, tanggal) VALUES (:id_user, :id_book, now())";    
+            $query = "INSERT INTO users_books (id_user, id_book, tanggal) VALUES (:id_user, :id_book, now());
+            UPDATE users_books SET status = 1 WHERE id = :id_book";
+
             $this->db->query($query);
             $this->db->bind('id_book', $id);
             $this->db->bind('id_user', $_SESSION['id']);
@@ -300,6 +302,16 @@ class Dashboard_model
         }
     }
 
+    public function clear_user_book($id_book)
+    {
+        $query = "DELETE FROM users_books WHERE id_book = :id_book";
+        $this->db->query($query);
+        $this->db->bind('id_book', $id_book);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
     public function searchBook()
     {
         $keyword = $_POST['keyword'];
@@ -311,7 +323,7 @@ class Dashboard_model
 
     public function rateBooks($id_book)
     {
-        if ($this->getRateBy('id_user', $_SESSION['id']) && $this->getRateBy('id_book', $id_book) ) {
+        if ($this->getRateBy('id_user', $_SESSION['id']) == $_SESSION['id'] && $this->getRateBy('id_book', $id_book) ) {
             echo
                 '<script>
                         alert("This books has been rates with you");
