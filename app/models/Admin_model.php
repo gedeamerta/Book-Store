@@ -18,6 +18,12 @@ class Admin_model
         }
     }
 
+    public function getJudulBuku($id)
+    {
+        $this->db->query("SELECT * FROM books WHERE id = $id");
+        return $this->db->single();
+    }
+
     public function getAdminId($id)
     {
         $this->db->query("SELECT * FROM admins WHERE id = :id");
@@ -69,8 +75,14 @@ class Admin_model
 
     public function getUserPremium()
     {
-        $this->db->query("SELECT * FROM users_premium");
+        $this->db->query("SELECT * FROM pengguna");
         return $this->db->resultAll();
+    }
+
+    public function accept_premium()
+    {
+        $this->db->query("SELECT * FROM pengguna");
+        return $this->db->lastInsertId();
     }
 
     //slug the category
@@ -237,10 +249,12 @@ class Admin_model
         }
     }
 
-    public function accept_request_premium()
+    public function accept_request_premium($id_user)
     {
-        $this->db->query("UPDATE users_premium SET status = :status WHERE id = id");
-        $this->db->bind('status', 1);
+        $this->db->query("UPDATE pengguna SET status_package = :status_package WHERE id = $id_user");
+
+        // * change it into 2, it mean user has been premium
+        $this->db->bind('status_package', 2);
         $this->db->execute();
         return $this->db->rowCount();
     }
@@ -273,9 +287,10 @@ class Admin_model
 
     public function publishBook($id)
     {   
+        $judulBuku = $this->getJudulBuku($id);
         $status = 1;
         $dibaca = 1;
-        $deskripsi = "Admin " . $_SESSION['fullname_admin'] . " has been publish book ";
+        $deskripsi = "Admin " . $_SESSION['fullname_admin'] . " has been publish book " . $judulBuku['judul_buku'];
         $tujuan = "Author"; // tujuan untuk notif
         
         $query = "UPDATE books SET status = :status WHERE id = :id; 

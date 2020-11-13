@@ -98,9 +98,9 @@ class Admin extends Controller
         }
     }
 
-    public function accept_request()
+    public function accept_request($id_user)
     {
-        if ($this->model('Admin_model')->accept_request_premium($_POST) > 0) {
+        if ($this->model('Admin_model')->accept_request_premium($id_user) > 0) {
             echo
                 '<script>
                         alert("Success Accept User");

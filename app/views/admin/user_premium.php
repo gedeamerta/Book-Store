@@ -9,10 +9,10 @@
         <!-- List Books Start -->
         <?php foreach ($data['user_premium'] as $u_p) : ?>
             <div class="col-lg-6">
-                <div class="card position-relative mt-3 <?= $u_p['status'] == 1 ? 'border-success' : (($u_p['status'] == 0) ? 'border-danger' : '') ?>">
+                <div class="card position-relative mt-3 <?= $u_p['status_package'] == 2 ? 'border-success' : (($u_p['status_package'] == 1) ? 'border-danger' : '') ?>">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary float-left">User Requets</h6>
-                        <footer class="float-right"><?= date("m-d-Y", strtotime($u_p['tanggal'])) ?></footer>
+                        <footer class="float-right"><?= date("m-d-Y", strtotime($u_p['premium_date'])) ?></footer>
                     </div>
                     <div class="card-body">
                         <img src="<?= baseurl . '/assets/struk/' . $u_p['struk']; ?>" alt="" width="100%">
@@ -22,10 +22,10 @@
                             <li>Email : <?= $u_p['email']; ?></li>
                             <li>Number Phone : <?= $u_p['no_telp']; ?></li>
                         </ul>
-                        <?php if ($u_p['status'] == 1) : ?>
+                        <?php if ($u_p['status_package'] == 2) : ?>
                             <i class="mt-2 fas fa-check-circle"></i>
                         <?php else : ?>
-                            <button type="button" onclick="window.location.href='<?= baseurl; ?>/admin/accept_request'" class="btn btn-danger mt-3">Accept Requets</button>
+                            <button type="button" onclick="window.location.href='<?= baseurl; ?>/admin/accept_request/<?= $u_p['id']?>'" class="btn btn-danger mt-3">Accept Requets</button>
                         <?php endif; ?>
                     </div>
                 </div>

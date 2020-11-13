@@ -1,14 +1,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col">
-            <div style="left: 25%" class="card w-50 mt-5 border-danger">
+            <?php foreach ($data['user_premium'] as $u_p) : ?>
+                <div style="left: 25%" class="card w-50 mt-5 <?= $u_p['status_package'] == 2 ? 'border-success' : ((!$u_p['status_package'] == 2) ? 'border-danger' : '') ?> ">
+            <?php endforeach; ?>
                 <div class="card-header">
                     User Data for Payment
                 </div>
                 <div class="card-body text-danger">
                     <h3 class="card-title">Payment</h3>
                     <?php foreach ($data['user_premium'] as $u_p) : ?>
-                        <ul>
+                    <ul>
                             <li class=""><b>Username</b> : <?= $u_p['username']; ?></li>
                             <li class=""><b>Email</b> : <?= $u_p['email']; ?></li>
                             <li class=""><b>Number Phone</b> : <?= $u_p['no_telp']; ?></li>
@@ -19,11 +21,9 @@
                             <li class=""><b>Date</b> : <?= date("d-m-Y", strtotime($u_p['tanggal'])); ?></li>
                         </ul>
                     <?php endforeach; ?>
-                    <p class="card-text"></p>
-                    <p class="card-text"></p>
                     <button type="submit" data-target="#payment" data-toggle="modal" class="btn btn-warning mr-3">Buy Now !</a>
                         <button class="btn btn-secondary" onclick="window.print()">Print !</a>
-                </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= baseurl; ?>/dashboard/transfer" method="post" enctype="multipart/form-data">
+                <form action="<?= baseurl; ?>/dashboard/transfer/<?= $_SESSION['id'] ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Input your Money </label>
                         <input type="number" name="price_package" class="form-control" required>

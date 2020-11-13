@@ -12,9 +12,8 @@
             <div class="col-md-7 m-3">
                 <h1 class="card-title"><?= $data['book_single']['judul_buku'] ?></h1>
                 <p class="card-text m-0">
-                    <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11.5 1.61804L13.6064 8.10081L13.7186 8.4463H14.0819H20.8983L15.3837 12.4529L15.0898 12.6664L15.2021 13.0119L17.3085 19.4947L11.7939 15.4881L11.5 15.2746L11.2061 15.4881L5.69153 19.4947L7.79791 13.0119L7.91017 12.6664L7.61627 12.4529L2.10169 8.4463H8.91809H9.28136L9.39362 8.10081L11.5 1.61804Z" fill="#FFE601" stroke="#FFE601" />
-                    </svg>
+                    <?php if($data['rate'] != 0) : ?>
+                    <i class="fa fa-star"></i>
                     <?php 
                     $total = 0;
                     $i = 0; ?>
@@ -26,7 +25,8 @@
                         ?>
                     <?php endforeach; ?>
                     <?php $avg = $total / $i; ?>
-                        <?= number_format($avg,1) ?>
+                    <?= number_format($avg,1) ?>
+                    <?php endif; ?>
                 </p>
                 <p class="text-secondary m-0">Category : <?= $data['book_single']['category'] ?></p>
 

@@ -88,7 +88,8 @@ class Dashboard extends Controller
         $data['book_limit'] = $this->model('Home_model')->getBookLimit();
         $data['book_single'] = $this->model('Dashboard_model')->getBookId($id_book);
         $data['user_single'] = $this->model('Home_model')->getUserId($_SESSION['id']);
-        $data['rate'] = $this->model('Dashboard_model')->getRateBook($id_book);
+        $rateModel = $this->model('Dashboard_model')->getRateBook($id_book);
+        $data['rate'] =count($rateModel) == 0 ? 0 : $this->model('Dashboard_model')->getRateBook($id_book);
 
         //get user premium
         $data['premium'] = $this->model('Dashboard_model')->getUserPremium();
@@ -186,7 +187,15 @@ class Dashboard extends Controller
 
     public function transfer()
     {
-        if ($this->model('Dashboard_model')->transferMoney($_POST) > 0) {
+        if($this->model('Dashboard_model')->transferMoney($_POST) == "b"){
+            echo
+                '<script>
+                    alert("Your account has been on premium");
+                    setTimeout(function() {
+                        window.location.href="/dashboard/pay";
+                    }, 1000);
+                </script>';
+        } else {
             echo
                 '<script>
                         alert("Success to transfer");
@@ -194,8 +203,6 @@ class Dashboard extends Controller
                             window.location.href="/dashboard";
                         }, 1000);
                     </script>';
-            exit;
-        } else {
             exit;
         }
     }

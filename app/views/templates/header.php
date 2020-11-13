@@ -153,7 +153,7 @@
     <ul class="navbar-nav">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle ml-5" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <?php if($data['premium']['id_user'] == $_SESSION['id'] && $data['premium']['status'] == 1) : ?>
+                <?php if($data['premium']['id'] == $_SESSION['id'] && $data['premium']['status_package'] == 2) : ?>
                     <i class="far fa-gem"></i> <?php print_r($data['user_single']['username']); ?> 
                 <?php else: ?>
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -165,13 +165,10 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="<?= baseurl; ?>/dashboard/bookUser">Buku Pilihan Anda <i class="fas fa-book-reader"></i></a>
-                <?php if($data['premium']['id_user'] == $_SESSION['id'] && $data['premium']['status'] == 1) : ?>
-
+                <?php if($data['premium']['id'] == $_SESSION['id'] && $data['premium']['status_package'] == 2) : ?>
                     <?php else :  ?>
                         <a class="dropdown-item" data-toggle="modal" data-target="#package">Upgrade to premium <i class="far fa-gem"></i></a>
-
                 <?php endif; ?>
-
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" data-toggle="modal" data-target="#logoutModaluser">Log out <i class="fas fa-sign-out-alt"></i>
                 </a>

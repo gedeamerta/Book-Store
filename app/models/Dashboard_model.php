@@ -80,7 +80,7 @@ class Dashboard_model
 
     public function getRateBook($id_book)
     {
-        $this->db->query("SELECT id_book, rating FROM rate LEFT JOIN books ON rate.id_book = books.id WHERE id_book = $id_book");
+        $this->db->query("SELECT * FROM rate WHERE id_book = $id_book");
         return $this->db->resultAll();
     }
 
@@ -143,19 +143,20 @@ class Dashboard_model
 
     public function getPay($id)
     {   
-        $this->db->query("SELECT a.*, b.id,type_package,price FROM users_premium a INNER JOIN premium_package b ON a.package_id = b.id WHERE a.id_user = $id");
+        $this->db->query("SELECT a.*, b.id,type_package,price FROM pengguna a INNER JOIN premium_package b ON a.package_id = b.id WHERE a.id = $id");
         return $this->db->resultAll();
     }
 
     public function getUserPremium()
     {
-        $this->db->query("SELECT * FROM users_premium");
+        $id_user = $_SESSION['id'];
+        $this->db->query("SELECT id, status_package FROM pengguna WHERE id = $id_user");
         return $this->db->single();
     }
 
     public function getPricePackage()
     {
-        $this->db->query("SELECT a.*, b.package_id FROM premium_package a INNER JOIN users_premium b ON a.id = b.package_id WHERE a.id = b.package_id");
+        $this->db->query("SELECT a.*, b.package_id FROM premium_package a INNER JOIN pengguna b ON a.id = b.package_id WHERE a.id = b.package_id");
         return $this->db->single();
     }
 
@@ -186,11 +187,10 @@ class Dashboard_model
     // user going to premium
     public function user_premium($data)
     {
-        $username = htmlspecialchars($data['username']);
-        $email = htmlspecialchars($data['email']);
-        $no_telp = $data['no_telp'];
-        $struk = 0;
-        $price = $data['package_id'];
+        $username = $data['username'];
+        $email = $data['email'];
+        $number_ph = $data['no_telp'];
+        $package = $data['package_id'];
 
         if ($this->getUserPremiumBy('username', $username) && $this->getUserPremiumBy('email', $email)) {
             echo
@@ -201,14 +201,17 @@ class Dashboard_model
                         }, 1000);
                     </script>';
         }else{
-            $query = "INSERT INTO users_premium (username, email, no_telp, struk, package_id, tanggal, id_user) VALUES (:username, :email, :no_telp, :struk, :package_id, now(), :id_user)";
+
+            $query = "UPDATE pengguna SET package_id = :package_id WHERE id = :id";
             $this->db->query($query);
-            $this->db->bind('username', $username);
-            $this->db->bind('email', $email);
-            $this->db->bind('no_telp', $no_telp);
-            $this->db->bind('struk', $struk);
-            $this->db->bind('package_id', $price);
-            $this->db->bind('id_user', $_SESSION['id']);
+            $this->db->bind('id', $_SESSION['id']);
+            $this->db->bind('package_id', $package);
+            $this->db->execute();
+
+            $query = "UPDATE pengguna SET no_telp = :no_telp WHERE id = :id";
+            $this->db->query($query);
+            $this->db->bind('no_telp', $number_ph);
+            $this->db->bind('id', $_SESSION['id']);
             $this->db->execute();
             return $this->db->rowCount();
         }
@@ -216,24 +219,10 @@ class Dashboard_model
 
     public function transferMoney()
     { 
-        if ($this->getUserPremiumBy('id_user', $_SESSION['id']) && $this->getUserPremiumBy('status', 0)) {
-            echo
-                '<script>
-                        alert("You did not have any order");
-                        setTimeout(function() {
-                            window.location.href="/dashboard/pay";
-                        }, 1000);
-                    </script>';
-        }else if($this->getUserPremiumBy('status', 1)){
-            echo
-                '<script>
-                    alert("Your account has been on premium");
-                    setTimeout(function() {
-                        window.location.href="/dashboard/pay";
-                    }, 1000);
-                </script>';
+        $id_user = $_SESSION['id'];
+        if(!$this->getUserBy('status_package', 0) && $this->getUserBy('id', $id_user)){
+            return "b";
         } else {
-
             $price_package = $this->getPricePackage();
             $convert_integer = intval($price_package['price']);
             $price = $_POST['price_package'];
@@ -275,26 +264,23 @@ class Dashboard_model
                         echo "Sorry, there was an error uploading your file.";
                     }
                 }
-
-                $package_id_user = $this->getPricePackage();
-
-                $query = "UPDATE users_premium SET struk = :struk WHERE id_user = :id_user";
+                $query = "UPDATE pengguna SET struk = :struk WHERE id = :id";
                 $this->db->query($query);
-                $this->db->bind('id_user', $_SESSION['id']);
+                $this->db->bind('id', $id_user);
                 $this->db->bind('struk', $_FILES['struk']['name']);
                 $this->db->execute();
 
-                $total_amount = $price - $convert_integer;
-                $query2 = "UPDATE users_premium SET after_pay_user = :after_pay_user WHERE id_user = :id_user";
-                $this->db->query($query2);
-                $this->db->bind('id_user', $_SESSION['id']);
-                $this->db->bind('after_pay_user', $total_amount);
-                $this->db->execute();
-                
-                $query = "UPDATE pengguna SET package_id = :package_id WHERE id = :id";
+                $query = "UPDATE pengguna SET status_package = :status_package WHERE id = :id";
                 $this->db->query($query);
-                $this->db->bind('id', $_SESSION['id']);
-                $this->db->bind('package_id', $package_id_user['package_id']);
+
+                // * user did not premium yet
+                $this->db->bind('status_package', 1);
+                $this->db->bind('id', $id_user);
+                $this->db->execute();
+
+                $query = "UPDATE pengguna SET premium_date = now() WHERE id = :id";
+                $this->db->query($query);
+                $this->db->bind('id', $id_user);
                 $this->db->execute();
 
                 return $this->db->rowCount();
