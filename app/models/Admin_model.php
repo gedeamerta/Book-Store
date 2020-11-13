@@ -36,7 +36,7 @@ class Admin_model
 
     public function getBookAuthor()
     {
-        $this->db->query('SELECT a.*, b.* FROM books a INNER JOIN notifikasi b ON a.id = b.id_book WHERE a.id = b.id_book AND a.status = 1 ORDER BY a.id DESC');
+        $this->db->query('SELECT a.*, b.* FROM books a INNER JOIN notifikasi b ON a.id = b.id_book WHERE a.id = b.id_book ORDER BY a.id DESC');
         return $this->db->resultAll();
     }
 
@@ -62,7 +62,7 @@ class Admin_model
 
     public function getCategorySlug($slug)
     {
-        $this->db->query("SELECT a.*, b.*, c.* FROM category a INNER JOIN books b ON a.slug = b.category INNER JOIN notifikasi c ON b.id = c.id_book WHERE a.slug = '$slug'");
+        $this->db->query("SELECT a.*, b.*, c.* FROM category a INNER JOIN books b ON a.slug_category = b.category INNER JOIN notifikasi c ON b.id = c.id_book WHERE a.slug_category = '$slug'");
         $this->db->bind('slug', $slug);
         return $this->db->resultAll();
     }

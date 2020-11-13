@@ -80,7 +80,7 @@ class Dashboard_model
 
     public function getRateBook($id_book)
     {
-        $this->db->query("SELECT a.*, b.id FROM rate a INNER JOIN books b ON a.id_book = b.id WHERE a.id_book = $id_book");
+        $this->db->query("SELECT id_book, rating FROM rate LEFT JOIN books ON rate.id_book = books.id WHERE id_book = $id_book");
         return $this->db->resultAll();
     }
 
@@ -328,7 +328,7 @@ class Dashboard_model
                 '<script>
                         alert("This books has been rates with you");
                         setTimeout(function() {
-                            window.location.href="/bookStore/dashboard";
+                            window.location.href="/bookStore/book";
                         }, 1000);
                     </script>';
         }else {

@@ -81,7 +81,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bell fa-fw"></i>
                         <!-- Counter - Alerts -->
-                        <?php if($data['validate'] == "Author_Validate") foreach ($data['new_notif'] as $notif) : ?>
+                        <?php if ($data['validate'] == "Author_Validate") foreach ($data['new_notif'] as $notif) : ?>
                             <span class="badge badge-danger badge-counter"><?= $notif['id']; ?></span>
                         <?php endforeach; ?>
                     </a>
@@ -91,7 +91,7 @@
                             Alerts Center
                         </h6>
                         <?php foreach ($data['notif'] as $notif) : ?>
-                            <a class="dropdown-item d-flex align-items-center" href="<?= $data['validate'] == 'Admin_Validate' ? baseurl .'/admin/dashboard' : '' ?>">
+                            <a class="dropdown-item d-flex align-items-center" href="<?= $data['validate'] == 'Admin_Validate' ? baseurl . '/admin/dashboard' : '' ?>">
                                 <div class="mr-3">
                                     <div class="icon-circle bg-primary">
                                         <i class="fas fa-file-alt text-white"></i>

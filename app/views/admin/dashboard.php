@@ -10,7 +10,7 @@
         </button>
         <div class="dropdown-menu">
             <?php foreach ($data['category'] as $category) : ?>
-                <a class="dropdown-item" href="<?= baseurl; ?>/admin/category/<?= $category['slug']; ?>"><?= $category['name_category'] ?></a>
+                <a class="dropdown-item" href="<?= baseurl; ?>/admin/category/<?= $category['slug_category']; ?>"><?= $category['name_category'] ?></a>
             <?php endforeach; ?>
         </div>
     </div>
@@ -19,6 +19,7 @@
     <div class="row">
         <!-- List Books Start -->
         <?php foreach ($data['book_author'] as $dataBook) : ?>
+            <?php if($dataBook['status'] == 0 || $dataBook['status'] == 1): ?>
             <div class="col-lg-6">
                 <div class="card position-relative mt-3 <?= $dataBook['status'] == 1 ? 'border-success' : (($dataBook['status'] == 0) ? 'border-danger' : '')?>">
                     <div class="card-header py-3">
@@ -39,6 +40,7 @@
                     </div>
                 </div>
             </div>
+        <?php endif; ?>
         <?php endforeach; ?>
         <!-- List Books End -->
     </div>

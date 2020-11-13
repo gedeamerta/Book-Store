@@ -19,6 +19,7 @@
     <div class="row">
         <!-- List Books Start -->
         <?php foreach($data['new_book_data'] as $booksAuthor): ?>
+            <?php if($booksAuthor['status'] == 0 || $booksAuthor['status'] == 1): ?>
             <div class="col-lg-6">
                 <div class="card position-relative mt-3 <?= $booksAuthor['status'] == 1 ? 'border-success' : (($booksAuthor['status'] == 0) ? 'border-danger' : '') ?>">
                     <div class="card-header py-3">
@@ -36,6 +37,7 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         <?php endforeach; ?>
         <!-- List Books End -->
     </div>

@@ -18,25 +18,8 @@
          <li class="nav-item <?= $data['set_active'] == 'dashboard' ? 'active' : '' ?>">
              <a class="nav-link" href="<?= $data['validate'] == 'Author_Validate' ? baseurl . '/author/dashboard' : (($data['validate'] == 'Admin_Validate') ? baseurl . '/admin/dashboard' : '') ?>">
                  <i class="fas fa-fw fa-tachometer-alt"></i>
-                 <span>Dashboard</span></a>
+                 <span><?= $data['validate'] == 'Author_Validate' ? 'Regular Book' : (($data['validate'] == 'Admin_Validate') ? 'Dashboard' : '') ?></span></a>
          </li>
-
-         <!-- Divider -->
-         <hr class="sidebar-divider">
-
-         <!-- Heading -->
-         <div class="sidebar-heading">
-             Interface
-         </div>
-
-         <!-- Nav Item - Pages Collapse Menu -->
-         <li class="nav-item <?= $data['set_active'] == 'forms' ? 'active' : '' ?>">
-             <a class="nav-link collapsed" href="<?= $data['validate'] == 'Author_Validate' ? baseurl . '/author/forms' : (($data['validate'] == 'Admin_Validate') ? baseurl . '/admin/forms' : '') ?>" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                 <i class="fas fa-fw fa-keyboard"></i>
-                 <span>Forms</span>
-             </a>
-         </li>
-
 
          <?php if ($data['validate'] == 'Author_Validate') : ?>
              <li class="nav-item <?= $data['set_active'] == 'premium' ? 'active' : '' ?>">
@@ -53,12 +36,21 @@
              <li class="nav-item <?= $data['set_active'] == 'premium' ? 'active' : '' ?>">
                  <a class="nav-link collapsed" href="<?= baseurl; ?>/admin/user_premium" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                      <i class="fas fa-fw fa-gem"></i>
-                     <span>Premium Request</span>
+                     <span>Request User Premium</span>
                  </a>
              <?php else : ?>
 
              </li>
          <?php endif; ?>
+
+         <!-- Nav Item - Pages Collapse Menu -->
+         <li class="nav-item <?= $data['set_active'] == 'forms' ? 'active' : '' ?>">
+             <a class="nav-link collapsed" href="<?= $data['validate'] == 'Author_Validate' ? baseurl . '/author/forms' : (($data['validate'] == 'Admin_Validate') ? baseurl . '/admin/forms' : '') ?>" data-toggle=" collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                 <i class="fas fa-fw fa-keyboard"></i>
+                 <span>Forms</span>
+             </a>
+         </li>
+
 
          <?php if ($data['validate'] == 'Admin_Validate') : ?>
              <li class="nav-item <?= $data['set_active'] == 'delete' ? 'active' : '' ?>">

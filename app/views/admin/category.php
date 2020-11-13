@@ -10,7 +10,7 @@
         </button>
         <div class="dropdown-menu">
             <?php foreach ($data['category'] as $category) : ?>
-                <a class="dropdown-item" href="<?= baseurl; ?>/admin/category/<?= $category['slug']; ?>"><?= $category['name_category'] ?></a>
+                <a class="dropdown-item" href="<?= baseurl; ?>/admin/category/<?= $category['slug_category']; ?>"><?= $category['name_category'] ?></a>
             <?php endforeach; ?>
         </div>
     </div>
@@ -19,26 +19,30 @@
     <div class="row">
         <!-- List Books Start -->
         <?php foreach ($data['category_data'] as $c_d) : ?>
-            <div class="col-lg-6">
-                <div class="card position-relative mt-3 <?= $c_d['status'] == 1 ? 'border-success' : (($c_d['status'] == 0) ? 'border-danger' : '') ?>">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary float-left">Books</h6>
-                        <footer class="float-right"><?= date("m-d-Y", strtotime($c_d['tanggal'])) ?></footer>
-                    </div>
-                    <div class="card-body">
-                        <img src="<?= baseurl . '/assets/img/' . $c_d['image']; ?>" alt="" width="100%">
-                        <h2 class="card-title mt-2"><?= $c_d['judul_buku'] ?></h2>
-                        <h6 class="mt-2">Category : <?= $c_d['name_category'] ?></h6>
-                        <p><?= $c_d['sipnosis'] ?></p>
-                        <footer class="blockquote-footer"><?= $c_d['fullname'] ?></footer>
-                        <?php if ($c_d['status'] == 1) : ?>
-                            <i class="mt-2 fas fa-check-circle"></i>
-                        <?php else : ?>
-                            <a href="<?= baseurl; ?>/admin/publish/<?= $c_d['id_book'] ?>" class="btn btn-primary mt-3"></a>
-                        <?php endif; ?>
+            <?php if ($c_d['status'] == 2) : ?>
+
+            <?php else : ?>
+                <div class="col-lg-6">
+                    <div class="card position-relative mt-3 <?= $c_d['status'] == 1 ? 'border-success' : (($c_d['status'] == 0) ? 'border-danger' : '') ?>">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary float-left">Books</h6>
+                            <footer class="float-right"><?= date("m-d-Y", strtotime($c_d['tanggal'])) ?></footer>
+                        </div>
+                        <div class="card-body">
+                            <img src="<?= baseurl . '/assets/img/' . $c_d['image']; ?>" alt="" width="100%">
+                            <h2 class="card-title mt-2"><?= $c_d['judul_buku'] ?></h2>
+                            <h6 class="mt-2">Category : <?= $c_d['name_category'] ?></h6>
+                            <p><?= $c_d['sipnosis'] ?></p>
+                            <footer class="blockquote-footer"><?= $c_d['fullname'] ?></footer>
+                            <?php if ($c_d['status'] == 1) : ?>
+                                <i class="mt-2 fas fa-check-circle"></i>
+                            <?php else : ?>
+                                <a href="<?= baseurl; ?>/admin/publish/<?= $c_d['id_book'] ?>" class="btn btn-primary mt-3"></a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         <?php endforeach; ?>
         <!-- List Books End -->
     </div>
