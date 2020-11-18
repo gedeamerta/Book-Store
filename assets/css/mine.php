@@ -131,11 +131,7 @@ $url = "http://localhost/bookStore";
     margin-left: auto;
   }
 
-  .container-fluid-blue .row .col-md-3 {
-    margin-top: 300px;
-  }
-
-  .container-fluid-blue .row .col-md-3 h1 {
+  .container-fluid-blue .row .col-md-4 h1 {
     font-family: 'Fira Sans', sans-serif;
     font-weight: 500;
     font-size: 40px;
@@ -148,12 +144,7 @@ $url = "http://localhost/bookStore";
   }
 
   .container-fluid-blue .row .col-md-4 {
-    margin-top: 200px;
-    padding: 20px;
-  }
-
-  .container-fluid-blue .row .col-md-5 {
-    margin-top: 150px;
+    margin-top: 100px;
     padding: 20px;
   }
 
@@ -201,6 +192,21 @@ $url = "http://localhost/bookStore";
   }
 
   /* contact end */
+
+  /* read more, read less */
+  .substr {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 30px;
+  }
+
+  .description {
+    width: 400px;
+    padding: 3px;
+    margin-top: 30px;
+    margin-bottom: 0;
+  }
 
 
   /* Media */

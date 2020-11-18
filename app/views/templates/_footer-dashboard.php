@@ -55,64 +55,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
+<!-- my js -->
+<script src="<?= baseurl; ?>/assets/js/mine.js""></script>
+
 <!-- Uikit JS -->
-<script src="<?= baseurl; ?>/assets/js/uikit.js"></script>
-
-<!-- For Rate Books -->
-<script>
-    var ratedIndex = -1;
-    $(document).ready(function() {
-        resetStarColor();
-
-        if (localStorage.getItem('ratedIndex') != null)
-            setStars(parseInt(localStorage.getItem('ratedIndex')));
-
-        $('.fa-star').on('click', function() {
-            ratedIndex = parseInt($(this).data('index'));
-            localStorage.setItem('ratedIndex', ratedIndex);
-        });
-
-        $('.fa-star').mouseover(function() {
-            resetStarColor();
-            var currentIndex = parseInt($(this).data('index'));
-            setStars(currentIndex);
-        });
-
-        $('.fa-star').mouseleave(function() {
-            resetStarColor();
-
-            if (ratedIndex != -1)
-                setStars(ratedIndex);
-        });
-    });
-
-    function saveToDB() {
-        $.ajax({
-            url: "http://bookstore.local/dashboard/rate",
-            method: "POST",
-            dataType: "json",
-            data: {
-                save: 1,
-                uID: uID,
-                ratedIndex: ratedIndex
-            },
-            success: function(r) {
-                uID = r.uID;
-            }
-        });
-    }
-
-    function setStars(max) {
-        for (var i = 0; i <= max; i++) {
-            $('.fa-star:eq(' + i + ')').css('color', 'yellow');
-        }
-    }
-
-    function resetStarColor() {
-        $('.fa-star').css('color', 'black');
-    }
-</script>
-<!-- End Rate Books -->
-</body>
-
-</html>
+<script src=" <?= baseurl; ?>/assets/js/uikit.js"> </script> </body> </html>

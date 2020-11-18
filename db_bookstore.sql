@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 27, 2020 at 06:14 AM
+-- Generation Time: Nov 16, 2020 at 11:34 AM
 -- Server version: 5.7.24
--- PHP Version: 7.2.19
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,8 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`id`, `username`, `fullname`, `image`, `password`) VALUES
 (1, 'gdamerda', 'I Gede Surya Amerta', '868703 (2).jpg', 'Boboiboy123'),
-(2, 'arypradnya', 'Ary Pradnya Dewi', 'anime.jpg', '$2y$10$nbE0X76CWaDU5uu9QULRWuQ0GTYMDprKwlx56A9kGhCAYLG0W0F0.');
+(2, 'arypradnya', 'Ary Pradnya Dewi', 'anime.jpg', '$2y$10$nbE0X76CWaDU5uu9QULRWuQ0GTYMDprKwlx56A9kGhCAYLG0W0F0.'),
+(3, 'admin', 'Putu Admin', 'Annotation 2020-08-25 084827.jpg', '$2y$10$PYPx93wFWvZ2h6Sdl8MWVukWOpkgYUNn5nncQl4D7QMo35.F.6FAy');
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,8 @@ CREATE TABLE `authors` (
 
 INSERT INTO `authors` (`id`, `username`, `fullname`, `email`, `image`, `password`, `tanggal`) VALUES
 (1, 'arypradnya', 'Ary Pradnya Dewi', 'arypradnya@gmail.com', 'Annotation 2020-09-23 201239.jpg', '$2y$10$4YEbUMuMbC2tkXpzisjrUeVgO7FZgAmsi5skjueKG7/QfJlsajVBy', NULL),
-(2, 'gdamerda', 'I Gede Surya Amerta', 'amerta213bali@yahoo.com', '868703 (2).jpg', '$2y$10$ONwTQRG/n7VJ4T3IeYlHculdgFstsF4GAPqmgcM9sUdYGALsfTddO', NULL);
+(2, 'gdamerda', 'I Gede Surya Amerta', 'amerta213bali@yahoo.com', '868703 (2).jpg', '$2y$10$ONwTQRG/n7VJ4T3IeYlHculdgFstsF4GAPqmgcM9sUdYGALsfTddO', NULL),
+(3, 'admin', 'Putu Admin', 'admin@gmail.com', 'Annotation 2020-08-25 084827.jpg', '$2y$10$6PbXqJeqyfX1bLnQYhiqBe1.KhBImcboh2Ic/WTuXAiSi8ZUfpPAO', NULL);
 
 -- --------------------------------------------------------
 
@@ -93,8 +95,14 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`id`, `judul_buku`, `slug`, `category`, `image`, `pdf`, `sipnosis`, `fullname`, `id_author`, `status`, `premium`, `tanggal`) VALUES
-(57, 'Amerta Ganteng', 'amerta-ganteng', 'anak-anak', '868703 (2).jpg', '10_I Gede Surya Amerta_OFFERING HELP.pdf', 'Tesss', 'I Gede Surya Amerta', 2, 1, 1, '2020-10-11 00:24:29'),
-(58, 'Melancaran', 'melancaran', 'anak-anak', 'qoryGore Ngelak.jpg', '02 Dasar-dasar Thread.pdf', 'esss', 'I Gede Surya Amerta', 2, 1, 2, '2020-10-22 13:27:46');
+(1, 'Melancaran', 'melancaran', 'comedy', 'lurder 86.jpg', 'I Gede Surya Amerta_10_XII RPL 1_ Atur Piuning.pdf', 'trerasdas', 'I Gede Surya Amerta', 2, 2, 1, '2020-11-06 20:22:28'),
+(2, 'Melancaran Jani', 'melancaran-jani', 'anak-anak', 'lurder 86.jpg', 'I Gede Surya Amerta_10_XII RPL 1_ Atur Piuning.pdf', 'staer', 'I Gede Surya Amerta', 2, 2, 2, '2020-11-06 20:22:47'),
+(3, 'Melancaran', 'melancaran', 'horror', 'lurder 86.jpg', 'I Gede Surya Amerta_10_XII RPL 1_ Atur Piuning.pdf', 'tessrer', 'I Gede Surya Amerta', 2, 1, 1, '2020-11-06 22:45:08'),
+(4, 'Test Buku', 'test-buku', 'horror', 'lurder 86.jpg', 'I Gede Surya Amerta_10_XII RPL 1_ Atur Piuning.pdf', 'aeaewrasd', 'I Gede Surya Amerta', 2, 1, 1, '2020-11-06 22:45:35'),
+(5, 'asdasd', 'asdasd', 'comedy', 'lurder 86.jpg', 'I Gede Surya Amerta_10_XII RPL 1_ Atur Piuning.pdf', 'qwe', 'I Gede Surya Amerta', 2, 2, 1, '2020-11-13 11:54:21'),
+(6, 'apa aja deh', 'apa-aja-deh', 'anak-anak', 'lurder 86.jpg', 'I Gede Surya Amerta_10_XII RPL 1_ Atur Piuning.pdf', 'asdasdasd', 'I Gede Surya Amerta', 2, 2, 1, '2020-11-13 11:56:39'),
+(7, 'Amerta Ganteng', 'amerta-ganteng', 'anak-anak', 'lurder 86.jpg', 'I Gede Surya Amerta_10_XII RPL 1_ Atur Piuning.pdf', 'asdqwq', 'I Gede Surya Amerta', 2, 2, 2, '2020-11-13 12:02:12'),
+(8, 'Amerta jelek', 'amerta-jelek', 'horror', 'lurder 86.jpg', 'I Gede Surya Amerta_10_XII RPL 1_ Atur Piuning.pdf', 'asd212', 'I Gede Surya Amerta', 2, 1, 1, '2020-11-13 12:04:48');
 
 -- --------------------------------------------------------
 
@@ -139,11 +147,14 @@ CREATE TABLE `notifikasi` (
 --
 
 INSERT INTO `notifikasi` (`id`, `deskripsi`, `jenis_notif`, `tujuan`, `id_book`, `id_author`, `tanggal`, `dibaca`) VALUES
-(25, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 54, 2, '2020-10-07 23:21:05', '1'),
-(26, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 55, 2, '2020-10-08 00:12:52', '1'),
-(27, 'Author I Gede Surya Amerta has been uploaded book Amerta Ganteng', 'Buku.Approve', 'Admin', 56, 2, '2020-10-11 00:22:29', '0'),
-(28, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 57, 2, '2020-10-11 00:24:29', '1'),
-(29, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 58, 2, '2020-10-22 13:27:46', '1');
+(1, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 1, 2, '2020-11-06 20:22:28', '1'),
+(2, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 2, 2, '2020-11-06 20:22:47', '1'),
+(3, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 3, 2, '2020-11-06 22:45:08', '1'),
+(4, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 4, 2, '2020-11-06 22:45:35', '1'),
+(5, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 5, 2, '2020-11-13 11:54:21', '1'),
+(6, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 6, 2, '2020-11-13 11:56:39', '1'),
+(7, 'Admin I Gede Surya Amerta has been publish book ', 'Buku.Approve', 'Author', 7, 2, '2020-11-13 12:02:12', '1'),
+(8, 'Admin I Gede Surya Amerta has been publish book Amerta jelek', 'Buku.Approve', 'Author', 8, 2, '2020-11-13 12:04:48', '1');
 
 -- --------------------------------------------------------
 
@@ -155,18 +166,23 @@ CREATE TABLE `pengguna` (
   `id` int(11) NOT NULL,
   `username` text NOT NULL,
   `email` varchar(225) NOT NULL,
+  `no_telp` varchar(100) NOT NULL,
+  `struk` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `package_id` int(11) DEFAULT NULL,
-  `tanggal` datetime DEFAULT NULL
+  `status_package` int(11) NOT NULL,
+  `tanggal` datetime DEFAULT NULL,
+  `premium_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pengguna`
 --
 
-INSERT INTO `pengguna` (`id`, `username`, `email`, `password`, `package_id`, `tanggal`) VALUES
-(1, 'gdamerta', 'amerta213bali@yahoo.com', '$2y$10$v5rqeFnECDoGi6cz.Cm/c.A6sozMfNm/GtZjfck7Sh1kd57ZZUPx2', 0, NULL),
-(2, 'arypradnya', 'arypradnya@gmail.com', '$2y$10$IRNiuk.HsM7NZuZdni39IOngvR5iAAVKPNqRFeEfDEtJW13Oi5OtO', 2, NULL);
+INSERT INTO `pengguna` (`id`, `username`, `email`, `no_telp`, `struk`, `password`, `package_id`, `status_package`, `tanggal`, `premium_date`) VALUES
+(1, 'gdamerta', 'amerta213bali@yahoo.com', '', 'struk.jpg', '$2y$10$v5rqeFnECDoGi6cz.Cm/c.A6sozMfNm/GtZjfck7Sh1kd57ZZUPx2', 1, 1, NULL, NULL),
+(2, 'arypradnya', 'arypradnya@gmail.com', '', 'struk.jpg', '$2y$10$IRNiuk.HsM7NZuZdni39IOngvR5iAAVKPNqRFeEfDEtJW13Oi5OtO', 2, 2, NULL, NULL),
+(3, 'admin', 'admin@gmail.com', '081-150-202-203', 'struk.jpg', '$2y$10$LijISKpnecga9dSgK2HkOe9Y8FLfwIjKT2WvxoN7Rpn0W6ZhS7M.q', 2, 2, '2020-10-28 21:46:55', '2020-11-13 22:09:40');
 
 -- --------------------------------------------------------
 
@@ -208,8 +224,9 @@ CREATE TABLE `rate` (
 --
 
 INSERT INTO `rate` (`id`, `id_book`, `id_user`, `rating`) VALUES
-(15, 57, 1, 4),
-(16, 57, 2, 5);
+(1, 2, 1, 2),
+(2, 1, 2, 3),
+(3, 4, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -229,22 +246,6 @@ CREATE TABLE `request` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users_bill`
---
-
-CREATE TABLE `users_bill` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `no_telp` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
-  `tanggal` datetime NOT NULL,
-  `id_user` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users_books`
 --
 
@@ -252,6 +253,7 @@ CREATE TABLE `users_books` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_book` int(11) NOT NULL,
+  `status` int(11) DEFAULT NULL,
   `tanggal` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -259,35 +261,8 @@ CREATE TABLE `users_books` (
 -- Dumping data for table `users_books`
 --
 
-INSERT INTO `users_books` (`id`, `id_user`, `id_book`, `tanggal`) VALUES
-(1, 1, 57, '2020-10-12 09:48:52'),
-(2, 2, 57, '2020-10-18 01:28:33');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users_premium`
---
-
-CREATE TABLE `users_premium` (
-  `id` int(11) NOT NULL,
-  `username` text NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `no_telp` varchar(100) NOT NULL,
-  `struk` varchar(255) DEFAULT NULL,
-  `package_id` int(11) DEFAULT NULL,
-  `after_pay_user` int(11) DEFAULT NULL,
-  `tanggal` datetime DEFAULT NULL,
-  `id_user` int(11) NOT NULL,
-  `status` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users_premium`
---
-
-INSERT INTO `users_premium` (`id`, `username`, `email`, `no_telp`, `struk`, `package_id`, `after_pay_user`, `tanggal`, `id_user`, `status`) VALUES
-(1, 'arypradnya', 'arypradnya@gmail.com', '081-338-103-073', 'struk.jpg', 2, 85000, '2020-10-22 13:07:01', 2, 1);
+INSERT INTO `users_books` (`id`, `id_user`, `id_book`, `status`, `tanggal`) VALUES
+(1, 2, 4, NULL, '2020-11-13 08:21:12');
 
 -- --------------------------------------------------------
 
@@ -312,7 +287,15 @@ INSERT INTO `watcher` (`id`, `ipusers`, `id_user`, `id_book`, `tanggal`, `waktu`
 (10, '127.0.0.1', 1, 57, '2020-10-19', '23:06:38'),
 (11, '127.0.0.1', 2, 57, '2020-10-19', '23:07:10'),
 (12, '127.0.0.1', 1, 57, '2020-10-20', '07:29:14'),
-(13, '127.0.0.1', 2, 57, '2020-10-22', '12:06:32');
+(13, '127.0.0.1', 2, 57, '2020-10-22', '12:06:32'),
+(14, '127.0.0.1', 1, 58, '2020-10-27', '19:29:18'),
+(15, '127.0.0.1', 1, 57, '2020-10-28', '20:47:46'),
+(16, '127.0.0.1', 1, 60, '2020-11-04', '00:11:09'),
+(17, '127.0.0.1', 1, 58, '2020-11-05', '14:15:16'),
+(18, '127.0.0.1', 3, 60, '2020-11-05', '21:31:55'),
+(19, '127.0.0.1', 1, 2, '2020-11-06', '20:23:30'),
+(20, '127.0.0.1', 2, 3, '2020-11-07', '00:03:38'),
+(21, '127.0.0.1', 2, 3, '2020-11-13', '00:35:50');
 
 --
 -- Indexes for dumped tables
@@ -334,7 +317,8 @@ ALTER TABLE `authors`
 -- Indexes for table `books`
 --
 ALTER TABLE `books`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_author` (`id_author`);
 
 --
 -- Indexes for table `category`
@@ -346,7 +330,9 @@ ALTER TABLE `category`
 -- Indexes for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_book` (`id_book`),
+  ADD KEY `id_author` (`id_author`);
 
 --
 -- Indexes for table `pengguna`
@@ -365,38 +351,32 @@ ALTER TABLE `premium_package`
 --
 ALTER TABLE `rate`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `rating` (`rating`);
+  ADD KEY `rating` (`rating`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indexes for table `request`
 --
 ALTER TABLE `request`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users_bill`
---
-ALTER TABLE `users_bill`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_book` (`id_book`),
+  ADD KEY `id_author` (`id_author`);
 
 --
 -- Indexes for table `users_books`
 --
 ALTER TABLE `users_books`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users_premium`
---
-ALTER TABLE `users_premium`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_book` (`id_book`);
 
 --
 -- Indexes for table `watcher`
 --
 ALTER TABLE `watcher`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_book` (`id_book`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -406,19 +386,19 @@ ALTER TABLE `watcher`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -430,13 +410,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `premium_package`
@@ -448,7 +428,7 @@ ALTER TABLE `premium_package`
 -- AUTO_INCREMENT for table `rate`
 --
 ALTER TABLE `rate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `request`
@@ -457,28 +437,56 @@ ALTER TABLE `request`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users_bill`
---
-ALTER TABLE `users_bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users_books`
 --
 ALTER TABLE `users_books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `users_premium`
---
-ALTER TABLE `users_premium`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `watcher`
 --
 ALTER TABLE `watcher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `books`
+--
+ALTER TABLE `books`
+  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`id_author`) REFERENCES `authors` (`id`);
+
+--
+-- Constraints for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD CONSTRAINT `notifikasi_ibfk_2` FOREIGN KEY (`id_author`) REFERENCES `authors` (`id`);
+
+--
+-- Constraints for table `rate`
+--
+ALTER TABLE `rate`
+  ADD CONSTRAINT `rate_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `pengguna` (`id`);
+
+--
+-- Constraints for table `request`
+--
+ALTER TABLE `request`
+  ADD CONSTRAINT `request_ibfk_2` FOREIGN KEY (`id_author`) REFERENCES `authors` (`id`);
+
+--
+-- Constraints for table `users_books`
+--
+ALTER TABLE `users_books`
+  ADD CONSTRAINT `users_books_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `pengguna` (`id`);
+
+--
+-- Constraints for table `watcher`
+--
+ALTER TABLE `watcher`
+  ADD CONSTRAINT `watcher_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `pengguna` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

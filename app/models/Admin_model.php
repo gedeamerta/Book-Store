@@ -240,10 +240,10 @@ class Admin_model
         if ($data_category = $this->getCategoryBy('name_category', $name_category)) {
             var_dump("Category has been inserted");
         }else {
-            $query = "INSERT INTO category (name_category, slug) VALUES (:name_category, :slug)";
+            $query = "INSERT INTO category (name_category, slug_category) VALUES (:name_category, :slug_category)";
             $this->db->query($query);
             $this->db->bind('name_category', $name_category);
-            $this->db->bind('slug', $slug);
+            $this->db->bind('slug_category', $slug);
             $this->db->execute();   
             return $this->db->rowCount();
         }

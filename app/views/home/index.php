@@ -65,8 +65,8 @@
 <!-- container 3 start -->
 <div class="container-fluid-blue">
     <div class="row">
-        <div class="col-md-3">
-            <h2 class="font-weight-normal">Beli Paket Pembelian Buku</h2>
+        <div class="col-md-4">
+            <h2 class="font-weight-normal mt-5">Beli Paket Pembelian Buku</h2>
             <h1>di Buku Media</h1>
         </div>
         <div class="col-md-4">
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div uk-scrollspy="cls:uk-animation-slide-bottom; repeat: true">
                 <div class="card card-body rounded mb-5">
                     <h2 class="card-title text-center">Platinum Package</h2>

@@ -21,7 +21,7 @@
         <div class="shadow mt-5">
             <div class="row">
                 <div class="col-md">
-                    <img src="<?= baseurl . '/assets/img/' . $book['image'] ?>" alt="" srcset="">
+                    <img class="img-fluid" src="<?= baseurl . '/assets/img/' . $book['image'] ?>" alt="Responsive image" srcset="">
                 </div>
                 <div class="col-md-7 m-3">
                     <h1 class="card-title"><?= $book['judul_buku'] ?></h1>
