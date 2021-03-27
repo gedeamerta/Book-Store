@@ -5,12 +5,14 @@
     <p class="mb-4">See how many books that you write it</p>
 
     <div class="btn-group">
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             Category List
         </button>
         <div class="dropdown-menu">
             <?php foreach ($data['category'] as $category) : ?>
-                <a class="dropdown-item" href="<?= baseurl; ?>/admin/category/<?= $category['slug_category']; ?>"><?= $category['name_category'] ?></a>
+            <a class="dropdown-item"
+                href="<?= baseurl; ?>/admin/category/<?= $category['slug_category']; ?>"><?= $category['name_category'] ?></a>
             <?php endforeach; ?>
         </div>
     </div>
@@ -19,27 +21,29 @@
     <div class="row">
         <!-- List Books Start -->
         <?php foreach ($data['book_author'] as $dataBook) : ?>
-            <?php if($dataBook['status'] == 0 || $dataBook['status'] == 1): ?>
-            <div class="col-lg-6">
-                <div class="card position-relative mt-3 <?= $dataBook['status'] == 1 ? 'border-success' : (($dataBook['status'] == 0) ? 'border-danger' : '')?>">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary float-left">Books</h6>
-                        <footer class="float-right"><?= date("m-d-Y", strtotime($dataBook['tanggal'])) ?></footer>
-                    </div>
-                    <div class="card-body">
-                        <img src="<?= baseurl . '/assets/img/' . $dataBook['image']; ?>" alt="" width="100%">
-                        <h2 class="card-title mt-2"><?= $dataBook['judul_buku'] ?></h2>
-                        <h6 class="mt-2">Category : <?= $dataBook['category'] ?></h6>
-                        <p><?= $dataBook['sipnosis'] ?></p>
-                        <footer class="blockquote-footer"><?= $dataBook['fullname'] ?></footer>
-                        <?php if ($dataBook['status'] == 1) : ?>
-                            <i class="mt-2 fas fa-check-circle"></i>
-                        <?php else : ?>
-                            <a href="<?= baseurl; ?>/admin/publish/<?= $dataBook['id_book'] ?>" class="btn btn-primary mt-3">Publish</a>
-                        <?php endif; ?>
-                    </div>
+        <?php if($dataBook['status'] == 0 || $dataBook['status'] == 1): ?>
+        <div class="col-lg-6">
+            <div
+                class="card position-relative mt-3 <?= $dataBook['status'] == 1 ? 'border-success' : (($dataBook['status'] == 0) ? 'border-danger' : '')?>">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary float-left">Books</h6>
+                    <footer class="float-right"><?= date("m-d-Y", strtotime($dataBook['tanggal'])) ?></footer>
+                </div>
+                <div class="card-body">
+                    <img src="<?= baseurl . '/assets/img/' . $dataBook['image']; ?>" alt="" width="100%">
+                    <h2 class="card-title mt-2"><?= $dataBook['judul_buku'] ?></h2>
+                    <h6 class="mt-2">Category : <?= $dataBook['category'] ?></h6>
+                    <p><?= $dataBook['sipnosis'] ?></p>
+                    <footer class="blockquote-footer"><?= $dataBook['fullname'] ?></footer>
+                    <?php if ($dataBook['status'] == 1) : ?>
+                    <i class="mt-2 fas fa-check-circle"></i>
+                    <?php else : ?>
+                    <a href="<?= baseurl; ?>/admin/publish/<?= $dataBook['id_book'] ?>"
+                        class="btn btn-primary mt-3">Publish</a>
+                    <?php endif; ?>
                 </div>
             </div>
+        </div>
         <?php endif; ?>
         <?php endforeach; ?>
         <!-- List Books End -->

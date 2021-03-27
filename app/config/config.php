@@ -1,5 +1,5 @@
 <?php 
-define('baseurl', 'http://bookstore.local');
+define('baseurl', 'http://localhost/bookStore');
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
